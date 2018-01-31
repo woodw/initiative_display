@@ -15,7 +15,7 @@ app.get('/',function(req,res){
 });
 
 app.get('/dm', function(req,res){
-	res.sendFile('app/index.html');
+	res.sendFile(__dirname+'/app/index.html');
 });
 
 app.get('/slack/auth', function(req, res){
