@@ -1,0 +1,30 @@
+{
+  "name": "initiative_display",
+  "version": "0.1.0",
+  "description": "This will be used to display the initiative board on streaming media",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/woodw/initiative_display.git"
+  },
+  "keywords": [
+    "node",
+    "db",
+    "SteamOS",
+    "SlackApp"
+  ],
+  "author": "William Wood",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/woodw/initiative_display/issues"
+  },
+  "homepage": "https://github.com/woodw/initiative_display#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2"
+  }
+}
