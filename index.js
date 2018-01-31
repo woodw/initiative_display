@@ -13,6 +13,14 @@ app.set('port', (process.env.PORT || 9001));
 app.get('/',function(req,res){
 	res.send('We are up and running');
 });
+
+app.get('/dm', function(req,res){
+	res.sendFile('app/index.html');
+});
+
+app.get('/slack/auth', function(req, res){
+	res.send('simple auth');
+});
 /** END ROUTES **/
 
 app.listen(app.get('port'), function(){
