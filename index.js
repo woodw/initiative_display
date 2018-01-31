@@ -16,5 +16,5 @@ app.get('/',function(req,res){
 /** END ROUTES **/
 
 app.listen(app.get('port'), function(){
-	Console.log('Node is listening on port', app.get('port'));
+	console.log('Node is listening on port', app.get('port'));
 });
