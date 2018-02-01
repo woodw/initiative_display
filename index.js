@@ -41,18 +41,18 @@ console.log(req.query);
 		request(options, function (error, response, content) {
 			console.log('I have got something back');
 			console.log(error);
-			console.log(response);
-			console.log(content);
+			//console.log(response);
+			//console.log(content);
 			if (!error && response.statusCode == 200) {
 
 			// Print out the response body
 			console.log('We got something back');
-			console.log(content);
+			//console.log(content);
 			
-			res.sendFile(__dirname+'/app/index.html');
+			res.send(content);
 			}
 			else{
-		    	res.sendFile(__dirname+'/app/error.html');
+		    	res.send(response);
 			}
 		});
 	}    
