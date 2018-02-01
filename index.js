@@ -4,6 +4,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const request = require('request');
+const stitch = require("mongodb-stitch")
+const clientPromise = stitch.StitchClientFactory.create(process.env.stitch_dbconn);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
@@ -17,6 +19,22 @@ app.get('/',function(req,res){
 	console.log(ip);
 
 	res.sendFile(__dirname+'/app/index.html');
+});
+
+app.get('/stitch/test',function(req,res){
+	clientPromise.then(client => {
+	const db = client.service('mongodb', 'mongodb-atlas').db(process.env.stitch_dbname);
+		client.login().then(() =>
+			db.collection('collection_1').updateOne({owner_id: client.authedId()}, {$set:{number:42}}, {upsert:true})
+		).then(() =>
+			db.collection('collection_1').find({owner_id: client.authedId()}).limit(100).execute()
+		).then(docs => {
+			console.log("Found docs", docs)
+			console.log("[MongoDB Stitch] Connected to Stitch")
+		}).catch(err => {
+			console.error(err)
+		});
+	});
 });
 
 app.get('/dm', function(req,res){
