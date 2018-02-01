@@ -51,7 +51,7 @@ console.log(req.query);
 			console.log(error);
 			console.log(response.statusCode);
 
-	console.log('/ Here I have the IP');
+	console.log('/auth Here I have the IP');
 	var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 	console.log(ip);
 
