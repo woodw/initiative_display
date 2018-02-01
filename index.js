@@ -12,6 +12,10 @@ app.set('port', (process.env.PORT || 9001));
 
 /* ROUTES */
 app.get('/',function(req,res){
+	console.log('/ Here I have the IP');
+	var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+	console.log(ip);
+
 	res.sendFile(__dirname+'/app/index.html');
 });
 
@@ -46,6 +50,10 @@ console.log(req.query);
 			console.log('I have got something back');
 			console.log(error);
 			console.log(response.statusCode);
+
+	console.log('/ Here I have the IP');
+	var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+	console.log(ip);
 
 			res.send(content);
 			
