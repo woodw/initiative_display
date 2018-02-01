@@ -20,13 +20,17 @@ app.get('/dm', function(req,res){
 });
 
 app.get('/slack/auth', function(req, res){
-	let options;
+	let options,headers;
 	
 	if(req.query.code){
+		headers = {
+	        'Content-Type': 'application/x-www-form-urlencoded'
+		};
 
 		options = {
 			url: 'https://slack.com/api/oauth.access',
-			method: 'GET',
+			method: 'POST',
+			headers: headers,
 			form: {
 				client_id: process.env.client_id,
 				client_secret: process.env.client_secret,
