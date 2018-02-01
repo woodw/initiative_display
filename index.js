@@ -35,6 +35,8 @@ app.get('/stitch/test',function(req,res){
 			console.error(err)
 		});
 	});
+
+	res.send('Hope this works');
 });
 
 app.get('/dm', function(req,res){
@@ -60,21 +62,9 @@ app.get('/slack/auth', function(req, res){
 			}
 		};
 
-console.log('before the request');
-console.log(options);
-console.log(req.query);
-
 		request(options, function (error, response, content) {
-			console.log('I have got something back');
-			console.log(error);
-			console.log(response.statusCode);
-
-	console.log('/auth Here I have the IP');
-	var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-	console.log(ip);
-
-			res.send(content);
 			
+			res.send(content);			
 		});
 	}    
 	else{
