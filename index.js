@@ -34,7 +34,15 @@ app.get('/slack/auth', function(req, res){
 			}
 		};
 
+console.log('before the request');
+console.log(options);
+console.log(req.query);
+
 		request(options, function (error, response, content) {
+			console.log('I have got something back');
+			console.log(error);
+			console.log(response);
+			console.log(content);
 			if (!error && response.statusCode == 200) {
 
 			// Print out the response body
@@ -42,6 +50,9 @@ app.get('/slack/auth', function(req, res){
 			console.log(content);
 			
 			res.sendFile(__dirname+'/app/index.html');
+			}
+			else{
+		    	res.sendFile(__dirname+'/app/error.html');
 			}
 		});
 	}    
