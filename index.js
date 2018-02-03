@@ -10,6 +10,8 @@ const clientPromise = stitch.StitchClientFactory.create(process.env.stitch_dbcon
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 
+app.use(express.static('public'))
+
 app.set('port', (process.env.PORT || 9001));
 
 /* ROUTES */
