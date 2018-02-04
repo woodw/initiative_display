@@ -2,20 +2,28 @@
 	margin:0;
 	padding:0;
   }
+  
+  body{
+	background-color:rgba(240,240,220,1);
+  }
+  
   #background{
 	margin-left:25vw;
 	width:50vw;
 	height:100vh;
-	
+	background-color:rgba(255,255,255,1);
 	background-image:url('https://files.slack.com/files-pri/T5MRA9Z4L-F8Y16L71T/dnd_group.jpg');
-	background-size:cover;
+	background-size:contain;
+	background-repeat:no-repeat;
+	background-position:center;
 	
-	display:grid;
-	grid-template-columns:16vw 25vw 1fr;
-	grid-template-rows:80vh 20vh;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	
+	box-shadow:0px 0px .5vw .5vw rgba(100,100,0,.25);
   }
   
   #background a{
-	grid-column:2;
-	grid-row:2;
+	margin-top:30vh;
   }
