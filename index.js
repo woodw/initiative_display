@@ -36,6 +36,14 @@ app.get('/userdata',function(req,res){
 	res.send(onLiveData.users[clientIp].info);
 });
 
+app.get('/pcscreen',function(req,res){
+	res.sendFile(__dirname+'/app/pc_screen.html');
+});
+
+app.get('/dmscreen',function(req,res){
+	res.sendFile(__dirname+'/app/dm_screen.html');
+});
+
 app.get('/slack/auth', function(req, res){
 	let options,headers,clientIp;
 	
@@ -71,10 +79,10 @@ app.get('/slack/auth', function(req, res){
 				storeUser(clientIp, jsonObj);
 
 				if(process.env.dm_id == onLiveData.users[clientIp].auth.id){
-					res.sendFile(__dirname+'/app/dm_screen.html');
+					res.redirect('/pcscreen');
 				}
 				else{
-					res.sendFile(__dirname+'/app/pc_screen.html');
+					res.redirect('/dmscreen');
 				}
 
 			}
