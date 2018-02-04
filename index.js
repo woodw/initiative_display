@@ -1,5 +1,3 @@
-import { userInfo } from 'os';
-
 'use strict';
 
 const express = require('express');
