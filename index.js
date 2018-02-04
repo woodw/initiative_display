@@ -70,7 +70,7 @@ app.get('/slack/auth', function(req, res){
 				clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 				storeUser(clientIp, jsonObj);
 
-				if(process.env.dm_id == onLiveData.users[clientIp].id){
+				if(process.env.dm_id == onLiveData.users[clientIp].auth.id){
 					res.sendFile(__dirname+'/app/dm_screen.html');
 				}
 				else{
