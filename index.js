@@ -56,7 +56,7 @@ app.get('/slack/auth', function(req, res){
 		};
 
 		request(options, function (error, response, content) {
-
+console.log(error, content.ok);
 			if(error || !content.ok){
 				res.sendFile(__dirname+'/app/error.html');
 			}
