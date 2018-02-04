@@ -1,52 +1,45 @@
+import { userInfo } from 'os';
+
 'use strict';
 
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const request = require('request');
-const stitch = require("mongodb-stitch")
-const clientPromise = stitch.StitchClientFactory.create(process.env.stitch_dbconn);
+
+/*const stitch = require("mongodb-stitch");
+const clientPromise = stitch.StitchClientFactory.create(process.env.stitch_dbconn);*/
+
+const onLiveData = {
+	users: {}
+};
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 
-app.use(express.static('public'))
+app.use(express.static('public'));
 
 app.set('port', (process.env.PORT || 9001));
 
 /* ROUTES */
 app.get('/',function(req,res){
-	console.log('/ Here I have the IP');
-	var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-	console.log(ip);
-
 	res.sendFile(__dirname+'/app/index.html');
 });
 
-app.get('/stitch/test',function(req,res){
-	clientPromise.then(client => {
-	const db = client.service('mongodb', 'mongodb-atlas').db(process.env.stitch_dbname);
-		client.login().then(() =>
-			db.collection('collection_1').updateOne({owner_id: client.authedId()}, {$set:{number:42}}, {upsert:true})
-		).then(() =>
-			db.collection('collection_1').find({owner_id: client.authedId()}).limit(100).execute()
-		).then(docs => {
-			console.log("Found docs", docs)
-			console.log("[MongoDB Stitch] Connected to Stitch")
-		}).catch(err => {
-			console.error(err)
-		});
-	});
-
-	res.send('Hope this works');
+app.get('/visualaid',function(req,res){
+	res.sendFile(__dirname+'/app/bot_screen.html');
 });
 
-app.get('/dm', function(req,res){
-	res.send('DM Screen');
+app.get('/userdata',function(req,res){
+	let clientIp;
+
+	clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+				
+	res.send(onLiveData.users[clientIp].info);
 });
 
 app.get('/slack/auth', function(req, res){
-	let options,headers;
+	let options,headers,clientIp;
 	
 	if(req.query.code){
 		headers = {
@@ -65,8 +58,22 @@ app.get('/slack/auth', function(req, res){
 		};
 
 		request(options, function (error, response, content) {
-			
-			res.send(content);			
+
+			if(error || !content.ok){
+				res.sendFile(__dirname+'/app/error.html');
+			}
+			else{
+				clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+				storeUser(clientIp, content);
+
+				if(process.env.dm_id == onLiveData.users[clientIp].id){
+					res.sendFile(__dirname+'/app/dm_screen.html');
+				}
+				else{
+					res.sendFile(__dirname+'/app/pc_screen.html');
+				}
+
+			}
 		});
 	}    
 	else{
@@ -78,3 +85,21 @@ app.get('/slack/auth', function(req, res){
 app.listen(app.get('port'), function(){
 	console.log('Node is listening on port', app.get('port'));
 });
+
+/** Private Funtions **/
+function storeUser(clientIp, userObject){
+	onLiveData.users[clientIp] = {
+		auth:{
+			id: userObject.user.id,
+			access_token: userObject.access_token,
+		},
+		info:{
+			name: userObject.user.name,
+			icon: userObject.user.image_192,
+			character:{
+				class:'wizard',
+				orcpub: 'https://www.google.com'
+			}	
+		}
+	}
+}
