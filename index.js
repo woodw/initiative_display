@@ -56,13 +56,19 @@ app.get('/slack/auth', function(req, res){
 		};
 
 		request(options, function (error, response, content) {
-console.log(error, content.ok);
-			if(error || !content.ok){
+			let jsonObj;
+			
+			jsonObj = JSON.parse(content);
+			
+			console.log(jsonObj);
+			console.log(error, jsonObj.ok);
+			
+			if(error || !jsonObj.ok){
 				res.sendFile(__dirname+'/app/error.html');
 			}
 			else{
 				clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-				storeUser(clientIp, content);
+				storeUser(clientIp, jsonObj);
 
 				if(process.env.dm_id == onLiveData.users[clientIp].id){
 					res.sendFile(__dirname+'/app/dm_screen.html');
