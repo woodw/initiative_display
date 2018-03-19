@@ -1,9 +1,63 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Visual Aid</title>
+		<title>Dnd Visual Aid</title>
+		<link href="/style/style.css" rel="stylesheet" type="text/css" />
+	
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			let app = {
+				backdrop: 'linear-gradient'
+			};
+
+			document.addEventListener('DOMContentLoaded', function() {
+				let socket;
+
+				app.init = init;
+				
+				app.init();
+
+				function init(){
+					initSocket();
+				}
+
+				function initSocket(){
+					socket = io.connect('http://localhost:9001/');
+					//socket = io.connect('https://dnd-initiative.herokuapp.com');
+					socket.on('socket connection', function (data) {
+						console.log(data);
+					});
+					socket.on('set backdrop', function (data) {
+						console.log(data);
+					});
+					socket.on('set sketch', function (data) {
+						console.log(data);
+					});
+					socket.on('set players', function (data) {
+						console.log(data);
+					});
+					socket.on('set npcs', function (data) {
+						console.log(data);
+					});
+				}
+	
+			});	
+		</script>
 	</head>
 	<body>
-		<h1>Visual Aid</h1>
+		<div id="stage-background">
+			<div id="stage-wall">
+				<div id="stage-backdrop" style="background-image:url(https://files.slack.com/files-pri/T5MRA9Z4L-F8Y16L71T/dnd_group.jpg);"></div>
+			</div>
+			<div id="stage-trim"></div>
+			<div id="stage-floor"></div>
+		</div>
+		<div id="stage-foreground">
+			<div id="stage-character_line">
+				<div class="pc nell onstage"></div>
+				<div class="pc ack"></div>
+				<div class="pc thaliss onstage"></div>
+			</div>
+		</div>
 	</body>
 </html>

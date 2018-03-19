@@ -1,3 +1,15 @@
+@keyframes join-stage {
+	0% {transform: translate(-100vw, 30vh);width:0px;}
+	60% {transform: translate(-70vw, 30vh);width:30vh;}
+	100% {transform: translate(0vw);width:30vh;}
+}
+
+@keyframes leave-stage {
+	0% {transform: scaleX(-1) translate(0vw);width:30vh;}
+	60% {transform: scaleX(-1) translate(70vw, 30vh);width:30vh;}
+	100% {transform: scaleX(-1) translate(100vw, 30vh);width:0px;}
+}
+
 *{
 	margin:0;
 	padding:0;
@@ -6,9 +18,14 @@
   
   body{
 	background-color:rgba(240,240,220,1);
+	display:grid;
+	grid-template-columns:1fr;
+	grid-template-rows:1fr;
+	width:100vw;
+	height:100vh;
   }
   
-  #background{
+  #intro-background{
 	margin-left:25vw;
 	width:50vw;
 	height:100vh;
@@ -26,15 +43,126 @@
 	box-shadow:0px 0px .5vw .5vw rgba(100,100,0,.25);
   }
   
-  #background a{
+  #intro-background a{
 	  color:rgba(100,100,0,.9);
     text-decoration:none;
   }
-  #background a:hover{
+  #intro-background a:hover{
 	  color:rgba(100,100,0,.3);
     text-decoration:none;
   }
 
-.spacer{
+.intro-spacer{
   height:21vh;
+}
+
+/*bot screen*/
+#stage-background{
+	grid-column:1;
+	grid-row:1;
+
+	z-index:1;
+
+	display:grid;
+	grid-template-columns:100%;
+	grid-template-rows:75% 5% 20%;
+}
+
+#stage-wall{
+	grid-column:1;
+	grid-row:1;
+
+
+	background-image:radial-gradient(rgba(100,100,0,.3),rgba(100,100,0,.35));
+	display:grid;
+	grid-template-columns:20% 60% 20%;
+	grid-template-rows:5% 90% 5%;
+}
+
+#stage-backdrop{
+	grid-column:2;
+	grid-row:2;
+
+	background-image:url('');
+	background-size:cover;
+	background-repeat:no-repeat;
+	background-position:top;
+	border-top:1rem solid rgba(150,100,0,.6);
+	border-left:1rem solid rgba(150,100,0,.5);
+	border-right:1rem solid rgba(150,100,0,.7);
+	border-bottom:1rem solid rgba(150,100,0,.8);
+	box-shadow:0 0 .1rem .5rem rgba(109, 73, 0, 0.9) inset;
+	border-radius:.5%;
+}
+
+#stage-trim{
+	grid-column:1;
+	grid-row:2;
+	border-top:.1rem solid rgba(150,100,0,.65);
+	background-image:linear-gradient(rgba(150,100,0,.6),rgba(150,100,0,.55));
+	
+}
+
+#stage-floor{
+	grid-column:1;
+	grid-row:3;
+	background-image:linear-gradient(rgba(150,100,0,.2),rgba(150,100,0,.1));
+	border-top:.1rem solid rgba(150,100,0,.25);	
+}
+
+#stage-foreground{
+	grid-column:1;
+	grid-row:1;
+
+	z-index:2;
+	display:grid;
+	grid-template-rows:50% 10% 30% 10%;
+	grid-template-columns:5% 90% 5%;
+}
+
+#stage-character_emoji{
+
+}
+
+#stage-character_line{
+	grid-column:2;
+	grid-row:3;
+
+	background-color:red;
+
+	
+}
+
+.pc{  
+
+	display:inline-block;
+	background-size:contain;
+  background-repeat:no-repeat;
+	background-position:top;
+
+	width:30vh;
+	height:30vh;
+}
+.pc:not(.onstage){
+	animation: leave-stage 3s ease 1;
+	animation-fill-mode: forwards;
+}
+pc.onstage{
+	animation: join-stage 3s ease 1;
+	animation-fill-mode: forwards;
+}
+
+.nell{
+  background-image:url('https://dnd-initiative.herokuapp.com/images/sprites/nell.png');
+	transform: scaleX(-1);
+}
+
+.ack{
+  background-image:url('https://dnd-initiative.herokuapp.com/images/sprites/ack.png');
+  transform: scaleX(-1);
+}
+
+.thaliss{
+  background-image:url('https://dnd-initiative.herokuapp.com/images/sprites/thaliss.png');
+  transform: scaleX(-1);
 }

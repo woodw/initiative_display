@@ -1,10 +1,198 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Player Screen</title>
+		<title>Dungeon Master Screen</title>
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			let app = {};
+
+			document.addEventListener('DOMContentLoaded', function() {
+				let socket,backdrops,sketches,elements;
+
+				app.init = init;
+				
+				app.init();
+
+				function init(){
+					elements = registerElements();
+					registerListeners();
+					initSocket();
+				}
+
+				function initSocket(){
+					socket = io.connect('http://localhost:9001/');
+					
+					socket.on('socket connection', function (data) {
+						console.log(data);
+					});
+
+					socket.emit('get backdrops');
+
+					socket.emit('get sketches');
+
+					socket.on('send backdrops', function(data){
+						backdrops = data;
+						
+						backdrops.session[0].forEach(function(backdrop){
+							newBackDropOption(elements.backDropList,backdrop);
+						});
+
+						if(backdrops.session[0].length>0){
+							elements.backDropList.value = backdrops.session[0][0].url;
+							elements.backDropPreview.style.backgroundImage = 'url('+elements.backDropList.value+')';						
+						}
+						console.log(backdrops);
+					});
+
+					socket.on('send sketches', function(data){
+						sketches = data;
+						
+						sketches.session[0].forEach(function(sketch){
+							newBackDropOption(elements.sketchList,sketch);
+						});
+						
+						if(sketches.session[0].length>0){
+							elements.sketchList.value = sketches.session[0][0].url;
+							elements.sketchPreview.style.backgroundImage = 'url('+elements.sketchList.value+')';						
+						}
+						console.log('sketches',sketches);
+					});
+				}
+
+				function newBackDropOption(selectElm,optionObj){
+					var element;
+					
+					element = document.createElement('option');
+					element.value = optionObj.url;
+					element.text = optionObj.name;
+					console.log(selectElm,optionObj);
+					selectElm.appendChild(element);
+
+				}
+
+				function registerElements(){
+					return {
+						container: byCSS('#container'),
+						tabs: document.querySelectorAll('.tab'),
+						backDropTab: byCSS('#back-drop_tab'),
+						backDropList: byCSS('#back-drop_list'),
+						backDropSubmit: byCSS('#back-drop_button'),
+						backDropPreview: byCSS('#back-drop_preview'),
+						sketchTab: byCSS('#sketch_tab'),
+						sketchList: byCSS('#sketch_list'),
+						sketchShow: byCSS('#sketch_button--show'),
+						sketchHide: byCSS('#sketch_button--hide'),
+						sketchPreview: byCSS('#sketch_preview')
+
+					};
+				}
+
+				function addEventListenerList(list, event, fn) {
+					for (var i = 0, len = list.length; i < len; i++) {
+						list[i].addEventListener(event, fn, false);
+					}
+				}
+
+				function byCSS(cssSelector){
+					return document.querySelector(cssSelector);
+				}
+
+				function registerListeners(){
+					addEventListenerList(elements.tabs, 'click', function(event){
+						elements.container.setAttribute('selected',event.target.innerText);
+					});
+
+					elements.backDropList.addEventListener('change', function(event, no){
+						elements.backDropPreview.style.backgroundImage = 'url('+elements.backDropList.value+')';
+					});
+					elements.backDropSubmit.addEventListener('click', function(event){
+						socket.emit('update backdrop',{'url':elements.backDropList.value});
+					});
+
+					elements.sketchList.addEventListener('change', function(event, no){
+						elements.sketchPreview.style.backgroundImage = 'url('+elements.sketchList.value+')';
+					});
+					elements.sketchShow.addEventListener('click', function(event){
+						socket.emit('update sketch',{'url':elements.selectList.value});
+					});
+					elements.sketchHide.addEventListener('click', function(event){
+						socket.emit('hide sketch');
+					});
+				}
+			});	
+		</script>
+		<style>
+			*{
+				margin:0;
+				padding:0;
+			}
+			#container{
+				display:grid;
+				grid-template-columns:10% 1fr 10%;
+				grid-template-rows:5% 5% 1fr 5%;
+
+				width:100vw;
+				height:100vh;
+
+				background-color:bisque;
+			}
+			#tabs{
+				grid-column:2;
+				grid-row:2;
+
+				display:flex;
+				justify-content:space-around;
+				align-items: center;
+			}
+			#backdrops,#sketches{
+				grid-column:2;
+				grid-row:3;
+
+				display:grid;
+				grid-template-columns:1fr;
+				grid-template-rows:1fr repeat(2,10%);
+				
+				background-color:gainsboro;
+
+				display:none;
+			}
+			#back-drop_preview, #sketch_preview{
+				grid-column:1;
+				grid-row:1;
+			}
+			.image{
+				background-position:center;
+				background-size:contain;
+				background-repeat:no-repeat;
+			}
+
+			#container:not([selected]) section:last-child{
+				display:grid;
+			}
+			#container[selected="Sketches"] #sketches,#container[selected="Backdrops"] #backdrops{
+				display:grid;
+			}
+		</style>
 	</head>
 	<body>
-		<h1>DM Screen</h1>
-		<p>I will do DM things here</p>
+		<div id="container">
+			<div id="tabs">
+				<div id="back-drop_tab" class="tab">Backdrops</div>
+				<div id="sketch_tab" class="tab">Sketches</div>
+			</div>
+			<section id="sketches">
+				<div id="sketch_preview" class="image" style="background-image:linear-gradient(white, grey);"></div>
+				<select id="sketch_list"></select>
+				<div>
+					<button id="sketch_button--show">Show Sketch</button>
+					<button id="sketch_button--hide">Hide Sketch</button>
+				</div>
+			</section>
+			<section id="backdrops">
+				<div id="back-drop_preview" class="image" style="background-image:linear-gradient(white, grey);"></div>
+				<select id="back-drop_list"></select>
+				<button id="back-drop_button">Update Backdrop</button>
+			</section>
+		</div>
 	</body>
 </html>

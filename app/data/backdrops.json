@@ -1,0 +1,21 @@
+{
+	"version":".1",
+	"campaign":{
+		"tythos":{
+			"session":[
+
+			]
+		},
+		"valdrin":{
+			"session":[
+				[
+					{"name":"temple ruins","url":"https://cdna.artstation.com/p/assets/images/images/003/909/682/large/mohammx-qureshi-memories.jpg?1478459900"},
+					{"name":"forest temple ruins","url":"https://www.wallpaperup.com/uploads/wallpapers/2013/02/04/34271/0c08c419da541a4c0c0a9ae69e13a76e-700.jpg"},
+					{"name":"forest temple ruins altar","url":"https://www.wallpaperup.com/uploads/wallpapers/2013/07/03/113651/f1c3cc4169fd821f976ba7af884f8d83.jpg"},
+					{"name":"forest ruins altar","url":"https://img00.deviantart.net/fc94/i/2011/222/6/a/forest_temple_concept_by_gamefan84-d465gqr.jpg"},
+					{"name":"mountain small village","url":"https://pre00.deviantart.net/a4c5/th/pre/f/2013/003/9/6/snowy_landscape_by_roggles-d5q9vub.png"}
+				]
+			]
+		}
+	}
+}
