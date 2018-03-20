@@ -45,8 +45,9 @@
 				}
 
 				function initSocket(){
-					socket = io.connect('http://localhost:9001/');
-					//socket = io.connect('https://dnd-initiative.herokuapp.com');
+					//socket = io.connect('http://localhost:9001/');
+					socket = io.connect('https://dnd-initiative.herokuapp.com');
+					
 					socket.on('socket connection', function (data) {
 						console.log(data);
 					});
