@@ -45,8 +45,8 @@
 				}
 
 				function initSocket(){
-					//socket = io.connect('http://localhost:9001/');
-					socket = io.connect('https://dnd-initiative.herokuapp.com');
+					socket = io.connect(window.location.href.replace(window.location.pathname,''));
+					
 					
 					socket.on('socket connection', function (data) {
 						console.log(data);
@@ -57,7 +57,7 @@
 					});
 					socket.on('set sketch', function (data) {
 						console.log(data);
-						elements.sketch.style.backgroundImage = data.url;
+						elements.sketch.style.backgroundImage = 'url('+data.url+')';
 						elements.sketchContainer.classList.remove('hide');
 					});
 					socket.on('hide sketch', function (data) {
