@@ -175,11 +175,12 @@ pc.onstage{
   transform: scaleX(-1);
 }
 .thalin{
-  background-image:url('../images/sprites/thalin.png');
+	background-image:url('../images/sprites/thalin.png');
+	transform: scale(.7, .7);
 }
 .baddie{
 	background-image:url('../images/sprites/thomas.png');
-	transform: scaleX(-1);
+	transform: scale(1, 1);
 }
 
 #sketch--container{
