@@ -79,7 +79,7 @@
 	grid-template-rows:5% 90% 5%;
 }
 
-#stage-backdrop{
+.stage-backdrop{
 	grid-column:2;
 	grid-row:2;
 
@@ -93,6 +93,15 @@
 	border-bottom:1rem solid rgba(150,100,0,.8);
 	box-shadow:0 0 .1rem .5rem rgba(109, 73, 0, 0.9) inset;
 	border-radius:.5%;
+}
+
+.stage-backdrop.front{
+  transition: opacity 0s;
+  opacity:1;
+}
+.stage-backdrop.front.hide{
+  transition: opacity 3s;
+  opacity:0;
 }
 
 #stage-trim{
@@ -128,8 +137,7 @@
 	grid-column:2;
 	grid-row:3;
 
-	background-color:red;
-
+	background-color:rgba(100,0,0,.1);
 	
 }
 
@@ -153,16 +161,23 @@ pc.onstage{
 }
 
 .nell{
-  background-image:url('https://dnd-initiative.herokuapp.com/images/sprites/nell.png');
+  background-image:url('../images/sprites/nell.png');
 	transform: scaleX(-1);
 }
 
 .ack{
-  background-image:url('https://dnd-initiative.herokuapp.com/images/sprites/ack.png');
+  background-image:url('../images/sprites/ack.png');
   transform: scaleX(-1);
 }
 
 .thaliss{
-  background-image:url('https://dnd-initiative.herokuapp.com/images/sprites/thaliss.png');
+  background-image:url('../images/sprites/thaliss.png');
   transform: scaleX(-1);
+}
+.thalin{
+  background-image:url('../images/sprites/thalin.png');
+}
+.baddie{
+	background-image:url('../images/sprites/baddie.png');
+	transform: scaleX(-1);
 }

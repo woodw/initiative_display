@@ -41,7 +41,6 @@
 							elements.backDropList.value = backdrops.session[0][0].url;
 							elements.backDropPreview.style.backgroundImage = 'url('+elements.backDropList.value+')';						
 						}
-						console.log(backdrops);
 					});
 
 					socket.on('send sketches', function(data){
@@ -55,7 +54,6 @@
 							elements.sketchList.value = sketches.session[0][0].url;
 							elements.sketchPreview.style.backgroundImage = 'url('+elements.sketchList.value+')';						
 						}
-						console.log('sketches',sketches);
 					});
 				}
 

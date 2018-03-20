@@ -11,14 +11,35 @@
 			};
 
 			document.addEventListener('DOMContentLoaded', function() {
-				let socket;
+				let socket,elements;
 
 				app.init = init;
 				
 				app.init();
 
 				function init(){
+					elements = registerElements();
 					initSocket();
+				}
+
+				function registerElements(){
+					return {
+						backDropFront: byCSS('.stage-backdrop.front'),
+						backDropBack: byCSS('.stage-backdrop.back'),
+					}
+				}
+
+				function byCSS(cssSelector){
+					return document.querySelector(cssSelector);
+				}
+
+				function changeTheBackDrop(newImage){
+					elements.backDropFront.style.backgroundImage = elements.backDropBack.style.backgroundImage;
+					elements.backDropBack.style.backgroundImage = 'url('+newImage+')';
+					elements.backDropFront.classList.remove('hide');
+					window.setTimeout(function(){
+						elements.backDropFront.classList.add('hide');
+					},500);
 				}
 
 				function initSocket(){
@@ -28,6 +49,8 @@
 						console.log(data);
 					});
 					socket.on('set backdrop', function (data) {
+						changeTheBackDrop(data.url);
+						//elements.backDrop.style.backgroundImage = 'url('++')';
 						console.log(data);
 					});
 					socket.on('set sketch', function (data) {
@@ -47,16 +70,17 @@
 	<body>
 		<div id="stage-background">
 			<div id="stage-wall">
-				<div id="stage-backdrop" style="background-image:url(https://files.slack.com/files-pri/T5MRA9Z4L-F8Y16L71T/dnd_group.jpg);"></div>
+				<div class="stage-backdrop back" style="background-image:url(https://files.slack.com/files-pri/T5MRA9Z4L-F8Y16L71T/dnd_group.jpg);"></div>
+				<div class="stage-backdrop front hide" style="background-image:url(https://files.slack.com/files-pri/T5MRA9Z4L-F8Y16L71T/dnd_group.jpg);"></div>
 			</div>
 			<div id="stage-trim"></div>
 			<div id="stage-floor"></div>
 		</div>
 		<div id="stage-foreground">
 			<div id="stage-character_line">
-				<div class="pc nell onstage"></div>
+				<div class="pc thalin onstage"></div>
 				<div class="pc ack"></div>
-				<div class="pc thaliss onstage"></div>
+				<div class="pc baddie onstage"></div>
 			</div>
 		</div>
 	</body>
