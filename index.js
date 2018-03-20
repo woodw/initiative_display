@@ -121,6 +121,11 @@ io.on('connection', function (socket) {
 		console.log(data);
 		io.emit('set sketch', data);
 	});
+	socket.on('hide sketch', function (data) {
+		console.log(data);
+		io.emit('hide sketch', data);
+	});
+	
 	socket.on('update players', function (data) {
 		console.log(data);
 		io.emit('set players', data);

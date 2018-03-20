@@ -63,7 +63,7 @@
 					element = document.createElement('option');
 					element.value = optionObj.url;
 					element.text = optionObj.name;
-					console.log(selectElm,optionObj);
+					
 					selectElm.appendChild(element);
 
 				}
@@ -111,9 +111,11 @@
 						elements.sketchPreview.style.backgroundImage = 'url('+elements.sketchList.value+')';
 					});
 					elements.sketchShow.addEventListener('click', function(event){
-						socket.emit('update sketch',{'url':elements.selectList.value});
+						console.log('show');
+						socket.emit('update sketch',{'url':elements.sketchList.value});
 					});
 					elements.sketchHide.addEventListener('click', function(event){
+						console.log('hude');
 						socket.emit('hide sketch');
 					});
 				}

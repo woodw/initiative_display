@@ -26,6 +26,8 @@
 					return {
 						backDropFront: byCSS('.stage-backdrop.front'),
 						backDropBack: byCSS('.stage-backdrop.back'),
+						sketchContainer: byCSS('#sketch--container'),
+						sketch: byCSS('#sketch-cover')
 					}
 				}
 
@@ -50,11 +52,16 @@
 					});
 					socket.on('set backdrop', function (data) {
 						changeTheBackDrop(data.url);
-						//elements.backDrop.style.backgroundImage = 'url('++')';
 						console.log(data);
 					});
 					socket.on('set sketch', function (data) {
 						console.log(data);
+						elements.sketch.style.backgroundImage = data.url;
+						elements.sketchContainer.classList.remove('hide');
+					});
+					socket.on('hide sketch', function (data) {
+						console.log(data);
+						elements.sketchContainer.classList.add('hide');
 					});
 					socket.on('set players', function (data) {
 						console.log(data);
@@ -82,6 +89,9 @@
 				<div class="pc ack"></div>
 				<div class="pc baddie onstage"></div>
 			</div>
+		</div>
+		<div id="sketch--container" class="hide">
+			<div id="sketch-cover" style="background-image:url('http://www.dan-site.com/Pathfinder_Witch_Spell_List/frank_frazetta_thesorcerer.jpg');"></div>
 		</div>
 	</body>
 </html>
