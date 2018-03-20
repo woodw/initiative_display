@@ -5,6 +5,12 @@ const app = express();
 const bodyParser = require('body-parser');
 const request = require('request');
 
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
+const backdrops = require(__dirname+'/app/data/backdrops.json');
+const sketches = require(__dirname+'/app/data/sketches.json');
+
 /*const stitch = require("mongodb-stitch");
 const clientPromise = stitch.StitchClientFactory.create(process.env.stitch_dbconn);*/
 
@@ -17,14 +23,14 @@ app.use(bodyParser.urlencoded({ extended: true}));
 
 app.use(express.static('public'));
 
-app.set('port', (process.env.PORT || 9001));
+server.listen((process.env.PORT || 9001));
 
 /* ROUTES */
 app.get('/',function(req,res){
 	res.sendFile(__dirname+'/app/index.html');
 });
 
-app.get('/visualaid',function(req,res){
+app.get('/stage',function(req,res){
 	res.sendFile(__dirname+'/app/bot_screen.html');
 });
 
@@ -36,11 +42,11 @@ app.get('/userdata',function(req,res){
 	res.send(onLiveData.users[clientIp].info);
 });
 
-app.get('/pcscreen',function(req,res){
+app.get('/pc',function(req,res){
 	res.sendFile(__dirname+'/app/pc_screen.html');
 });
 
-app.get('/dmscreen',function(req,res){
+app.get('/dm',function(req,res){
 	res.sendFile(__dirname+'/app/dm_screen.html');
 });
 
@@ -94,8 +100,40 @@ app.get('/slack/auth', function(req, res){
 });
 /** END ROUTES **/
 
-app.listen(app.get('port'), function(){
-	console.log('Node is listening on port', app.get('port'));
+/* Socket IO */
+io.on('connection', function (socket) {
+	socket.emit('socket connection', { valid: true });
+
+	socket.on('get backdrops', function(){
+		io.emit('send backdrops', backdrops.campaign.valdrin);
+	});
+	
+	socket.on('update backdrop', function (data) {
+		console.log(data);
+		io.emit('set backdrop', data);
+	});
+
+	socket.on('get sketches', function(){
+		io.emit('send sketches', sketches.campaign.valdrin);
+	});
+
+	socket.on('update sketch', function (data) {
+		console.log(data);
+		io.emit('set sketch', data);
+	});
+	socket.on('hide sketch', function (data) {
+		console.log(data);
+		io.emit('hide sketch', data);
+	});
+	
+	socket.on('update players', function (data) {
+		console.log(data);
+		io.emit('set players', data);
+	});
+	socket.on('update npcs', function (data) {
+		console.log(data);
+		io.emit('set npcs', data);
+	});
 });
 
 /** Private Funtions **/
