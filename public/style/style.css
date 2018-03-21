@@ -86,7 +86,7 @@
 	background-image:url('');
 	background-size:cover;
 	background-repeat:no-repeat;
-	background-position:top;
+	background-position:center;
 	border-top:1rem solid rgba(150,100,0,.6);
 	border-left:1rem solid rgba(150,100,0,.5);
 	border-right:1rem solid rgba(150,100,0,.7);
@@ -178,9 +178,29 @@ pc.onstage{
 	background-image:url('../images/sprites/thalin.png');
 	transform: scale(.7, .7);
 }
-.baddie{
+.thomas{
 	background-image:url('../images/sprites/thomas.png');
 	transform: scale(1, 1);
+}
+.thomas-light{
+	background-image:url('../images/sprites/thomas-light.png');
+	transform: scale(1, 1);
+}
+.thomas-darkhair{
+	background-image:url('../images/sprites/thomas-darkhair.png');
+	transform: scale(1, 1);
+}
+.garrik{
+	background-image:url('../images/sprites/garrik.png');
+	transform: scale(.9, .9);
+}
+.mvex{
+	background-image:url('../images/sprites/mvex.png');
+	transform: scale(.9, .9);
+}
+.baddie{
+	background-image:url('../images/sprites/baddie.png');
+	transform: scaleX(-1) scale(.8, .8);
 }
 
 #sketch--container{
