@@ -201,10 +201,10 @@ pc.onstage{
 	transform: scale(.7, .7);
 }
 .thomas .mini{
-	background-image:url('../images/sprites/Thomas.png');
+	background-image:url('../images/sprites/thomas.png');
 }
 .garrik .mini{
-	background-image:url('../images/sprites/Garrik.png');
+	background-image:url('../images/sprites/garrik.png');
 }
 .mvex .mini{
 	background-image:url('../images/sprites/Maura.png');
