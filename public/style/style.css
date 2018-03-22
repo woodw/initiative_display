@@ -10,6 +10,13 @@
 	100% {transform: scaleX(-1) translate(100vw, 30vh);width:0px;}
 }
 
+@keyframes emoji-pop{
+	0% {font-size:0rem;opacity:1;transform:translate(0,1rem);}
+	
+	45% {font-size:6rem;opacity:1;transform:translate(0,-.1rem);}
+	100% {font-size:5rem;opacity:0;transform:translate(0,-2rem);}
+}
+
 *{
 	margin:0;
 	padding:0;
@@ -56,7 +63,7 @@
   height:21vh;
 }
 
-/*bot screen*/
+/*BOT SCREEN BEGIN*/
 #stage-background{
 	grid-column:1;
 	grid-row:1;
@@ -133,7 +140,7 @@
 	grid-column:2;
 	grid-row:3;
 
-	background-color:rgba(100,0,0,.1);
+	background-color:rgba(100,0,0,.0);
 	display:flex;
 	justify-content: center;
 	align-content: center;
@@ -144,12 +151,16 @@
 .emoji{
 	width:15rem;
 	height:16rem;
-	background-color:red;
-
+font-size:0;
 	display:flex;
 	justify-content: center;
 	align-items: flex-end;
+	color:rgba(70,40,40,1);
 	
+}
+.emoji.play{
+	animation: emoji-pop 4s ease 1;
+	animation-fill-mode: forwards;
 }
 
 .mini{
@@ -161,7 +172,6 @@
 
 	width:15rem;
 	height:16rem;
-	background-color:green;
 }
 .pc:not(.onstage){
 	animation: leave-stage 3s ease 1;
@@ -231,3 +241,5 @@ pc.onstage{
 	background-size:contain;
 	background-repeat:no-repeat;
 }
+
+/* BOT SCREEN END*/

@@ -70,9 +70,10 @@
 		</script>
 		<style>
 			*{
-				margin:2rem;	
+	
 			}
 			body{
+				margin:5%;
 				font-family: fantasy;
 				color:maroon;
 				background:url(.http://dnd.wizards.com/sites/all/themes/dx/img/interface/page-background.jpg) 0 0 repeat #f9f7ec;
@@ -103,6 +104,12 @@
 			h2{
 				box-shadow: 0 20px 10px -10px rgba(0,0,0,.25);
 			}
+			h3::before{
+				content:'\003C';
+			}
+			h3::after{
+				content:'\003E';
+			}
 			#container{
 				min-height:100vh;
 			}
@@ -111,6 +118,7 @@
 				border-radius:.5rem;
 				background-image:radial-gradient(rgba(0,20,0,.1),rgba(0,20,0,.3));
 				padding:.5rem;
+				margin:4%;
 			}
 			#emojis button{
 				font-size:2rem;

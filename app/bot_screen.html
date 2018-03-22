@@ -73,7 +73,10 @@
 
 					socket.on('set emoji', function (data) {
 						console.log('set emoji',data);
-						var temp = document.querySelector('.pc.'+data.character+' .emoji');
+						var temp = byCSS('.pc.'+data.character+' .emoji');
+						temp.classList.remove('play');
+						void temp.offsetWidth;
+						temp.classList.add('play');
 						temp.innerText = data.emoji;
 						console.log('set emoji',data);
 					});
