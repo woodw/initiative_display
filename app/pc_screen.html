@@ -2,12 +2,177 @@
 <html>
 	<head>
 		<title>Player Screen</title>
+		<script src="/socket.io/socket.io.js"></script>
+		<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+		<script>
+			let app = {};
+
+			document.addEventListener('DOMContentLoaded', function() {
+				let socket,character,characterName,elements;
+
+				app.init = init;
+				
+				app.init();
+
+				function init(){
+					characterName = 'thomas';
+					elements = registerElements();
+					registerListeners();
+					initSocket();
+				}
+
+				function initSocket(){
+					socket = io.connect(window.location.href.replace(window.location.pathname,''));
+					
+					socket.on('socket connection', function (data) {
+						console.log(data);
+					});
+
+					socket.emit('get character', '127.0.0.1', (data) => {
+						console.log('player data', data);
+						character = data;
+					});
+
+					socket.on('get initiative', function(data){
+						console.log(data);
+					});
+
+					socket.on('get message', function(data){
+						console.log(data);
+					});
+				}
+
+				function registerElements(){
+					return {
+						emojis: document.querySelectorAll('#emojis button')
+					};
+				}
+
+				function addEventListenerList(list, event, fn) {
+					for (var i = 0, len = list.length; i < len; i++) {
+						list[i].addEventListener(event, fn, false);
+					}
+				}
+
+				function byCSS(cssSelector){
+					return document.querySelector(cssSelector);
+				}
+
+				function registerListeners(){
+					addEventListenerList(elements.emojis, 'click', function(event){
+						console.log('hello', event);
+						
+						
+						socket.emit('update emoji',{character:characterName,emoji:event.target.innerText});
+					});
+				}
+			});	
+		</script>
+		<style>
+			*{
+	
+			}
+			body{
+				margin:5%;
+				font-family: fantasy;
+				color:maroon;
+				background:url(.http://dnd.wizards.com/sites/all/themes/dx/img/interface/page-background.jpg) 0 0 repeat #f9f7ec;
+			}
+			h1,h2{
+				font-family: 'Great Vibes', cursive;
+				font-variant-caps: titling-caps;
+				letter-spacing: .2rem;
+			}
+			h1{
+				text-align: center;
+				font-size:4rem;
+				color:rgba(10,0,0,1);
+				padding: 0;
+				margin-bottom: 0;
+
+			}
+			h2{
+				margin-top: 0;
+				text-align: center;
+				font-size:small;
+				color:rgba(10,0,0,.7)
+			}
+			a,h3{
+				letter-spacing: .2rem;
+				font-variant: small-caps;
+			}
+			h2{
+				box-shadow: 0 20px 10px -10px rgba(0,0,0,.25);
+			}
+			h3::before{
+				content:'\003C';
+			}
+			h3::after{
+				content:'\003E';
+			}
+			#container{
+				min-height:100vh;
+			}
+			#emojis{
+				border:.3rem solid rgba(0,30,0,.4);
+				border-radius:.5rem;
+				background-image:radial-gradient(rgba(0,20,0,.1),rgba(0,20,0,.3));
+				padding:.5rem;
+				margin:4%;
+			}
+			#emojis button{
+				font-size:2rem;
+				padding:.4rem;
+				margin:.4rem;
+				box-shadow: 1px 1px 1px 1px rgba(0,0,0,.3);
+				border-radius:.5rem;
+				color:rgba(110,100,100,1);
+				width:4rem;
+				height:4rem;
+			}
+			a{
+				padding:1.4rem;
+				text-decoration-style:double;
+				color:maroon;
+				white-space: nowrap;
+				
+			}
+			a::after, a::before{
+				display: inline-block;
+				content: "";
+				width: 2rem;
+				height: 1rem;
+				background-image: url(http://www.clker.com/cliparts/c/6/C/1/4/w/red-border-md.png);
+				background-size: contain;
+				background-repeat:no-repeat;
+				transform: rotate(45deg); 
+				background-position: center;
+				
+				
+			}
+			a::before{
+				transform:rotate(-135deg); 
+			}
+			a:hover{
+				text-decoration-style:solid; 
+			}
+		</style>
 	</head>
 	<body>
-		<h1>Player Screen</h1>
-		<ul>
-				<li><a target="_blank" href="https://crobi.github.io/dnd5e-quickref/preview/quickref.html">Player Combat Turn Cheat Sheet</a></li>
-				<li><a target="_blank" href="http://www.5esrd.com/spellcasting/spell-lists/">Player Class Spell List</a></li>
-		</ul>
+		<div id="container">
+			<h1 id="player--name">Thomas Black</h1>
+			<h2 id="player--class">Bard: College of Swords</h2>
+			<h3>Character External Links</h3>
+			<p>The links listed below are to assist you during the game session as a player-aid.</p>
+			<section id="links">
+					<a target="_blank" href="https://crobi.github.io/dnd5e-quickref/preview/quickref.html">Player Combat Turn Cheat Sheet</a>
+					<a target="_blank" href="http://www.5esrd.com/spellcasting/spell-lists/">Player Class Spell List</a>		
+			</section>
+			<h3>Character Expression</h3>
+			<p>Listed below are a number of emojis for your general use. Once a button is clicked the item will appear on the main display screen for the team to see. These items are to help you convey emotion/thought/intent non-verbaly.</p>
+			<section id="emojis">
+					<button>!</button>  <button>$</button>  <button>?</button>  <button>0</button>  <button>1</button>  <button>2</button>  <button>3</button>  <button>4</button>  <button>5</button>  <button>6</button>  <button>7</button>  <button>8</button>  <button>9</button>  <button>✔</button>  <button>✖</button>  <button>⌕</button>  <button>⏸</button>  <button>▷</button>  <button>☼</button>  <button>☾</button>  <button>★</button>  <button>♥</button>  <button>♫</button>  <button>⚒</button>  <button>⚔</button>  <button>➳</button>  <button>⛏</button>  <button>☀</button>  <button>☠</button>  <button>⚓</button>  <button>⛵</button>  <button>⛺</button>  <button>✨</button>  <button>⏳</button>  <button>💀</button>  <button>😃</button>  <button>😇</button>  <button>😈</button>  <button>😉</button>  <button>😍</button>  <button>😎</button>  <button>😏</button>  <button>😐</button>  <button>😠</button>  <button>😢</button>  <button>😮</button><button>😱</button><button>😲</button><button>😴</button><button>😵</button><button>⚰</button><button>🌲</button><button>🌿</button><button>🍗</button><button>🍴</button><button>🍺</button><button>🍻</button><button>🎣</button><button>🎨</button><button>🎪</button><button>🎸</button><button>🐃</button><button>🐎</button><button>🐾</button><button>👂</button><button>👆</button><button>👇</button><button>👈</button><button>👉</button><button>👊</button><button>👋</button><button>👌</button><button>👍</button><button>👎</button><button>👏</button><button>👑</button><button>👣</button><button>👤</button><button>👥</button><button>💎</button><button>💕</button><button>💔</button><button>💘</button><button>💢</button><button>💣</button><button>💤</button><button>💩</button><button>💪</button><button>💰</button><button>🔑</button><button>🔒</button><button>🔓</button><button>🔥</button><button>🔧</button><button>🔨</button><button>🔮</button><button>🔪</button><button>⌕</button>
+			</section>		
+		</div>
 	</body>
 </html>

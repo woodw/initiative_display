@@ -126,6 +126,15 @@ io.on('connection', function (socket) {
 		io.emit('hide sketch', data);
 	});
 	
+	socket.on('get character', (ip, fn) => {
+		fn(getPlayerInfo('Joey'));
+	});
+
+	socket.on('update emoji', function (data) {
+		console.log(data);
+		io.emit('set emoji', data);
+	});
+
 	socket.on('update players', function (data) {
 		console.log(data);
 		io.emit('set players', data);
@@ -151,5 +160,21 @@ function storeUser(clientIp, userObject){
 				orcpub: 'https://www.google.com'
 			}	
 		}
+	}
+}
+
+function getPlayerInfo(playerName){
+	switch(playerName){
+		default:
+			return {
+				name: 'Thoms Black',
+				icon: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png',
+				mini: 'Thomas.png',
+				character: {
+					class:'Bard: College of Swords',
+					orcpub: 'https://www.orcpub2.com/pages/dnd/5e/characters/17592250241064',
+					spells:'http://www.5esrd.com/spellcasting/spell-lists/#bardlist'
+				}
+			} 		
 	}
 }
