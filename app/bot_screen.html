@@ -70,6 +70,13 @@
 					socket.on('set npcs', function (data) {
 						console.log(data);
 					});
+
+					socket.on('set emoji', function (data) {
+						console.log('set emoji',data);
+						var temp = document.querySelector('.pc.'+data.character+' .emoji');
+						temp.innerText = data.emoji;
+						console.log('set emoji',data);
+					});
 				}
 	
 			});	
@@ -86,10 +93,18 @@
 		</div>
 		<div id="stage-foreground">
 			<div id="stage-character_line">
-				<div class="pc thomas onstage"></div>
-				<div class="pc mvex onstage"></div>
-				<div class="pc garrik onstage"></div>
-				<div class="pc baddie onstage"></div>
+				<div class="pc thomas onstage">
+					<div class="emoji">&#128564;</div>
+					<div class="mini"></div>
+				</div>
+				<div class="pc garrik onstage">
+					<div class="emoji">&#128564;</div>
+					<div class="mini"></div>
+				</div>
+				<div class="pc mvex onstage">
+					<div class="emoji">&#128564;</div>
+					<div class="mini"></div>
+				</div>
 			</div>
 		</div>
 		<div id="sketch--container" class="hide">

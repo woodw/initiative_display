@@ -125,12 +125,8 @@
 
 	z-index:2;
 	display:grid;
-	grid-template-rows:50% 10% 30% 10%;
+	grid-template-rows:50% 10% 35% 5%;
 	grid-template-columns:5% 90% 5%;
-}
-
-#stage-character_emoji{
-
 }
 
 #stage-character_line{
@@ -138,18 +134,34 @@
 	grid-row:3;
 
 	background-color:rgba(100,0,0,.1);
+	display:flex;
+	justify-content: center;
+	align-content: center;
+	align-items: flex-end;
+}
+
+
+.emoji{
+	width:15rem;
+	height:16rem;
+	background-color:red;
+
+	display:flex;
+	justify-content: center;
+	align-items: flex-end;
 	
 }
 
-.pc{  
+.mini{
 
 	display:inline-block;
 	background-size:contain;
   background-repeat:no-repeat;
-	background-position:top;
+	background-position:bottom;
 
-	width:30vh;
-	height:30vh;
+	width:15rem;
+	height:16rem;
+	background-color:green;
 }
 .pc:not(.onstage){
 	animation: leave-stage 3s ease 1;
@@ -160,45 +172,34 @@ pc.onstage{
 	animation-fill-mode: forwards;
 }
 
-.nell{
+.nell .mini{
   background-image:url('../images/sprites/nell.png');
 	transform: scaleX(-1);
 }
 
-.ack{
+.ack .mini{
   background-image:url('../images/sprites/ack.png');
   transform: scaleX(-1);
 }
 
-.thaliss{
+.thaliss .mini{
   background-image:url('../images/sprites/thaliss.png');
   transform: scaleX(-1);
 }
-.thalin{
+.thalin .mini{
 	background-image:url('../images/sprites/thalin.png');
 	transform: scale(.7, .7);
 }
-.thomas{
-	background-image:url('../images/sprites/thomas.png');
-	transform: scale(1, 1);
+.thomas .mini{
+	background-image:url('../images/sprites/Thomas.png');
 }
-.thomas-light{
-	background-image:url('../images/sprites/thomas-light.png');
-	transform: scale(1, 1);
+.garrik .mini{
+	background-image:url('../images/sprites/Garrik.png');
 }
-.thomas-darkhair{
-	background-image:url('../images/sprites/thomas-darkhair.png');
-	transform: scale(1, 1);
+.mvex .mini{
+	background-image:url('../images/sprites/Maura.png');
 }
-.garrik{
-	background-image:url('../images/sprites/garrik.png');
-	transform: scale(.9, .9);
-}
-.mvex{
-	background-image:url('../images/sprites/mvex.png');
-	transform: scale(.9, .9);
-}
-.baddie{
+.baddie.mini{
 	background-image:url('../images/sprites/baddie.png');
 	transform: scaleX(-1) scale(.8, .8);
 }
