@@ -141,17 +141,16 @@
 	grid-row:3;
 
 	background-color:rgba(100,0,0,.0);
-	display:flex;
-	justify-content: center;
-	align-content: center;
-	align-items: flex-end;
 }
 
 
 .emoji{
-	width:15rem;
-	height:16rem;
-font-size:0;
+	width:15vw;
+	height:40vh;
+	max-height:20vw;
+	max-width:35vh;
+
+	font-size:0;
 	display:flex;
 	justify-content: center;
 	align-items: flex-end;
@@ -170,16 +169,113 @@ font-size:0;
   background-repeat:no-repeat;
 	background-position:bottom;
 
-	width:15rem;
-	height:16rem;
+	width:15vw;
+	height:40vh;
+	max-height:20vw;
+	max-width:35vh;
+}
+
+.pc,.npc{
+	position:absolute;
+	transition: transform 1s, left 6s, bottom 6s;
+	transform:scaleX(-1);
 }
 .pc:not(.onstage){
-	animation: leave-stage 3s ease 1;
-	animation-fill-mode: forwards;
+	z-index: 20;
+	left:-20vw;
+	bottom:-35vh;
 }
-pc.onstage{
-	animation: join-stage 3s ease 1;
-	animation-fill-mode: forwards;
+.npc:not(.onstage){
+	z-index: 20;
+	left:120vw;
+	bottom:-35vh;
+}
+
+
+/*pc charater positions*/
+.pc.onstage{
+	transform: scaleX(1);
+
+	left:30vw;
+	bottom:3vh;
+}
+.pc.onstage ~ .pc.onstage{
+	left:43vw;
+	bottom:7vh;
+}
+.pc.onstage ~ .pc.onstage ~ .pc.onstage{
+	left:60vw;
+	bottom:3vh;
+}
+.npc + .pc.onstage{
+	transform: scaleX(1);
+
+	left:30vw;
+	bottom:11vh;
+}
+.npc + .pc.onstage ~ .pc.onstage{
+	left:20vw;
+	bottom:5vh;
+}
+.npc + .pc.onstage ~ .pc.onstage ~ .pc.onstage{
+	left:10vw;
+	bottom:0vh;
+}
+
+.pc.turn{
+	transform: scaleX(-1);
+}
+
+/*npc positions*/
+.npc.onstage{
+	transform: scaleX(1);
+	left:75vw;
+	bottom:5vh;
+}
+.npc.onstage ~ .npc.onstage{
+	transform: scaleX(1);
+	left:80vw;
+	bottom:7vh;
+}
+.npc.onstage ~ .npc.onstage ~ .npc.onstage{
+	transform: scaleX(1);
+	left:85vw;
+	bottom:5vh;
+}
+.npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage{
+	transform: scaleX(1);
+	left:80vw;
+	bottom:3vh;
+}
+.npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage{
+	transform: scaleX(1);
+	left:71vw;
+	bottom:7vh;
+}
+.npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage{
+	transform: scaleX(1);
+	left:70vw;
+	bottom:3vh;
+}
+.npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage{
+	transform: scaleX(1);
+	left:65vw;
+	bottom:5vh;
+}
+.npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage{
+	transform: scaleX(1);
+	left:62vw;
+	bottom:1vh;
+}
+.npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage{
+	transform: scaleX(1);
+	left:75vw;
+	bottom:0vh;
+}
+.npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage{
+	transform: scaleX(1);
+	left:87vw;
+	bottom:0vh;
 }
 
 .nell .mini{
@@ -212,6 +308,9 @@ pc.onstage{
 .baddie.mini{
 	background-image:url('../images/sprites/baddie.png');
 	transform: scaleX(-1) scale(.8, .8);
+}
+.soldier .mini{
+	background-image:url('../images/sprites/basicGaurd.png');
 }
 
 #sketch--container{
