@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 
 app.use(express.static('public'));
 
-server.listen((process.env.PORT || 9002));
+server.listen((process.env.PORT || 9001));
 
 /* ROUTES */
 app.get('/',function(req,res){
