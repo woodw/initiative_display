@@ -302,14 +302,14 @@
 .garrik .mini{
 	background-image:url('../images/sprites/garrikphase1.png');
 }
-.mvex .mini{
-	background-image:url('../images/sprites/mvexphase1.png');
+.velora .mini{
+	background-image:url('../images/sprites/veloraphase1.png');
 }
 .baddie.mini{
 	background-image:url('../images/sprites/baddie.png');
 	transform: scaleX(-1) scale(.8, .8);
 }
-.soldier .mini{
+.gaurd .mini{
 	background-image:url('../images/sprites/basicGaurd.png');
 }
 
@@ -340,5 +340,37 @@
 	background-size:contain;
 	background-repeat:no-repeat;
 }
+
+@keyframes swipe-in{
+	0% {left:-10vw;}
+	50% {left:1vw;}
+	100% {left:-10vw;}
+  }
+  
+  .peanut.emoji{
+	background-color:rgba(100,120,100,.3);
+	border:2px solid rgba(100,140,100,.3);
+	width:6vw;
+	height:5vw;
+	border-radius:1vw;
+	position:absolute;
+	left:1vw;
+	top:0vw;
+	font-size:3.5vw;
+	animation-name:swipe-in;
+	animation-duration:2s;
+	animation-fill-mode:forwards;
+	animation-iteration-count:1;
+  }
+  .peanut.emoji::before{
+	content:'';
+	display:block;
+	position:relative;
+	right:2vw;
+	bottom:2vw;
+	width:1.1vw;
+	height:1vw;
+	background-color:rgba(100,135,100,.6);
+  }
 
 /* BOT SCREEN END*/

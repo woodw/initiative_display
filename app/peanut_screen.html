@@ -15,10 +15,10 @@
 				app.init();
 
 				function init(){
+					characterName = 'thomas';
 					elements = registerElements();
 					registerListeners();
 					initSocket();
-					getUserData();
 				}
 
 				function initSocket(){
@@ -26,6 +26,11 @@
 					
 					socket.on('socket connection', function (data) {
 						console.log(data);
+					});
+
+					socket.emit('get character', '127.0.0.1', (data) => {
+						console.log('player data', data);
+						character = data;
 					});
 
 					socket.on('get initiative', function(data){
@@ -39,33 +44,8 @@
 
 				function registerElements(){
 					return {
-						emojis: document.querySelectorAll('#emojis button'),
-						title: byCSS('#player--name'),
-						subTitle: byCSS('#player--class'),
-						spellListLink: byCSS('#links a:nth-child(2)'),
-						characterSheetLink: byCSS('#links a:nth-child(3)'),
-						characterPortrait: byCSS('.character-background')
+						emojis: document.querySelectorAll('#emojis button')
 					};
-				}
-
-				function getUserData(){
-					var xhttp, jsonData;
-					
-					xhttp = new XMLHttpRequest();
-					xhttp.onreadystatechange = function() {
-						if (this.readyState == 4 && this.status == 200) {
-							jsonData = JSON.parse(xhttp.response);
-							characterName = jsonData.character.css;
-							elements.title.innerText = jsonData.character.name;
-							elements.subTitle.innerText = jsonData.character.class;
-							elements.spellListLink.setAttribute('href',jsonData.character.spells);
-							elements.characterSheetLink.setAttribute('href',jsonData.character.orcpub);
-							elements.characterPortrait.style.backgroundImage = 'url('+jsonData.character.mini+')';
-							console.log(jsonData);
-						}
-					};
-					xhttp.open("GET", "/userData", true);
-					xhttp.send();
 				}
 
 				function addEventListenerList(list, event, fn) {
@@ -81,7 +61,9 @@
 				function registerListeners(){
 					addEventListenerList(elements.emojis, 'click', function(event){
 						console.log('hello', event);
-						socket.emit('update emoji',{character:characterName,emoji:event.target.innerText});
+						
+						
+						socket.emit('display peanut emoji',{emoji:event.target.innerText});
 					});
 				}
 			});	
@@ -174,38 +156,11 @@
 			a:hover{
 				text-decoration-style:solid; 
 			}
-
-			.character-background{
-				position:absolute;
-				left:0;
-				top:0;
-
-				background-size:contain;
-				background-repeat:no-repeat;
-				background-position:bottom;
-
-				width:30vw;
-				height:80vh;
-				max-height:40vw;
-				max-width:70vh;
-				opacity:.1;
-			}
 		</style>
 	</head>
 	<body>
-		<div class="character-background"></div>
-		<div id="container">
-			<h1 id="player--name">Thomas Black</h1>
-			<h2 id="player--class">Bard: College of Swords</h2>
-			<h3>Character External Links</h3>
-			<p>The links listed below are to assist you during the game session as a player-aid.</p>
-			<section id="links">
-					<a target="_blank" href="https://crobi.github.io/dnd5e-quickref/preview/quickref.html">Player Combat Turn Cheat Sheet</a>
-					<a target="_blank" href="http://www.5esrd.com/spellcasting/spell-lists/">Player Class Spell List</a>		
-					<a target="_blank" href="http://www.orcpub2.com/">Orcpub character sheet</a>		
-			</section>
-			<h3>Character Expression</h3>
-			<p>Listed below are a number of emojis for your general use. Once a button is clicked the item will appear on the main display screen for the team to see. These items are to help you convey emotion/thought/intent non-verbaly.</p>
+		<div id="container">The Peanut Gallery</h1>
+			<p>Thank you for coming and participating in our fun game of Dungeons & Dragons. While you are here, feel free to use the emoji's below to share in the excitment.</p>
 			<section id="emojis">
 					<button>!</button>  <button>$</button>  <button>?</button>  <button>0</button>  <button>1</button>  <button>2</button>  <button>3</button>  <button>4</button>  <button>5</button>  <button>6</button>  <button>7</button>  <button>8</button>  <button>9</button>  <button>✔</button>  <button>✖</button>  <button>⌕</button>  <button>⏸</button>  <button>▷</button>  <button>☼</button>  <button>☾</button>  <button>★</button>  <button>♥</button>  <button>♫</button>  <button>⚒</button>  <button>⚔</button>  <button>➳</button>  <button>⛏</button>  <button>☀</button>  <button>☠</button>  <button>⚓</button>  <button>⛵</button>  <button>⛺</button>  <button>✨</button>  <button>⏳</button>  <button>💀</button>  <button>😃</button>  <button>😇</button>  <button>😈</button>  <button>😉</button>  <button>😍</button>  <button>😎</button>  <button>😏</button>  <button>😐</button>  <button>😠</button>  <button>😢</button>  <button>😮</button><button>😱</button><button>😲</button><button>😴</button><button>😵</button><button>⚰</button><button>🌲</button><button>🌿</button><button>🍗</button><button>🍴</button><button>🍺</button><button>🍻</button><button>🎣</button><button>🎨</button><button>🎪</button><button>🎸</button><button>🐃</button><button>🐎</button><button>🐾</button><button>👂</button><button>👆</button><button>👇</button><button>👈</button><button>👉</button><button>👊</button><button>👋</button><button>👌</button><button>👍</button><button>👎</button><button>👏</button><button>👑</button><button>👣</button><button>👤</button><button>👥</button><button>💎</button><button>💕</button><button>💔</button><button>💘</button><button>💢</button><button>💣</button><button>💤</button><button>💩</button><button>💪</button><button>💰</button><button>🔑</button><button>🔒</button><button>🔓</button><button>🔥</button><button>🔧</button><button>🔨</button><button>🔮</button><button>🔪</button><button>⌕</button>
 			</section>		
