@@ -98,7 +98,13 @@
 						newActor.className = data.classes;
 						newActor.setAttribute('dndid',data.id);
 						//newActor.innerHTML = '<div class="emoji"></div><div class="mini"></div>';
-						elements.characterLine.appendChild(newActor);						
+						if(data.classes.indexOf('npc')!== -1){
+							elements.characterLine.prepend(newActor);						
+						}
+						else{
+							elements.characterLine.appendChild(newActor);						
+						}
+
 					});
 
 					socket.on('set actor', function(data){
@@ -131,6 +137,7 @@
 		<div id="stage-foreground">
 			<div id="stage-character_line">
 						
+				
 			</div>
 		</div>
 		<div id="sketch--container" class="hide">
