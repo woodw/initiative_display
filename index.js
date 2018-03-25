@@ -15,7 +15,8 @@ const sketches = require(__dirname+'/app/data/sketches.json');
 const clientPromise = stitch.StitchClientFactory.create(process.env.stitch_dbconn);*/
 
 const onLiveData = {
-	users: {}
+	users: {},
+	actorID: 0
 };
 
 app.use(bodyParser.json());
@@ -109,7 +110,7 @@ io.on('connection', function (socket) {
 	});
 	
 	socket.on('update backdrop', function (data) {
-		console.log(data);
+		console.log('updating backdrops', data);
 		io.emit('set backdrop', data);
 	});
 
@@ -118,11 +119,11 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('update sketch', function (data) {
-		console.log(data);
+		console.log('updating sketches',data);
 		io.emit('set sketch', data);
 	});
 	socket.on('hide sketch', function (data) {
-		console.log(data);
+		console.log('hide sketches',data);
 		io.emit('hide sketch', data);
 	});
 	
@@ -131,17 +132,23 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('update emoji', function (data) {
-		console.log(data);
+		console.log('setting player emoji',data);
 		io.emit('set emoji', data);
 	});
 
-	socket.on('update players', function (data) {
-		console.log(data);
-		io.emit('set players', data);
+	socket.on('add actor', (data, callbkfn) => {
+		console.log('adding actor', data);
+		data.id = onLiveData.actorID++;
+		io.emit('create actor', data);
+		callbkfn({id:data.id});
 	});
-	socket.on('update npcs', function (data) {
-		console.log(data);
-		io.emit('set npcs', data);
+	socket.on('update actor', function (data) {
+		console.log('updating actor', data);
+		io.emit('set actor', data);
+	});
+	socket.on('remove actor', function (data) {
+		console.log('removing actor', data);
+		io.emit('delete actor', data);
 	});
 });
 

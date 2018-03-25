@@ -222,7 +222,7 @@
 	bottom:0vh;
 }
 
-.pc.turn{
+.pc.turn .mini{
 	transform: scaleX(-1);
 }
 

@@ -27,7 +27,8 @@
 						backDropFront: byCSS('.stage-backdrop.front'),
 						backDropBack: byCSS('.stage-backdrop.back'),
 						sketchContainer: byCSS('#sketch--container'),
-						sketch: byCSS('#sketch-cover')
+						sketch: byCSS('#sketch-cover'),
+						characterLine: byCSS('#stage-character_line')
 					}
 				}
 
@@ -42,6 +43,14 @@
 					window.setTimeout(function(){
 						elements.backDropFront.classList.add('hide');
 					},500);
+				}
+
+				function playEmoji(cssSelect, emoji){
+					var temp = byCSS(cssSelect);
+					temp.classList.remove('play');
+					void temp.offsetWidth;
+					temp.innerText = emoji;
+					temp.classList.add('play');
 				}
 
 				function initSocket(){
@@ -73,13 +82,38 @@
 
 					socket.on('set emoji', function (data) {
 						console.log('set emoji',data);
-						var temp = byCSS('.pc.'+data.character+' .emoji');
-						temp.classList.remove('play');
-						void temp.offsetWidth;
-						temp.classList.add('play');
-						temp.innerText = data.emoji;
-						console.log('set emoji',data);
+						playEmoji('.pc.'+data.character+' .emoji',data.emoji);
 					});
+
+					socket.on('create actor', function(data){
+						console.log(data);
+						var newActor, em, mi;
+						newActor = document.createElement('div');
+						em = document.createElement('div');
+						em.className = 'emoji';
+						newActor.appendChild(em);
+						mi = document.createElement('div');
+						mi.className = 'mini';
+						newActor.appendChild(mi);
+						newActor.className = data.classes;
+						newActor.setAttribute('dndid',data.id);
+						//newActor.innerHTML = '<div class="emoji"></div><div class="mini"></div>';
+						elements.characterLine.appendChild(newActor);						
+					});
+
+					socket.on('set actor', function(data){
+						console.log(data);
+						var actor = elements.characterLine.querySelector('div[dndid="'+data.id+'"]');
+						actor.className = data.classes;
+						playEmoji('div[dndid="'+data.id+'"] .emoji',data.emoji);
+					});
+					
+					socket.on('delete actor', function(data){
+						console.log(data);
+						var actor = elements.characterLine.querySelector('div[dndid="'+data.id+'"]');
+						actor.parentNode.removeChild(actor);
+					});
+
 				}
 	
 			});	
@@ -97,18 +131,6 @@
 		<div id="stage-foreground">
 			<div id="stage-character_line">
 						
-				<div class="pc thomas onstage">
-					<div class="emoji">&#128564;</div>
-					<div class="mini"></div>
-				</div>
-				<div class="pc garrik onstage">
-					<div class="emoji">&#128564;</div>
-					<div class="mini"></div>
-				</div>
-				<div class="pc mvex onstage turn">
-					<div class="emoji">&#128564;</div>
-					<div class="mini"></div>
-				</div>
 			</div>
 		</div>
 		<div id="sketch--container" class="hide">
