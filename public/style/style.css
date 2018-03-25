@@ -302,14 +302,14 @@
 .garrik .mini{
 	background-image:url('../images/sprites/garrikphase1.png');
 }
-.mvex .mini{
-	background-image:url('../images/sprites/mvexphase1.png');
+.velora .mini{
+	background-image:url('../images/sprites/veloraphase1.png');
 }
 .baddie.mini{
 	background-image:url('../images/sprites/baddie.png');
 	transform: scaleX(-1) scale(.8, .8);
 }
-.soldier .mini{
+.gaurd .mini{
 	background-image:url('../images/sprites/basicGaurd.png');
 }
 

@@ -16,6 +16,11 @@ const clientPromise = stitch.StitchClientFactory.create(process.env.stitch_dbcon
 
 const onLiveData = {
 	users: {},
+	directAuth: [
+		'yTgHnB',
+		'tRfGbV',
+		'rEdFvC'
+	],
 	actorID: 0
 };
 
@@ -24,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 
 app.use(express.static('public'));
 
-server.listen((process.env.PORT || 9001));
+server.listen((process.env.PORT || 9002));
 
 /* ROUTES */
 app.get('/',function(req,res){
@@ -39,12 +44,49 @@ app.get('/userdata',function(req,res){
 	let clientIp;
 
 	clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-				
+	res.setHeader('Content-Type', 'application/json');			
 	res.send(onLiveData.users[clientIp].info);
 });
 
 app.get('/pc',function(req,res){
-	res.sendFile(__dirname+'/app/pc_screen.html');
+	let clientIp, fakeUser;
+
+	clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+console.log(clientIp, req.query.auth);
+	if(req.query.auth){
+		fakeUser = {
+			user:{
+				id:'',
+				name:'',
+				image_192:''	
+			},
+			access_token:'',
+		};
+		switch(req.query.auth){
+			case onLiveData.directAuth[0]:
+			console.log('muara');
+				fakeUser.user.name = 'Maura';
+				storeUser(clientIp,fakeUser);
+				res.sendFile(__dirname+'/app/pc_screen.html');
+				break;
+			case onLiveData.directAuth[2]:
+				fakeUser.user.name = 'Joey';
+				storeUser(clientIp,fakeUser);
+				res.sendFile(__dirname+'/app/pc_screen.html');
+				break;
+			case onLiveData.directAuth[3]:
+				fakeUser.user.name = 'Sprogg (Noel)';
+				storeUser(clientIp,fakeUser);
+				res.sendFile(__dirname+'/app/pc_screen.html');
+				break;
+			default:
+				res.sendFile(__dirname+'/app/peanut_screen.html');
+				break;
+		}
+	}
+	else{
+		res.sendFile(__dirname+'/app/peanut_screen.html');
+	}
 });
 
 app.get('/dm',function(req,res){
@@ -127,9 +169,9 @@ io.on('connection', function (socket) {
 		io.emit('hide sketch', data);
 	});
 	
-	socket.on('get character', (ip, fn) => {
-		fn(getPlayerInfo('Joey'));
-	});
+	//socket.on('get character', (ip, fn) => {
+	//	fn(onLiveData.users[ip].info);
+	//});
 
 	socket.on('update emoji', function (data) {
 		console.log('setting player emoji',data);
@@ -153,7 +195,9 @@ io.on('connection', function (socket) {
 });
 
 /** Private Funtions **/
+
 function storeUser(clientIp, userObject){
+	console.log(clientIp, userObject);
 	onLiveData.users[clientIp] = {
 		auth:{
 			id: userObject.user.id,
@@ -162,26 +206,48 @@ function storeUser(clientIp, userObject){
 		info:{
 			name: userObject.user.name,
 			icon: userObject.user.image_192,
-			character:{
-				class:'wizard',
-				orcpub: 'https://www.google.com'
-			}	
+			character:getPlayerCharacter(userObject.user.name)	
 		}
 	}
 }
 
-function getPlayerInfo(playerName){
+function getPlayerCharacter(playerName){
+	console.log(playerName);
 	switch(playerName){
+		case 'Sprogg (Noel)':
+			return {
+				
+					name: 'Garrik Se\'Yamo ',
+					portrait: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png',
+					mini: './images/sprites/garrikphase1.png',
+					css: 'garrik',
+					class:'Cleric: Knowledge Domain',
+					orcpub: 'https://orcpub2.com/pages/dnd/5e/characters/17592249352779',
+					spells:'http://www.5esrd.com/spellcasting/spell-lists/#clericlist'
+				
+			}; 	
+		case 'Maura':
+			return {
+					name: 'Velora Vessar',
+					portrait: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png',
+					mini: './images/sprites/veloraphase1.png',
+					css: 'velora',
+					class:'Ranger: Beastmaster',
+					orcpub: 'https://orcpub2.com/pages/dnd/5e/characters/17592249352779',
+					spells:'http://www.5esrd.com/spellcasting/spell-lists/#rangerlist'
+				
+			}; 	
+		case 'Joey':
 		default:
 			return {
-				name: 'Thoms Black',
-				icon: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png',
-				mini: 'Thomas.png',
-				character: {
+					name: 'Thomas Black',
+					portrait: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png',
+					mini: './images/sprites/thomasphase1.png',
+					css: 'thomas',
 					class:'Bard: College of Swords',
 					orcpub: 'https://www.orcpub2.com/pages/dnd/5e/characters/17592250241064',
 					spells:'http://www.5esrd.com/spellcasting/spell-lists/#bardlist'
-				}
-			} 		
+				
+			}; 		
 	}
 }

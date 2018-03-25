@@ -46,6 +46,7 @@
 				}
 
 				function playEmoji(cssSelect, emoji){
+					console.log('find this',cssSelect);
 					var temp = byCSS(cssSelect);
 					temp.classList.remove('play');
 					void temp.offsetWidth;
