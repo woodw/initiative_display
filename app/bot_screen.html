@@ -86,6 +86,21 @@
 						playEmoji('.pc.'+data.character+' .emoji',data.emoji);
 					});
 
+					socket.on('show peanut emoji', function (data) {
+						console.log('show peanut emoji',data);						
+						var temp = document.createElement('div');
+						temp.className = 'peanut emoji';
+						temp.innerText = data.emoji;
+						temp.style.top = Math.round(Math.random()*50)+'vh';
+						document.querySelector('body').appendChild(temp);
+						console.log(temp,temp.innerText);
+
+						setTimeout(function(){    
+							document.querySelector('body').removeChild(temp);
+						}, 2000);
+
+					});
+
 					socket.on('create actor', function(data){
 						console.log(data);
 						var newActor, em, mi;

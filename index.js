@@ -168,14 +168,15 @@ io.on('connection', function (socket) {
 		console.log('hide sketches',data);
 		io.emit('hide sketch', data);
 	});
-	
-	//socket.on('get character', (ip, fn) => {
-	//	fn(onLiveData.users[ip].info);
-	//});
 
 	socket.on('update emoji', function (data) {
 		console.log('setting player emoji',data);
 		io.emit('set emoji', data);
+	});
+
+	socket.on('display peanut emoji', function (data) {
+		console.log('setting peanut emoji',data);
+		io.emit('show peanut emoji', data);
 	});
 
 	socket.on('add actor', (data, callbkfn) => {
