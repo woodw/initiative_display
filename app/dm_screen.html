@@ -100,9 +100,6 @@
 				}
 
 				function registerListeners(){
-					addEventListenerList(elements.tabs, 'click', function(event){
-						elements.container.setAttribute('selected',event.target.innerText);
-					});
 
 					elements.backDropList.addEventListener('change', function(event, no){
 						elements.backDropPreview.style.backgroundImage = 'url('+elements.backDropList.value+')';
@@ -241,31 +238,22 @@
 			});	
 		</script>
 		<style>
-			*{
+			/**{
 				margin:0;
 				padding:0;
 			}
 			#container{
 				display:grid;
 				grid-template-columns:10% 1fr 10%;
-				grid-template-rows:5% 5% 1fr 5%;
+				grid-template-rows:5% 1fr;
 
 				width:100vw;
-				height:100vh;
 
 				background-color:bisque;
 			}
-			#tabs{
-				grid-column:2;
-				grid-row:2;
-
-				display:flex;
-				justify-content:space-around;
-				align-items: center;
-			}
 			#backdrops,#sketches,#actors{
 				grid-column:2;
-				grid-row:3;
+				grid-row:2;
 
 				grid-template-columns:1fr;
 				grid-template-rows:1fr repeat(2,10%);
@@ -308,23 +296,68 @@
 			}
 			#actor_list{
 				overflow:scroll;
+			}*/
+			*{
+				margin:0;
+				padding:0;
+				color:white;
+				font-family: Arial, Helvetica, sans-serif;
+			}
+			body{
+				background-color:rgba(27, 44, 49, 0.925);
+			}
+			div#container{
+				margin-left:10vw;
+				margin-right:10vw;
+				width:80vw;
+			}
+			section{
+				margin-top:5vh;
+				margin-bottom:5vh;
+				border:1px solid rgba(0,0,0,.5);
+				box-shadow:0 0 10px 2px rgba(0,0,0,.5);
+				padding:1vh 1vw;
+				background-color:rgba(42, 68, 77, 0.925);
+			}
+			#back-drop_preview, #sketch_preview{
+				width:70vw;
+				height:40vh;
+			}
+			.image{
+				margin:2vh 2vw;
+				background-position:center;
+				background-size:contain;
+				background-repeat:no-repeat;
+			}
+			#actors div > input:nth-child(2){
+				width:3rem;
+			}
+
+			#actors div > input:nth-child(4){
+				width:3rem;
+			}
+
+			#actors div > input:nth-child(5){
+				width:3rem;
+			}
+			button,select,input{
+				padding:1vh 1vw;
+			}
+			button,select{
+				background-color:rgba(64, 105, 119, 0.925);
 			}
 		</style>
 	</head>
 	<body>
 		<div id="container">
-			<div id="tabs">
-				<div id="back-drop_tab" class="tab">Backdrops</div>
-				<div id="sketch_tab" class="tab">Sketches</div>
-				<div id="actor_tab" class="tab">Actors</div>
-			</div>
+			<h1>DM Screen</h1>
 			<section id="sketches">
 				<div id="sketch_preview" class="image" style="background-image:linear-gradient(white, grey);"></div>
 				<select id="sketch_list"></select>
-				<div>
-					<button id="sketch_button--show">Show Sketch</button>
-					<button id="sketch_button--hide">Hide Sketch</button>
-				</div>
+				
+				<button id="sketch_button--show">Show Sketch</button>
+				<button id="sketch_button--hide">Hide Sketch</button>
+				
 			</section>
 			<section id="backdrops">
 				<div id="back-drop_preview" class="image" style="background-image:linear-gradient(white, grey);"></div>
@@ -332,14 +365,17 @@
 				<button id="back-drop_button">Update Backdrop</button>
 			</section>
 			<section id="actors">
-				<div id="actor_list"></div>
+				<p>!  $  ?  0  1  2  3  4  5  6  7  8  9  ✔  ✖  ⌕  ⏸  ▷  ☼  ☾  ★  ♥  ♫  ⚒  ⚔  ➳  ⛏  ☀  ☠  ⚓  ⛵  ⛺  ✨  ⏳  💀  😃  😇  😈  😉  😍  😎  😏  😐  😠  😢   😮 😱 😲 😴 😵 ⚰ 🌲 🌿 🍗 🍴 🍺 🍻 🎣 🎨 🎪 🎸 🐃 🐎 🐾 👂 👆 👇 👈 👉 👊 👋 👌 👍 👎 👏 👑 👣 👤 👥 💎 💕 💔 💘 💢 💣 💤 💩 💪 💰 🔑 🔒 🔓 🔥 🔧 🔨 🔮 🔪 ⌕</p>
+					
 				<div id="actor--add">
 					<input type="text" placeholder="css classes"/>
 					<input type="number" placeholder="10"/>
 					<input type="text" placeholder="brief description"/>
 					<button >➕</button>
 				</div>
-				<p>!  $  ?  0  1  2  3  4  5  6  7  8  9  ✔  ✖  ⌕  ⏸  ▷  ☼  ☾  ★  ♥  ♫  ⚒  ⚔  ➳  ⛏  ☀  ☠  ⚓  ⛵  ⛺  ✨  ⏳  💀  😃  😇  😈  😉  😍  😎  😏  😐  😠  😢   😮 😱 😲 😴 😵 ⚰ 🌲 🌿 🍗 🍴 🍺 🍻 🎣 🎨 🎪 🎸 🐃 🐎 🐾 👂 👆 👇 👈 👉 👊 👋 👌 👍 👎 👏 👑 👣 👤 👥 💎 💕 💔 💘 💢 💣 💤 💩 💪 💰 🔑 🔒 🔓 🔥 🔧 🔨 🔮 🔪 ⌕</p>
+				<div id="actor_list"></div>
+		
+				
 			</section>
 		</div>
 	</body>
