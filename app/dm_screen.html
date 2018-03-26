@@ -7,7 +7,7 @@
 			let app = {};
 
 			document.addEventListener('DOMContentLoaded', function() {
-				let socket,backdrops,sketches,elements, actors, uniqueID;
+				let socket,backdrops,sketches,elements, actors, uniqueID, initiativePointer;
 
 				app.init = init;
 				
@@ -19,6 +19,7 @@
 					initSocket();
 					actors=[];
 					uniqueID = 0;
+					initiativePointer = 0;
 				}
 
 				function initSocket(){
@@ -85,7 +86,11 @@
 						sketchPreview: byCSS('#sketch_preview'),
 						actorList: byCSS('#actor_list'),
 						actorAdd: byCSS('#actor--add'),
-						actorAddSubmit: byCSS('#actor--add button')
+						actorAddSubmit: byCSS('#actor--add button'),
+						initiativesClearBtn: byCSS('#initiative--clear'),
+						initiativesFillBtn: byCSS('#initiative--fill'),
+						initiativeCurrentBtn: byCSS('#initiative--current'),
+						initiativeNextBtn: byCSS('#initiative--next'),
 					};
 				}
 
@@ -135,14 +140,62 @@
 							actors.push(newActor);
 						}
 					});
+
+					elements.initiativesClearBtn.addEventListener('click',function(event){
+						while (elements.actorList.firstChild) {
+							elements.actorList.removeChild(elements.actorList.firstChild);
+						}
+						actors.forEach(function(actor){
+							actor.initiative = 0;
+							actor.elements.initiative.value = actor.initiative;
+						});
+						actors.sort(function(a,b){
+							return a.id - b.id;
+						});
+						actors.forEach(function(actor){
+							elements.actorList.appendChild(actor.elements.container);
+						});
+						initiativePointer = 0;
+					});
+
+					elements.initiativesFillBtn.addEventListener('click',function(event){
+						while (elements.actorList.firstChild) {
+							elements.actorList.removeChild(elements.actorList.firstChild);
+						}
+						actors.forEach(function(actor){
+							actor.initiative = actor.initiative||Math.ceil(Math.random()*20);
+							actor.elements.initiative.value = actor.initiative;
+						});
+						actors.sort(function(a,b){
+							return a.initiative - b.initiative;
+						});
+						actors.forEach(function(actor){
+							elements.actorList.appendChild(actor.elements.container);
+						});
+					});
+
+					elements.initiativeCurrentBtn.addEventListener('click',function(event){
+						actors[initiativePointer].elements.point.click();
+					});
+
+					elements.initiativeNextBtn.addEventListener('click',function(event){
+						if(initiativePointer++ < actors.length-1){
+							actors[initiativePointer].elements.point.click();
+						}
+						else{
+							initiativePointer = 0;
+							actors[0].elements.point.click();
+						}						
+					});
 				}
 
 				/*Actor Object Class*/
 				function Actor(actorAddElements){
-					this.elements = buildNewActor(actorAddElements);
+					this.elements = buildNewActor.call(this,actorAddElements);
 					this.id = null;
+					this.initiative = null;
 					
-					registerEventListeners.call(this);
+					registerActorEventListeners.call(this);
 					console.log('sending add actor');
 					//send out emit for stage to pick up	
 					socket.emit('add actor', toJSON.call(this), (data) => {
@@ -158,7 +211,7 @@
 						};
 					};
 
-					function registerEventListeners(){
+					function registerActorEventListeners(){
 
 						this.elements.update.addEventListener('click', function(event){
 							console.log('sending update actor');
@@ -171,132 +224,78 @@
 							this.elements.container.parentNode.removeChild(this.elements.container);
 							this.alive = true;
 						}.bind(this));  
+
+						this.elements.point.addEventListener('click', function(event){
+							this.elements.emoji.innerText = '👇';
+							socket.emit('update actor', toJSON.call(this));
+						}.bind(this));
+
+						this.elements.initiative.addEventListener('change', function(event){
+							this.initiative = this.elements.initiative.value;
+						}.bind(this));
 					}
 					
 					function buildNewActor(actorAddElements){
-						var container,classes,hitpoints,description,initiative,emoji,update,remove;
+						var elements={};
 
-						container = document.createElement('div');
-						container.className = 'actor--update';
+						elements.container = document.createElement('div');
+						elements.container.className = 'actor--update';
 
-						classes = document.createElement('input');
-						classes.setAttribute("type", "text");
-						classes.setAttribute("placeholder", "css classes");
-						classes.value = actorAddElements.classes.value;
+						elements.classes = document.createElement('input');
+						elements.classes.setAttribute("type", "text");
+						elements.classes.setAttribute("placeholder", "css classes");
+						elements.classes.value = actorAddElements.classes.value;
 
-						container.appendChild(classes);
+						elements.container.appendChild(elements.classes);
 						
-						hitpoints = document.createElement('input');
-						hitpoints.setAttribute("type", "number");
-						hitpoints.setAttribute("placeholder", "10");
-						hitpoints.value = actorAddElements.hitpoints.value;
+						elements.hitpoints = document.createElement('input');
+						elements.hitpoints.setAttribute("type", "number");
+						elements.hitpoints.setAttribute("placeholder", "10");
+						elements.hitpoints.value = actorAddElements.hitpoints.value;
 						
-						container.appendChild(hitpoints);  
+						elements.container.appendChild(elements.hitpoints);  
 						
-						description = document.createElement('input');
-						description.setAttribute("type", "text");
-						description.setAttribute("placeholder", "brief description");
-						description.value = actorAddElements.description.value;
+						elements.description = document.createElement('input');
+						elements.description.setAttribute("type", "text");
+						elements.description.setAttribute("placeholder", "brief description");
+						elements.description.value = actorAddElements.description.value;
 						
-						container.appendChild(description);
+						elements.container.appendChild(elements.description);
 						
-						initiative = document.createElement('input');
-						initiative.setAttribute("type", "number");
-						initiative.setAttribute("placeholder", "1");
+						elements.initiative = document.createElement('input');
+						elements.initiative.setAttribute("type", "number");
+						elements.initiative.setAttribute("placeholder", "1");
 						
-						container.appendChild(initiative);
+						elements.container.appendChild(elements.initiative);
 						
-						emoji = document.createElement('input');
-						emoji.setAttribute("type", "text");
-						emoji.setAttribute("placeholder", "😀");
+						elements.emoji = document.createElement('input');
+						elements.emoji.setAttribute("type", "text");
+						elements.emoji.setAttribute("placeholder", "😀");
 						
-						container.appendChild(emoji);
+						elements.container.appendChild(elements.emoji);
 						
-						update = document.createElement('button');
-						update.innerText = '✔';
+						elements.update = document.createElement('button');
+						elements.update.innerText = '✔';
 						
-						container.appendChild(update);
+						elements.container.appendChild(elements.update);
 						
-						remove = document.createElement('button');
-						remove.innerText = '✖';
+						elements.remove = document.createElement('button');
+						elements.remove.innerText = '✖';
 						
-						container.appendChild(remove);
+						elements.container.appendChild(elements.remove);
 
-						return {
-							container:container,
-							classes:classes,
-							hitpoints:hitpoints,
-							description:description,
-							initiative:initiative,
-							emoji:emoji,
-							update:update,
-							remove:remove
-						};
+						elements.point = document.createElement('button');
+						elements.point.innerText = '👇';  
+						
+						elements.container.appendChild(elements.point);
+
+						return elements;
 					}
 				}
 
 			});	
 		</script>
 		<style>
-			/**{
-				margin:0;
-				padding:0;
-			}
-			#container{
-				display:grid;
-				grid-template-columns:10% 1fr 10%;
-				grid-template-rows:5% 1fr;
-
-				width:100vw;
-
-				background-color:bisque;
-			}
-			#backdrops,#sketches,#actors{
-				grid-column:2;
-				grid-row:2;
-
-				grid-template-columns:1fr;
-				grid-template-rows:1fr repeat(2,10%);
-				
-				background-color:gainsboro;
-
-				padding:3%;
-				display:none;
-			}
-			#back-drop_preview, #sketch_preview{
-				grid-column:1;
-				grid-row:1;
-			}
-			.image{
-				background-position:center;
-				background-size:contain;
-				background-repeat:no-repeat;
-			}
-
-			#container:not([selected]) section:last-child{
-				display:grid;
-			}
-			#container[selected="Actors"] #actors,#container[selected="Sketches"] #sketches,#container[selected="Backdrops"] #backdrops{
-				display:grid;
-			}
-
-			#actors div > input:nth-child(2){
-				width:3rem;
-			}
-
-			#actors div > input:nth-child(4){
-				width:3rem;
-			}
-
-			#actors div > input:nth-child(5){
-				width:3rem;
-			}
-			button,select,input{
-				padding:.3%;
-			}
-			#actor_list{
-				overflow:scroll;
-			}*/
 			*{
 				margin:0;
 				padding:0;
@@ -346,6 +345,9 @@
 			button,select{
 				background-color:rgba(64, 105, 119, 0.925);
 			}
+			input{
+				color:rgb(48, 41, 36);
+			}
 		</style>
 	</head>
 	<body>
@@ -371,7 +373,13 @@
 					<input type="text" placeholder="css classes"/>
 					<input type="number" placeholder="10"/>
 					<input type="text" placeholder="brief description"/>
-					<button >➕</button>
+					<button >+</button>
+				</div>
+				<div>
+					<button id="initiative--clear">empty initiatives</button>
+					<button id="initiative--fill">fill initiatives</button>
+					<button id="initiative--current">show current initiative</button>
+					<button id="initiative--next">set next initiative</button>
 				</div>
 				<div id="actor_list"></div>
 		
