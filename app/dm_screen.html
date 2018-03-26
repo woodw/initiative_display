@@ -79,18 +79,22 @@
 						backDropList: byCSS('#back-drop_list'),
 						backDropSubmit: byCSS('#back-drop_button'),
 						backDropPreview: byCSS('#back-drop_preview'),
+						backDropCustomUrl: byCSS('#back-drop_custom'),
+						backDropUseCustomUrl: byCSS('#back-drop_use_custom'),
 						sketchTab: byCSS('#sketch_tab'),
 						sketchList: byCSS('#sketch_list'),
 						sketchShow: byCSS('#sketch_button--show'),
 						sketchHide: byCSS('#sketch_button--hide'),
 						sketchPreview: byCSS('#sketch_preview'),
+						sketchCustomUrl: byCSS('#sketch_custom'),
+						sketchUseCustomUrl: byCSS('#sketch_use_custom'),
 						actorList: byCSS('#actor_list'),
 						actorAdd: byCSS('#actor--add'),
 						actorAddSubmit: byCSS('#actor--add button'),
 						initiativesClearBtn: byCSS('#initiative--clear'),
 						initiativesFillBtn: byCSS('#initiative--fill'),
 						initiativeCurrentBtn: byCSS('#initiative--current'),
-						initiativeNextBtn: byCSS('#initiative--next'),
+						initiativeNextBtn: byCSS('#initiative--next')
 					};
 				}
 
@@ -110,15 +114,25 @@
 						elements.backDropPreview.style.backgroundImage = 'url('+elements.backDropList.value+')';
 					});
 					elements.backDropSubmit.addEventListener('click', function(event){
-						socket.emit('update backdrop',{'url':elements.backDropList.value});
+						if(elements.backDropCustomUrl.value.length>7 && elements.backDropUseCustomUrl.checked){
+							socket.emit('update backdrop',{'url':elements.backDropCustomUrl.value});
+						}
+						else{
+							socket.emit('update backdrop',{'url':elements.backDropList.value});
+						}
 					});
 
 					elements.sketchList.addEventListener('change', function(event, no){
 						elements.sketchPreview.style.backgroundImage = 'url('+elements.sketchList.value+')';
 					});
 					elements.sketchShow.addEventListener('click', function(event){
-						console.log('show');
-						socket.emit('update sketch',{'url':elements.sketchList.value});
+
+						if(elements.sketchCustomUrl.value.length>7 && elements.sketchUseCustomUrl.checked){
+							socket.emit('update sketch',{'url':elements.sketchCustomUrl.value});
+						}
+						else{
+							socket.emit('update sketch',{'url':elements.sketchList.value});
+						}
 					});
 					elements.sketchHide.addEventListener('click', function(event){
 						console.log('hude');
@@ -391,15 +405,23 @@
 			<section id="sketches">
 				<div id="sketch_preview" class="image" style="background-image:linear-gradient(white, grey);"></div>
 				<select id="sketch_list"></select>
-				
 				<button id="sketch_button--show">Show Sketch</button>
 				<button id="sketch_button--hide">Hide Sketch</button>
+				<br />
+				<input type="url" id="sketch_custom" placeholder="custom url"/>
+				<input type="checkbox" id="sketch_use_custom">
+      			<label for="sketch_use_custom">Use Custom Url?</label>
+				
 				
 			</section>
 			<section id="backdrops">
 				<div id="back-drop_preview" class="image" style="background-image:linear-gradient(white, grey);"></div>
 				<select id="back-drop_list"></select>
 				<button id="back-drop_button">Update Backdrop</button>
+				<br />
+				<input type="url" id="back-drop_custom" placeholder="custom url"/>
+				<input type="checkbox" id="back-drop_use_custom">
+      			<label for="back-drop_use_custom">Use Custom Url?</label>
 			</section>
 			<section id="actors">
 				<p>!  $  ?  0  1  2  3  4  5  6  7  8  9  ✔  ✖  ⌕  ⏸  ▷  ☼  ☾  ★  ♥  ♫  ⚒  ⚔  ➳  ⛏  ☀  ☠  ⚓  ⛵  ⛺  ✨  ⏳  💀  😃  😇  😈  😉  😍  😎  😏  😐  😠  😢   😮 😱 😲 😴 😵 ⚰ 🌲 🌿 🍗 🍴 🍺 🍻 🎣 🎨 🎪 🎸 🐃 🐎 🐾 👂 👆 👇 👈 👉 👊 👋 👌 👍 👎 👏 👑 👣 👤 👥 💎 💕 💔 💘 💢 💣 💤 💩 💪 💰 🔑 🔒 🔓 🔥 🔧 🔨 🔮 🔪 ⌕</p>
