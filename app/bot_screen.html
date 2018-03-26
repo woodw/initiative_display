@@ -103,7 +103,7 @@
 
 					socket.on('create actor', function(data){
 						console.log(data);
-						var newActor, em, mi;
+						var newActor, em, mi, subClass;
 						newActor = document.createElement('div');
 						em = document.createElement('div');
 						em.className = 'emoji';
@@ -111,7 +111,7 @@
 						mi = document.createElement('div');
 						mi.className = 'mini';
 						newActor.appendChild(mi);
-						newActor.className = data.classes;
+						
 						newActor.setAttribute('dndid',data.id);
 						//newActor.innerHTML = '<div class="emoji"></div><div class="mini"></div>';
 						if(data.classes.indexOf('npc')!== -1){
@@ -120,7 +120,17 @@
 						else{
 							elements.characterLine.appendChild(newActor);						
 						}
-
+						
+						/*perform a walk on*/
+						if(data.classes.indexOf('onstage')!=-1){
+							subClass = data.classes.replace(' onstage','');
+							newActor.className = subClass;	
+							void newActor.offsetWidth;
+							newActor.className = data.classes;
+						}
+						else{
+							newActor.className = data.classes;
+						}
 					});
 
 					socket.on('set actor', function(data){
