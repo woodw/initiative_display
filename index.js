@@ -69,12 +69,12 @@ console.log(clientIp, req.query.auth);
 				storeUser(clientIp,fakeUser);
 				res.sendFile(__dirname+'/app/pc_screen.html');
 				break;
-			case onLiveData.directAuth[2]:
+			case onLiveData.directAuth[1]:
 				fakeUser.user.name = 'Joey';
 				storeUser(clientIp,fakeUser);
 				res.sendFile(__dirname+'/app/pc_screen.html');
 				break;
-			case onLiveData.directAuth[3]:
+			case onLiveData.directAuth[2]:
 				fakeUser.user.name = 'Sprogg (Noel)';
 				storeUser(clientIp,fakeUser);
 				res.sendFile(__dirname+'/app/pc_screen.html');
