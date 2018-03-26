@@ -228,10 +228,35 @@
 						this.elements.point.addEventListener('click', function(event){
 							this.elements.emoji.innerText = '👇';
 							socket.emit('update actor', toJSON.call(this));
+							this.elements.emoji.innerText = '';
 						}.bind(this));
 
 						this.elements.initiative.addEventListener('change', function(event){
 							this.initiative = this.elements.initiative.value;
+						}.bind(this));
+
+						this.elements.onstage.addEventListener('click', function(event){
+							if(this.elements.classes.value.indexOf('onstage')!=-1){
+								this.elements.classes.value = this.elements.classes.value.replace(' onstage','');
+								
+							}else{
+								this.elements.classes.value = this.elements.classes.value+' onstage';
+							
+							}
+							this.elements.emoji.innerText = '';
+							socket.emit('update actor', toJSON.call(this));
+						}.bind(this));
+
+						this.elements.turn.addEventListener('click', function(event){
+							if(this.elements.classes.value.indexOf('turn')!=-1){
+								this.elements.classes.value = this.elements.classes.value.replace(' turn','');
+								
+							}else{
+								this.elements.classes.value = this.elements.classes.value+' turn';
+							
+							}
+							this.elements.emoji.innerText = '';
+							socket.emit('update actor', toJSON.call(this));
 						}.bind(this));
 					}
 					
@@ -288,6 +313,16 @@
 						elements.point.innerText = '👇';  
 						
 						elements.container.appendChild(elements.point);
+
+						elements.onstage = document.createElement('button');
+						elements.onstage.innerText = 'toggle onstage';  
+						
+						elements.container.appendChild(elements.onstage);
+
+						elements.turn = document.createElement('button');
+						elements.turn.innerText = 'toggle turn';  
+						
+						elements.container.appendChild(elements.turn);
 
 						return elements;
 					}
