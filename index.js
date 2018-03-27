@@ -229,7 +229,7 @@ function getPlayerCharacter(playerName){
 		case 'Sprogg (Noel)':
 			return {
 				
-					name: 'Garrik Se\'Yamo ',
+					name: 'Garrik Greenwood',
 					portrait: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png',
 					mini: './images/sprites/garrikphase1.png',
 					css: 'garrik',

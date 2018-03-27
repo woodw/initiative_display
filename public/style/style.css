@@ -316,6 +316,31 @@
 	background-image:url('../images/sprites/blackWolf.png');
 }
 
+.thug .mini{
+	background-image:url('../images/monsters/thug.png');
+}
+
+.wolfb .mini{
+	background-image:url('../images/monsters/wolf.png');
+}
+
+.evilmage .mini{
+	background-image:url('../images/monsters/evilmage.png');
+}
+
+.gaurdb .mini{
+	background-image:url('../images/monsters/gaurd.png');
+}
+
+.ruffian .mini{
+	background-image:url('../images/monsters/ruffian.png');
+}
+.bandit .mini{
+	background-image:url('../images/monsters/bandit.png');
+}
+
+
+
 #sketch--container{
 	position:absolute;
 	left:0;
