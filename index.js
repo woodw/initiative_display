@@ -193,6 +193,17 @@ io.on('connection', function (socket) {
 		console.log('removing actor', data);
 		io.emit('delete actor', data);
 	});
+
+	socket.on('set deck', function (data) {
+		console.log('showing combat deck', data);
+		io.emit('set deck', data);
+	});
+
+	socket.on('toggle initiative display', function (data) {
+		console.log('showing combat deck', data);
+		io.emit('toggle initiative display', data);
+	});
+
 });
 
 /** Private Funtions **/

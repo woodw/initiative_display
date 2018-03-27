@@ -28,7 +28,12 @@
 						backDropBack: byCSS('.stage-backdrop.back'),
 						sketchContainer: byCSS('#sketch--container'),
 						sketch: byCSS('#sketch-cover'),
-						characterLine: byCSS('#stage-character_line')
+						characterLine: byCSS('#stage-character_line'),
+						initiativeOrder: byCSS('#initiative--order'),
+						initiativeOrderFirstName: byCSS('#initiative--order h3:first-child'),
+						initiativeOrderMiddleName: byCSS('#initiative--order h3:nth-child(2)'),
+						initiativeOrderLastName: byCSS('#initiative--order h3:last-child')
+						
 					}
 				}
 
@@ -40,9 +45,8 @@
 					elements.backDropFront.style.backgroundImage = elements.backDropBack.style.backgroundImage;
 					elements.backDropBack.style.backgroundImage = 'url('+newImage+')';
 					elements.backDropFront.classList.remove('hide');
-					window.setTimeout(function(){
-						elements.backDropFront.classList.add('hide');
-					},500);
+					void elements.backDropFront.offsetWidth;
+					elements.backDropFront.classList.add('hide');
 				}
 
 				function playEmoji(cssSelect, emoji){
@@ -146,6 +150,28 @@
 						actor.parentNode.removeChild(actor);
 					});
 
+					socket.on('toggle initiative display', function (data) {
+						console.log('showing combat deck', data);
+						
+						elements.initiativeOrder.classList.toggle('hide');
+					});
+
+					socket.on('set deck', function(data){
+						console.log(data);
+						elements.initiativeOrderFirstName.classList.toggle('hide');
+						elements.initiativeOrderMiddleName.classList.toggle('hide');
+						elements.initiativeOrderLastName.classList.toggle('hide');
+						setTimeout(function(){
+							elements.initiativeOrderFirstName.innerText = data[0].split(' ')[1];
+							elements.initiativeOrderMiddleName.innerText = data[1].split(' ')[1];
+							elements.initiativeOrderLastName.innerText = data[2].split(' ')[1];
+	
+							elements.initiativeOrderFirstName.classList.toggle('hide');
+							elements.initiativeOrderMiddleName.classList.toggle('hide');
+							elements.initiativeOrderLastName.classList.toggle('hide');
+						},2000);
+					});
+
 				}
 	
 			});	
@@ -168,6 +194,11 @@
 		</div>
 		<div id="sketch--container" class="hide">
 			<div id="sketch-cover" style="background-image:url('http://www.dan-site.com/Pathfinder_Witch_Spell_List/frank_frazetta_thesorcerer.jpg');"></div>
+		</div>
+		<div id="initiative--order" class="hide">
+			<h3 id="last"></h3>
+			<h3 id="current"></h3>
+			<h3 id="next"></h3>
 		</div>
 	</body>
 </html>

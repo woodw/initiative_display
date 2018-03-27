@@ -312,6 +312,9 @@
 .gaurd .mini{
 	background-image:url('../images/sprites/basicGaurd.png');
 }
+.wolf .mini{
+	background-image:url('../images/sprites/blackWolf.png');
+}
 
 #sketch--container{
 	position:absolute;
@@ -373,4 +376,44 @@
 	background-color:rgba(100,135,100,.6);
   }
 
+
+  div#initiative--order{
+	position:absolute;
+	left:35vw;
+	top:0vh;
+	width:30vw;
+	height:4vh;
+	background-color:rgba(78, 82, 58, 0.747);
+	border-left:2px solid rgba(79, 83, 59, 0.947);
+	border-right:2px solid rgba(79, 83, 59, 0.947);
+	border-bottom:2px solid rgba(79, 83, 59, 0.947);
+	box-shadow:1px 1px 5px 1px rgba(0,0,0,.5);
+
+	z-index:10;
+
+	display:flex;
+	justify-content:space-around;
+	align-items:flex-end;
+	text-align: center;
+	transition:top 2s;
+  }
+  div#initiative--order h3{
+	flex: 1 0 50%;
+	font-size:100%;
+	color:rgba(245,245,245,1);
+	transition:opacity 2s;
+	opacity: 1;
+  }
+  div#initiative--order h3.hide{
+	
+	opacity: 0;
+  }
+  div#initiative--order h3:first-child,div#initiative--order h3:last-child{
+	flex: 0 1 25%;
+	font-size:50%;
+	color:rgba(245,245,245,.7);
+  }
+  div#initiative--order.hide{
+	  top:-10vh;
+  }
 /* BOT SCREEN END*/

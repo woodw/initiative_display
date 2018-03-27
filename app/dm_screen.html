@@ -93,7 +93,7 @@
 						actorAddSubmit: byCSS('#actor--add button'),
 						initiativesClearBtn: byCSS('#initiative--clear'),
 						initiativesFillBtn: byCSS('#initiative--fill'),
-						initiativeCurrentBtn: byCSS('#initiative--current'),
+						initiativeToggleBtn: byCSS('#initiative--toggle'),
 						initiativeNextBtn: byCSS('#initiative--next')
 					};
 				}
@@ -173,6 +173,7 @@
 					});
 
 					elements.initiativesFillBtn.addEventListener('click',function(event){
+						console.log('we are in the fill', actors);
 						while (elements.actorList.firstChild) {
 							elements.actorList.removeChild(elements.actorList.firstChild);
 						}
@@ -186,20 +187,45 @@
 						actors.forEach(function(actor){
 							elements.actorList.appendChild(actor.elements.container);
 						});
+
+						if(actors.length>=3){
+console.log('im going to emit');
+
+							socket.emit('set deck',[
+								actors[
+									((initiativePointer-1)<0)?(actors.length-1):(initiativePointer-1)
+								].elements.classes.value,
+								actors[initiativePointer].elements.classes.value,
+								actors[
+									((initiativePointer+1)>(actors.length-1))?(0):(initiativePointer+1)
+								].elements.classes.value]
+							);
+						}
 					});
 
-					elements.initiativeCurrentBtn.addEventListener('click',function(event){
-						actors[initiativePointer].elements.point.click();
+					elements.initiativeToggleBtn.addEventListener('click',function(event){
+						socket.emit('toggle initiative display');
 					});
 
 					elements.initiativeNextBtn.addEventListener('click',function(event){
-						if(initiativePointer++ < actors.length-1){
-							actors[initiativePointer].elements.point.click();
+						console.log(actors.length);
+						if(actors.length>=3){
+							initiativePointer++;
+							if(initiativePointer>(actors.length-1)){
+								initiativePointer = 0;
+							}
+
+							socket.emit('set deck',[
+								actors[
+									((initiativePointer-1)<0)?(actors.length-1):(initiativePointer-1)
+								].elements.classes.value,
+								actors[initiativePointer].elements.classes.value,
+								actors[
+									((initiativePointer+1)>(actors.length-1))?(0):(initiativePointer+1)
+								].elements.classes.value]
+							);
+							
 						}
-						else{
-							initiativePointer = 0;
-							actors[0].elements.point.click();
-						}						
 					});
 				}
 
@@ -435,7 +461,7 @@
 				<div>
 					<button id="initiative--clear">empty initiatives</button>
 					<button id="initiative--fill">fill initiatives</button>
-					<button id="initiative--current">show current initiative</button>
+					<button id="initiative--toggle">show/hide initiative</button>
 					<button id="initiative--next">set next initiative</button>
 				</div>
 				<div id="actor_list"></div>
