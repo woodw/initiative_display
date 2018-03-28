@@ -87,23 +87,21 @@
 			});	
 		</script>
 		<style>
-			*{
-	
-			}
 			body{
 				margin:5%;
 				font-family: fantasy;
 				color:maroon;
 				background:url(.http://dnd.wizards.com/sites/all/themes/dx/img/interface/page-background.jpg) 0 0 repeat #f9f7ec;
+				font-size:1rem;
 			}
 			h1,h2{
 				font-family: 'Great Vibes', cursive;
 				font-variant-caps: titling-caps;
-				letter-spacing: .2rem;
+				letter-spacing: .2em;
 			}
 			h1{
 				text-align: center;
-				font-size:4rem;
+				font-size:4em;
 				color:rgba(10,0,0,1);
 				padding: 0;
 				margin-bottom: 0;
@@ -113,14 +111,12 @@
 				margin-top: 0;
 				text-align: center;
 				font-size:small;
-				color:rgba(10,0,0,.7)
+				color:rgba(10,0,0,.7);
+				box-shadow: 0 20px 10px -10px rgba(0,0,0,.25);
 			}
 			a,h3{
-				letter-spacing: .2rem;
+				letter-spacing: .2em;
 				font-variant: small-caps;
-			}
-			h2{
-				box-shadow: 0 20px 10px -10px rgba(0,0,0,.25);
 			}
 			h3::before{
 				content:'\003C';
@@ -132,34 +128,41 @@
 				min-height:100vh;
 			}
 			#emojis{
-				border:.3rem solid rgba(0,30,0,.4);
-				border-radius:.5rem;
+				border:.3em solid rgba(0,30,0,.4);
+				border-radius:.5em;
 				background-image:radial-gradient(rgba(0,20,0,.1),rgba(0,20,0,.3));
-				padding:.5rem;
-				margin:4%;
+				padding:.5em;
+				
 			}
 			#emojis button{
-				font-size:2rem;
-				padding:.4rem;
-				margin:.4rem;
+				font-size:2em;
+				padding:.4em;
+				margin:.4em;
 				box-shadow: 1px 1px 1px 1px rgba(0,0,0,.3);
-				border-radius:.5rem;
+				border-radius:.5em;
 				color:rgba(110,100,100,1);
-				width:4rem;
-				height:4rem;
+				width:4em;
+				height:4em;
+			}
+			section#links{
+				display:flex;
+				justify-content: space-around;
+				align-items: baseline;
+				align-content: center;
+				flex-wrap: wrap;
 			}
 			a{
-				padding:1.4rem;
+				flex: 1 1 auto;
 				text-decoration-style:double;
 				color:maroon;
 				white-space: nowrap;
-				
+				font-size:1em;
 			}
 			a::after, a::before{
 				display: inline-block;
 				content: "";
-				width: 2rem;
-				height: 1rem;
+				width: 2em;
+				height: 1em;
 				background-image: url(http://www.clker.com/cliparts/c/6/C/1/4/w/red-border-md.png);
 				background-size: contain;
 				background-repeat:no-repeat;
@@ -189,7 +192,17 @@
 				max-height:40vw;
 				max-width:70vh;
 				opacity:.1;
+				z-index:-1;
 			}
+			@media only screen and (max-width: 600px) {
+    			body {
+        			font-size:2rem;
+				}
+				a{
+					font-size:2em;
+					margin:1em;
+				}
+			}	
 		</style>
 	</head>
 	<body>
