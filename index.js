@@ -65,17 +65,17 @@ console.log(clientIp, req.query.auth);
 		switch(req.query.auth){
 			case onLiveData.directAuth[0]:
 			console.log('muara');
-				fakeUser.user.name = 'Maura';
+				fakeUser.user.name = 'Morwen Katahl (Maura)';
 				storeUser(clientIp,fakeUser);
 				res.sendFile(__dirname+'/app/pc_screen.html');
 				break;
 			case onLiveData.directAuth[1]:
-				fakeUser.user.name = 'Joey';
+				fakeUser.user.name = 'Prof. Thomas Black';
 				storeUser(clientIp,fakeUser);
 				res.sendFile(__dirname+'/app/pc_screen.html');
 				break;
 			case onLiveData.directAuth[2]:
-				fakeUser.user.name = 'Sprogg (Noel)';
+				fakeUser.user.name = 'Garrik (Noel)';
 				storeUser(clientIp,fakeUser);
 				res.sendFile(__dirname+'/app/pc_screen.html');
 				break;
@@ -226,7 +226,7 @@ function storeUser(clientIp, userObject){
 function getPlayerCharacter(playerName){
 	console.log(playerName);
 	switch(playerName){
-		case 'Sprogg (Noel)':
+		case 'Garrik (Noel)':
 			return {
 				
 					name: 'Garrik Greenwood',
@@ -238,26 +238,26 @@ function getPlayerCharacter(playerName){
 					spells:'http://www.5esrd.com/spellcasting/spell-lists/#clericlist'
 				
 			}; 	
-		case 'Maura':
+		case 'Morwen Katahl (Maura)':
 			return {
-					name: 'Velora Vessar',
+					name: 'Morwen Katahl',
 					portrait: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png',
 					mini: './images/sprites/veloraphase1.png',
-					css: 'velora',
+					css: 'morwen',
 					class:'Ranger: Beastmaster',
-					orcpub: 'https://orcpub2.com/pages/dnd/5e/characters/17592249352779',
+					orcpub: 'https://www.orcpub2.com/pages/dnd/5e/characters/17592251219558',
 					spells:'http://www.5esrd.com/spellcasting/spell-lists/#rangerlist'
 				
 			}; 	
-		case 'Joey':
+		case 'Prof. Thomas Black':
 		default:
 			return {
-					name: 'Thomas Black',
+					name: 'Professor Thomas Black',
 					portrait: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png',
 					mini: './images/sprites/thomasphase1.png',
 					css: 'thomas',
 					class:'Bard: College of Swords',
-					orcpub: 'https://www.orcpub2.com/pages/dnd/5e/characters/17592250241064',
+					orcpub: 'https://www.orcpub2.com/pages/dnd/5e/characters/17592251200349',
 					spells:'http://www.5esrd.com/spellcasting/spell-lists/#bardlist'
 				
 			}; 		

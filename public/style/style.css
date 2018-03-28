@@ -227,17 +227,6 @@
 }
 
 /*npc positions*/
-/*
-1 62 7 38
-2 65 3 39
-3 68 10 37
-4 71 7 38
-5 74 3 39
-6 77 13 36
-7 80 10 37
-8 83 7 38
-9 86 3 39
-*/
 .npc.onstage{
 	left:62%;
 	bottom:4%;
@@ -303,7 +292,7 @@
 .garrik .mini{
 	background-image:url('../images/sprites/garrikphase1.png');
 }
-.velora .mini{
+.morwen .mini{
 	background-image:url('../images/sprites/veloraphase1.png');
 }
 .baddie .mini{
@@ -435,24 +424,3 @@
 	  top:-10vh;
   }
 /* BOT SCREEN END*/
-
-/*
-1 27 7
-2
-3
-4
-5
-6
-7
-8
-*//*
-1 62 7 38
-2 65 3 37
-3 68 10 39
-4 71 7 38
-5 74 3 37
-6 77 13 40
-7 80 10 39
-8 83 7 38
-9 86 3 37
-*/
