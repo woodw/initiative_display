@@ -182,7 +182,7 @@
 							actor.elements.initiative.value = actor.initiative;
 						});
 						actors.sort(function(a,b){
-							return a.initiative - b.initiative;
+							return b.initiative - a.initiative;
 						});
 						actors.forEach(function(actor){
 							elements.actorList.appendChild(actor.elements.container);
@@ -266,9 +266,9 @@ console.log('im going to emit');
 						}.bind(this));  
 
 						this.elements.point.addEventListener('click', function(event){
-							this.elements.emoji.innerText = '👇';
+							this.elements.emoji.value = '👇';
 							socket.emit('update actor', toJSON.call(this));
-							this.elements.emoji.innerText = '';
+							this.elements.emoji.value = '';
 						}.bind(this));
 
 						this.elements.initiative.addEventListener('change', function(event){
