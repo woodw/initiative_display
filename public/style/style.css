@@ -227,74 +227,75 @@
 }
 
 /*npc positions*/
+/*
+1 62 7 38
+2 65 3 39
+3 68 10 37
+4 71 7 38
+5 74 3 39
+6 77 13 36
+7 80 10 37
+8 83 7 38
+9 86 3 39
+*/
 .npc.onstage{
-	transform: scaleX(1);
-	left:75vw;
-	bottom:5vh;
+	left:62%;
+	bottom:4%;
+	z-index:38;
 }
 .npc.onstage ~ .npc.onstage{
-	transform: scaleX(1);
-	left:80vw;
-	bottom:7vh;
+	left:65%;
+	bottom:0%;
+	z-index:39;
 }
 .npc.onstage ~ .npc.onstage ~ .npc.onstage{
-	transform: scaleX(1);
-	left:85vw;
-	bottom:5vh;
+	left:68%;
+	bottom:8%;
+	z-index:37;
 }
 .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage{
-	transform: scaleX(1);
-	left:80vw;
-	bottom:3vh;
+	left:71%;
+	bottom:4%;
+	z-index:38;
 }
 .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage{
-	transform: scaleX(1);
-	left:71vw;
-	bottom:7vh;
+	left:74%;
+	bottom:0%;
+	z-index:39;
 }
 .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage{
-	transform: scaleX(1);
-	left:70vw;
-	bottom:3vh;
+	left:77%;
+	bottom:12%;
+	z-index:36;
 }
 .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage{
-	transform: scaleX(1);
-	left:65vw;
-	bottom:5vh;
+	left:80%;
+	bottom:8%;
+	z-index:37;
 }
 .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage{
-	transform: scaleX(1);
-	left:62vw;
-	bottom:1vh;
+	left:83%;
+	bottom:4%;
+	z-index:38;
 }
 .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage{
-	transform: scaleX(1);
-	left:75vw;
-	bottom:0vh;
-}
-.npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage ~ .npc.onstage{
-	transform: scaleX(1);
-	left:87vw;
-	bottom:0vh;
+	left:86%;
+	bottom:0%;
+	z-index:39;
 }
 
+/*Minis*/
 .nell .mini{
   background-image:url('../images/sprites/nell.png');
-	transform: scaleX(-1);
 }
-
 .ack .mini{
   background-image:url('../images/sprites/ack.png');
-  transform: scaleX(-1);
 }
-
 .thaliss .mini{
   background-image:url('../images/sprites/thaliss.png');
-  transform: scaleX(-1);
 }
 .thalin .mini{
 	background-image:url('../images/sprites/thalin.png');
-	transform: scale(.7, .7);
 }
 .thomas .mini{
 	background-image:url('../images/sprites/thomasphase1.png');
@@ -305,9 +306,8 @@
 .velora .mini{
 	background-image:url('../images/sprites/veloraphase1.png');
 }
-.baddie.mini{
+.baddie .mini{
 	background-image:url('../images/sprites/baddie.png');
-	transform: scaleX(-1) scale(.8, .8);
 }
 .gaurd .mini{
 	background-image:url('../images/sprites/basicGaurd.png');
@@ -315,31 +315,24 @@
 .wolf .mini{
 	background-image:url('../images/sprites/blackWolf.png');
 }
-
 .thug .mini{
 	background-image:url('../images/monsters/thug.png');
 }
-
 .wolfb .mini{
 	background-image:url('../images/monsters/wolf.png');
 }
-
 .evilmage .mini{
 	background-image:url('../images/monsters/evilmage.png');
 }
-
 .gaurdb .mini{
 	background-image:url('../images/monsters/gaurd.png');
 }
-
 .ruffian .mini{
 	background-image:url('../images/monsters/ruffian.png');
 }
 .bandit .mini{
 	background-image:url('../images/monsters/bandit.png');
 }
-
-
 
 #sketch--container{
 	position:absolute;
@@ -442,3 +435,24 @@
 	  top:-10vh;
   }
 /* BOT SCREEN END*/
+
+/*
+1 27 7
+2
+3
+4
+5
+6
+7
+8
+*//*
+1 62 7 38
+2 65 3 37
+3 68 10 39
+4 71 7 38
+5 74 3 37
+6 77 13 40
+7 80 10 39
+8 83 7 38
+9 86 3 37
+*/
