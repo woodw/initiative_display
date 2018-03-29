@@ -295,9 +295,13 @@
 .morwen .mini{
 	background-image:url('../images/sprites/veloraphase1.png');
 }
+.ghilanna .mini{
+	background-image:url('../images/sprites/ghilanna.png');
+}
 .baddie .mini{
 	background-image:url('../images/sprites/baddie.png');
 }
+
 .gaurd .mini{
 	background-image:url('../images/sprites/basicGaurd.png');
 }
