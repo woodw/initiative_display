@@ -360,6 +360,11 @@
 .bandit .mini{
 	background-image:url('../images/monsters/bandit.png');
 }
+.lymia .mini{
+	background-image:url('../images/monsters/lymia.png');
+	transform:scaleX(-1) scale(2.5,2.5);
+	margin-bottom:70%;
+}
 
 #sketch--container{
 	position:absolute;
