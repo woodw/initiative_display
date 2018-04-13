@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<title>Dnd Visual Aid</title>
-		<link href="/style/style.css" rel="stylesheet" type="text/css" />
+		<link href="/style/bot_style.css" rel="stylesheet" type="text/css" />
+		<link href="/style/minis_style.css" rel="stylesheet" type="text/css" />
 	
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
@@ -178,7 +179,18 @@
 		</script>
 	</head>
 	<body>
-		<div id="stage-background">
+		<div class="backdrop back"></div>
+		<div class="backdrop front"></div>
+		<div class="stage"></div>
+		<div class="characters"></div>
+		<div class="sketch--container">
+			<div class="sketch"></div>
+		</div>
+		<!-- hidden elements -->
+		<audio loop>
+			<source src="https://sounds.tabletopaudio.com/131_The_Bog_Standard.mp3" type="audio/mpeg">
+		</audio>
+		<!--<div id="stage-background">
 			<div id="stage-wall">
 				<div class="stage-backdrop back" style="background-image:url(https://wallup.net/wp-content/uploads/2016/01/54416-Dungeons_and_Dragons-humor-d20-748x421.png);"></div>
 				<div class="stage-backdrop front hide" style="background-image:url(https://wallup.net/wp-content/uploads/2016/01/54416-Dungeons_and_Dragons-humor-d20-748x421.png);"></div>
@@ -199,6 +211,6 @@
 			<h3 id="last"></h3>
 			<h3 id="current"></h3>
 			<h3 id="next"></h3>
-		</div>
+		</div>-->
 	</body>
 </html>
