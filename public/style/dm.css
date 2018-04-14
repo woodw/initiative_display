@@ -1,0 +1,52 @@
+*{
+	margin:0;
+	padding:0;
+	color:white;
+	font-family: Arial, Helvetica, sans-serif;
+}
+body{
+	background-color:rgba(27, 44, 49, 0.925);
+}
+div#container{
+	margin-left:10vw;
+	margin-right:10vw;
+	width:80vw;
+}
+section{
+	margin-top:5vh;
+	margin-bottom:5vh;
+	border:1px solid rgba(0,0,0,.5);
+	box-shadow:0 0 10px 2px rgba(0,0,0,.5);
+	padding:1vh 1vw;
+	background-color:rgba(42, 68, 77, 0.925);
+}
+#back-drop_preview, #sketch_preview{
+	width:70vw;
+	height:40vh;
+}
+.image{
+	margin:2vh 2vw;
+	background-position:center;
+	background-size:contain;
+	background-repeat:no-repeat;
+}
+#actors div > input:nth-child(2){
+	width:3rem;
+}
+
+#actors div > input:nth-child(4){
+	width:3rem;
+}
+
+#actors div > input:nth-child(5){
+	width:3rem;
+}
+button,select,input{
+	padding:1vh 1vw;
+}
+button,select{
+	background-color:rgba(64, 105, 119, 0.925);
+}
+input{
+	color:rgb(48, 41, 36);
+}
