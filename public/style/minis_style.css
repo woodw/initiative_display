@@ -1,116 +1,86 @@
-.mini{
-
-	display:inline-block;
-	background-size:contain;
-  background-repeat:no-repeat;
-	background-position:bottom;
-
-	width:15vw;
-	height:40vh;
-	max-height:20vw;
-	max-width:35vh;
-}
-
-.pc,.npc{
-	position:absolute;
-	transition: transform 1s, left 6s, bottom 6s;
-}
-.npc .mini{
-	transform:scaleX(-1);
-}
-.pc:not(.onstage){
-	z-index: 20;
-	left:-20vw;
-	bottom:-35vh;
-}
-.npc:not(.onstage){
-	z-index: 20;
-	left:120vw;
-	bottom:-35vh;
-}
-
-.pc.turn .mini{
-	transform: scaleX(-1);
-}
-
-.npc.turn .mini{
-	transform: scaleX(1);
-}
-
 /*Minis*/
 .nell .mini{
 	background-image:url('../images/sprites/nell.png');
   }
-  .ack .mini{
-	background-image:url('../images/sprites/ack.png');
-  }
-  .thaliss .mini{
-	background-image:url('../images/sprites/thaliss.png');
-  }
-  .thalin .mini{
-	  background-image:url('../images/sprites/thalin.png');
-  }
-  .thomas .mini{
-	  background-image:url('../images/sprites/thomasphase1.png');
-  }
-  .garrik .mini{
-	  background-image:url('../images/sprites/garrikphase1.png');
-  }
-  .morwen .mini{
-	  background-image:url('../images/sprites/veloraphase1.png');
-  }
-  .cloven .mini{
-	  background-image:url('../images/sprites/cloven.png');
-  }
-  .jarkas .mini{
-	  background-image:url('../images/sprites/jarkas.png');
-  }
-  .prin .mini{
-	  background-image:url('../images/sprites/prin.png');
-  }
-  .leffy .mini{
-	  background-image:url('../images/sprites/leffy.png');
-  }
-  .rona .mini{
-	  background-image:url('../images/sprites/rona.png');
-  }
-  .leeroy .mini{
-	  background-image:url('../images/sprites/leeroy.png');
-  }
-  
-  .ghilanna .mini{
-	  background-image:url('../images/sprites/ghilanna.png');
-  }
-  .baddie .mini{
-	  background-image:url('../images/sprites/baddie.png');
-  }
-  
-  .gaurd .mini{
-	  background-image:url('../images/sprites/basicGaurd.png');
-  }
-  .wolf .mini{
-	  background-image:url('../images/sprites/blackWolf.png');
-  }
-  .thug .mini{
-	  background-image:url('../images/monsters/thug.png');
-  }
-  .wolfb .mini{
-	  background-image:url('../images/monsters/wolf.png');
-  }
-  .evilmage .mini{
-	  background-image:url('../images/monsters/evilmage.png');
-  }
-  .gaurdb .mini{
-	  background-image:url('../images/monsters/gaurd.png');
-  }
-  .ruffian .mini{
-	  background-image:url('../images/monsters/ruffian.png');
-  }
-  .bandit .mini{
-	  background-image:url('../images/monsters/bandit.png');
-  }
-  .lymia .mini{
-	  background-image:url('../images/monsters/lymia.png');
-	  transform:scaleX(-1) scale(2.5,2.5);
-	  margin-bottom:70%;
-  }
+.bree .mini{
+  background-image:url('../images/sprites/bree.png');
+}
+.umbar .mini{
+  background-image:url('../images/sprites/umbar.png');
+}
+.tophee .mini{
+  background-image:url('../images/sprites/tophee.png');
+}
+.ack .mini{
+  background-image:url('../images/sprites/ack.png');
+}
+.thaliss .mini{
+  background-image:url('../images/sprites/thaliss.png');
+}
+.thalin .mini{
+  background-image:url('../images/sprites/thalin.png');
+}
+.thomas .mini{
+  background-image:url('../images/sprites/thomasphase1.png');
+}
+.garrik .mini{
+  background-image:url('../images/sprites/garrikphase1.png');
+}
+.morwen .mini{
+  background-image:url('../images/sprites/veloraphase1.png');
+}
+.cloven .mini{
+  background-image:url('../images/sprites/cloven.png');
+}
+.jarkas .mini{
+  background-image:url('../images/sprites/jarkas.png');
+}
+.prin .mini{
+  background-image:url('../images/sprites/prin.png');
+}
+.leffy .mini{
+  background-image:url('../images/sprites/leffy.png');
+}
+.rona .mini{
+  background-image:url('../images/sprites/rona.png');
+}
+.leeroy .mini{
+  background-image:url('../images/sprites/leeroy.png');
+}
+
+.ghilanna .mini{
+  background-image:url('../images/sprites/ghilanna.png');
+}
+.baddie .mini{
+  background-image:url('../images/sprites/baddie.png');
+}
+
+.gaurd .mini{
+  background-image:url('../images/sprites/basicGaurd.png');
+}
+.wolf .mini{
+  background-image:url('../images/sprites/blackWolf.png');
+}
+.thug .mini{
+  background-image:url('../images/monsters/thug.png');
+}
+.wolfb .mini{
+  background-image:url('../images/monsters/wolf.png');
+}
+.evilmage .mini{
+  background-image:url('../images/monsters/evilmage.png');
+}
+.gaurdb .mini{
+  background-image:url('../images/monsters/gaurd.png');
+}
+.ruffian .mini{
+  background-image:url('../images/monsters/ruffian.png');
+}
+.bandit .mini{
+  background-image:url('../images/monsters/bandit.png');
+}
+.lymia .mini{
+  background-image:url('../images/monsters/lymia.png');
+  transform:scaleX(-1) scale(2.5,2.5);
+  margin-bottom:70%;
+}
