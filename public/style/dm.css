@@ -20,7 +20,7 @@ section{
 	padding:1vh 1vw;
 	background-color:rgba(42, 68, 77, 0.925);
 }
-#back-drop_preview, #sketch_preview{
+#backdrop_preview, #sketch_preview{
 	width:70vw;
 	height:40vh;
 }

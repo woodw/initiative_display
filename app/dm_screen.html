@@ -14,8 +14,8 @@
 			<section id="sketches">
 				<div id="sketch_preview" class="image" style="background-image:linear-gradient(white, grey);"></div>
 				<select id="sketch_list"></select>
-				<button id="sketch_button--show">Show Sketch</button>
-				<button id="sketch_button--hide">Hide Sketch</button>
+				<button id="sketch_button--set">Set Sketch</button>
+				<button id="sketch_button--remove">Remove Sketch</button>
 				<br />
 				<input type="url" id="sketch_custom" placeholder="custom url"/>
 				<input type="checkbox" id="sketch_use_custom">
@@ -24,17 +24,22 @@
 				
 			</section>
 			<section id="backdrops">
-				<div id="back-drop_preview" class="image" style="background-image:linear-gradient(white, grey);"></div>
-				<select id="back-drop_list"></select>
-				<button id="back-drop_button">Update Backdrop</button>
+				<div id="backdrop_preview" class="image" style="background-image:linear-gradient(white, grey);"></div>
+				<select id="backdrop_list"></select>
+				<button id="backdrop_button">Update Backdrop</button>
 				<br />
-				<input type="url" id="back-drop_custom" placeholder="custom url"/>
-				<input type="checkbox" id="back-drop_use_custom">
-      			<label for="back-drop_use_custom">Use Custom Url?</label>
+				<input type="url" id="backdrop_custom" placeholder="custom url"/>
+				<input type="checkbox" id="backdrop_use_custom">
+      			<label for="backdrop_use_custom">Use Custom Url?</label>
 			</section>
 
 			<section id="audio">
-				<select></select>
+				<select id="audio_list"></select>
+				<button id="audio_button">Update Audio</button>
+				<br />
+				<input type="url" id="audio_custom" placeholder="custom url"/>
+				<input type="checkbox" id="audio_use_custom">
+      			<label for="audio_use_custom">Use Custom Url?</label>
 			</section>
 
 			<section id="actors">
