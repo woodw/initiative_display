@@ -10,11 +10,13 @@ const io = require('socket.io')(server);
 
 const backdrops = require(__dirname+'/app/data/backdrops.json');
 const sketches = require(__dirname+'/app/data/sketches.json');
+const audioTracks = require(__dirname+'/app/data/audiotracks.json');
 
 /*const stitch = require("mongodb-stitch");
 const clientPromise = stitch.StitchClientFactory.create(process.env.stitch_dbconn);*/
 
 const onLiveData = {
+	group: 'tythos',
 	users: {},
 	directAuth: [
 		'yTgHnB',
@@ -147,61 +149,70 @@ app.get('/slack/auth', function(req, res){
 io.on('connection', function (socket) {
 	socket.emit('socket connection', { valid: true });
 
-	socket.on('get backdrops', function(){
-		io.emit('send backdrops', backdrops.campaign.valdrin);
+	socket.on('get_backdrops_dm', function (fn) {
+		fn(backdrops.campaign[onLiveData.group]);
 	});
 	
-	socket.on('update backdrop', function (data) {
+	socket.on('set_backdrop_dm', function (data) {
 		console.log('updating backdrops', data);
-		io.emit('set backdrop', data);
+		io.emit('set_backdrop', data);
 	});
 
-	socket.on('get sketches', function(){
-		io.emit('send sketches', sketches.campaign.valdrin);
+	socket.on('get_sketches_dm', function (fn) {
+		fn(sketches.campaign[onLiveData.group]);
 	});
 
-	socket.on('update sketch', function (data) {
+	socket.on('set_sketch_dm', function (data) {
 		console.log('updating sketches',data);
-		io.emit('set sketch', data);
+		io.emit('set_sketch', data);
 	});
-	socket.on('hide sketch', function (data) {
+	socket.on('remove_sketch_dm', function (data) {
 		console.log('hide sketches',data);
-		io.emit('hide sketch', data);
+		io.emit('remove_sketch', data);
 	});
 
-	socket.on('update emoji', function (data) {
+	socket.on('get_audiotracks_dm', function (fn) {
+		fn(audioTracks.campaign[onLiveData.group]);
+	});
+	
+	socket.on('set_audio_dm', function (data) {
+		console.log('updating audio', data);
+		io.emit('set_audio', data);
+	});
+
+	socket.on('set_actor_emoji_pc', function (data) {
 		console.log('setting player emoji',data);
-		io.emit('set emoji', data);
+		io.emit('set_actor_emoji', data);
 	});
 
-	socket.on('display peanut emoji', function (data) {
+	socket.on('set_peanut_emoji_pg', function (data) {
 		console.log('setting peanut emoji',data);
-		io.emit('show peanut emoji', data);
+		io.emit('set_peanut_emoji', data);
 	});
 
-	socket.on('add actor', (data, callbkfn) => {
+	socket.on('add_actor_dm', (data, callbkfn) => {
 		console.log('adding actor', data);
 		data.id = onLiveData.actorID++;
-		io.emit('create actor', data);
+		io.emit('add_actor', data);
 		callbkfn({id:data.id});
 	});
-	socket.on('update actor', function (data) {
+	socket.on('update_actor_dm', function (data) {
 		console.log('updating actor', data);
-		io.emit('set actor', data);
+		io.emit('update_actor', data);
 	});
-	socket.on('remove actor', function (data) {
+	socket.on('remove_actor_dm', function (data) {
 		console.log('removing actor', data);
-		io.emit('delete actor', data);
+		io.emit('remove_actor', data);
 	});
 
-	socket.on('set deck', function (data) {
+	socket.on('alert_new_initiative_dm', function (data) {
 		console.log('showing combat deck', data);
-		io.emit('set deck', data);
+		io.emit('alert_new_initiative', data);
 	});
 
-	socket.on('toggle initiative display', function (data) {
+	socket.on('toggle_initiative_display_dm', function (data) {
 		console.log('showing combat deck', data);
-		io.emit('toggle initiative display', data);
+		io.emit('toggle_initiative_display', data);
 	});
 
 });

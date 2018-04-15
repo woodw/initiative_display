@@ -1,3 +1,4 @@
+let app = {};
 document.addEventListener('DOMContentLoaded', function() {
 	let socket,elements;
 
@@ -12,8 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function registerElements(){
 		return {
-			backDropFront: byCSS('.backdrop.front'),
-			backDropBack: byCSS('.backdrop.back'),
+			backdropFront: byCSS('.backdrop.front'),
+			backdropBack: byCSS('.backdrop.back'),
 			sketchContainer: byCSS('.sketch--container'),
 			sketch: byCSS('.sketch'),
 			characterLine: byCSS('.stage'),
@@ -34,12 +35,12 @@ document.addEventListener('DOMContentLoaded', function() {
 		return document.querySelectorAll(cssSelector);
 	}
 
-	function changeTheBackDrop(newImage){
-		elements.backDropFront.style.backgroundImage = elements.backDropBack.style.backgroundImage;
-		elements.backDropBack.style.backgroundImage = 'url('+newImage+')';
-		elements.backDropFront.classList.remove('hide');
-		void elements.backDropFront.offsetWidth;
-		elements.backDropFront.classList.add('hide');
+	function changeTheBackdrop(newImage){
+		elements.backdropFront.style.backgroundImage = elements.backdropBack.style.backgroundImage;
+		elements.backdropBack.style.backgroundImage = 'url('+newImage+')';
+		elements.backdropFront.classList.remove('hide');
+		void elements.backdropFront.offsetWidth;
+		elements.backdropFront.classList.add('hide');
 	}
 
 	function playEmoji(cssSelect, emoji){
@@ -57,27 +58,27 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		socket.on('socket connection', socketConnected);
 
-		socket.on('set_backdrop_dm', setBackdrop);
+		socket.on('set_backdrop', setBackdrop);
 		
-		socket.on('set_sketch_dm', setSketch);
-		socket.on('remove_sketch_dm', removeSketch);
+		socket.on('set_sketch', setSketch);
+		socket.on('remove_sketch', removeSketch);
 		
-		socket.on('set_audio_dm', setAudio);
+		socket.on('set_audio', setAudio);
 
 		socket.on('set_actor_emoji', setActorEmoji);
 
-		socket.on('add_emoji_peanut',  addPeanutEmoji);
+		socket.on('add_peanut_emoji',  addPeanutEmoji);
 
-		socket.on('add_actor_dm', addActor);
+		socket.on('add_actor', addActor);
 
-		socket.on('update_actor_dm', updateActor);
+		socket.on('update_actor', updateActor);
 		
-		socket.on('remove_actor_dm', removeActor);
+		socket.on('remove_actor', removeActor);
 
 		socket.on('turn_actor', turnActor);
-		socket.on('move_actor_dm', moveActor);
+		socket.on('move_actor', moveActor);
 
-		socket.on('reset_actors_dm', resetActors);
+		socket.on('reset_actors', resetActors);
 	}
 
 	/** Sockets */
@@ -86,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	function setBackdrop(data){
-		changeTheBackDrop(data.url);
+		changeTheBackdrop(data.url);
 		console.log(data);
 	}
 
