@@ -1,0 +1,27 @@
+{
+	"version":".1",
+	"campaign":{
+		"tythos":{
+			"session":[
+				[],
+				[],
+				[],
+				[],
+				[],
+				[],
+				[],
+				[
+					{"name":"Dungeon Mechanical","url":"https://sounds.tabletopaudio.com/90_Dungeon_II_Mechanical.mp3"}
+				]
+			]
+		},
+		"valdrin":{
+			"session":[
+				[
+					{}
+				]
+			]
+		}
+	}
+}
+
