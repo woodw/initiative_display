@@ -109,7 +109,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			initiativesClearBtn: byCSS('#initiative--clear'),
 			initiativesFillBtn: byCSS('#initiative--fill'),
 			initiativeToggleBtn: byCSS('#initiative--toggle'),
-			initiativeNextBtn: byCSS('#initiative--next')
+			initiativeNextBtn: byCSS('#initiative--next'),
+			reset: byCSS('#reset')
 		};
 	}
 
@@ -145,6 +146,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		elements.initiativesFillBtn.addEventListener('click',fillInitiative);
 		elements.initiativeToggleBtn.addEventListener('click',toggleBotInitiativeDisplay);
 		elements.initiativeNextBtn.addEventListener('click',advanceInitiative);
+
+		elements.reset.addEventListener('click', reset);
+	}
+	function reset(event){
+		actors = [];
+		elements.actorList.innerHTML = '';
+		socket.emit('reset');
 	}
 	function newBackdropSelected(event){
 		elements.backdropPreview.style.backgroundImage = 'url('+elements.backdropList.value+')';
@@ -275,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		registerActorEventListeners.call(this);
 		console.log('sending add actor');
 		//send out emit for stage to pick up	
-		socket.broadcast.emit('add_actor_dm', toJSON.call(this), (data) => {
+		socket.emit('add_actor_dm', toJSON.call(this), (data) => {
 			console.log('i got back an ID from the server');
 			this.id = data.id;
 		});	
