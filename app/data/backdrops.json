@@ -3,7 +3,16 @@
 	"campaign":{
 		"tythos":{
 			"session":[
-				{"name":"Time Temple Interior","url":"https://pre00.deviantart.net/5bbf/th/pre/f/2016/165/1/8/gears_by_tatasz-da66w5l.png"}
+				[],
+				[],
+				[],
+				[],
+				[],
+				[],
+				[],
+				[
+					{"name":"temple ruins","url":"https://cdna.artstation.com/p/assets/images/images/003/909/682/large/mohammx-qureshi-memories.jpg?1478459900"}	
+				]
 			]
 		},
 		"valdrin":{

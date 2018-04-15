@@ -3,7 +3,16 @@
 	"campaign":{
 		"tythos":{
 			"session":[
-
+				[],
+				[],
+				[],
+				[],
+				[],
+				[],
+				[],
+				[
+					{"name":"turrask portal","url":"http://www.dan-site.com/Pathfinder_Witch_Spell_List/frank_frazetta_thesorcerer.jpg"}	
+				]
 			]
 		},
 		"valdrin":{
