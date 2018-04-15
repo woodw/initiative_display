@@ -2,14 +2,16 @@
 <html>
 	<head>
 		<title>Dnd Visual Aid</title>
-		<link href="/style/bot.css" rel="stylesheet" type="text/css" />
+		<script src="/socket.io/socket.io.js"></script>
 		<link href="/style/minis_style.css" rel="stylesheet" type="text/css" />
 	
-		<script src="/socket.io/socket.io.js"></script>
+		<link href="/style/bot.css" rel="stylesheet" type="text/css" />
 		<script src="/script/bot.js" type="application/javascript"></script>
 
 	</head>
 	<body>
+		<div class="initiative_cover top"></div>
+		<div class="initiative_cover bottom"></div>
 		<div class="backdrop back"></div>
 		<div class="backdrop front"></div>
 		<div class="forground">
@@ -22,34 +24,13 @@
 				<div class="pc actor tophee"><div class="emoji">😎</div><div class="mini"></div></div>	
 			</div>
 		</div>
-		<div class="sketch--container">
+		<div class="sketch--container hide">
 			<div class="sketch"></div>
 		</div>
 		<!-- hidden elements -->
 		<audio loop>
 			<source src="https://sounds.tabletopaudio.com/131_The_Bog_Standard.mp3" type="audio/mpeg">
 		</audio>
-		<!--<div id="stage-background">
-			<div id="stage-wall">
-				<div class="stage-backdrop back" style="background-image:url(https://wallup.net/wp-content/uploads/2016/01/54416-Dungeons_and_Dragons-humor-d20-748x421.png);"></div>
-				<div class="stage-backdrop front hide" style="background-image:url(https://wallup.net/wp-content/uploads/2016/01/54416-Dungeons_and_Dragons-humor-d20-748x421.png);"></div>
-			</div>
-			<div id="stage-trim"></div>
-			<div id="stage-floor"></div>
-		</div>
-		<div id="stage-foreground">
-			<div id="stage-character_line">
-						
-				
-			</div>
-		</div>
-		<div id="sketch--container" class="hide">
-			<div id="sketch-cover" style="background-image:url('http://www.dan-site.com/Pathfinder_Witch_Spell_List/frank_frazetta_thesorcerer.jpg');"></div>
-		</div>
-		<div id="initiative--order" class="hide">
-			<h3 id="last"></h3>
-			<h3 id="current"></h3>
-			<h3 id="next"></h3>
-		</div>-->
+		
 	</body>
 </html>

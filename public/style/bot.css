@@ -130,6 +130,9 @@ background-image:url(https://img00.deviantart.net/a0f3/i/2013/193/f/0/magical_ca
 	grid-template-rows:20% 60% 20%;
 	background-color:rgba(0,0,0,.8);
 }
+.sketch--container.hide{
+	opacity:0;
+}
 .sketch{
 	grid-column:2;
 	grid-row:2;
@@ -138,4 +141,26 @@ background-image:url(https://img00.deviantart.net/a0f3/i/2013/193/f/0/magical_ca
 	background-size:contain;
 	background-repeat:no-repeat;
 	background-position:center;
+}
+
+
+.initiative_cover, test2{
+	width:100vw;
+	height:50vh;
+
+	background-image:url(http://d3u67r7pp2lrq5.cloudfront.net/product_photos/20622315/rollforinitiative_original.png);
+	z-index:10;
+	background-repeat:no-repeat;
+	background-color:rgb(51,51,51);
+	background-size: 70vw 100vh;
+}
+.initiative_cover.top{
+	bottom:inherit;
+	top:-50vh;
+	background-position:top;
+}
+.initiative_cover.bottom{
+	top:inherit;
+	bottom:-50vh;
+	background-position:bottom;
 }
