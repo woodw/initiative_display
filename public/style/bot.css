@@ -97,16 +97,16 @@ background-image:url(https://img00.deviantart.net/a0f3/i/2013/193/f/0/magical_ca
 	grid-template-columns:1fr;
 	z-index:2;
 }
-.actor ~ .actor{
+.stage:not(.fight) .actor ~ .actor{
 	grid-column:3;
 }
-.actor ~ .actor ~ .actor{
+.stage:not(.fight) .actor ~ .actor ~ .actor{
 	grid-column:5;
 }
-.actor ~ .actor ~ .actor ~ .actor{
+.stage:not(.fight) .actor ~ .actor ~ .actor ~ .actor{
 	grid-column:2;
 }
-.actor ~ .actor ~ .actor ~ .actor ~ .actor{
+.stage:not(.fight) .actor ~ .actor ~ .actor ~ .actor ~ .actor{
 	grid-column:6;
 }
 
@@ -123,6 +123,26 @@ background-image:url(https://img00.deviantart.net/a0f3/i/2013/193/f/0/magical_ca
 	background-position:bottom;
 	background-repeat:no-repeat;
 }
+
+
+/*-----------------------initiative*/
+.stage.fight .actor.acting{
+	grid-column:4;
+	transform: scale(1.5) translateY(-9vh);
+}
+.stage.fight .actor.acted{
+	grid-column:2;
+	transform: scale(0.8) translateY(6vh);
+}
+.stage.fight .actor.will_act{
+	grid-column:6;
+	transform: scale(0.8) translateY(6vh);
+}
+.stage.fight .actor:not(.acting):not(.acted):not(.will_act){
+	grid-column:1;
+	transform:scale(0.8) translateY(70vh);
+}
+
 
 .sketch--container{
 	display:grid;
