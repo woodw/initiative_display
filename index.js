@@ -155,7 +155,7 @@ io.on('connection', function (socket) {
 	
 	socket.on('set_backdrop_dm', function (data) {
 		console.log('updating backdrops', data);
-		io.emit('set_backdrop', data);
+		socket.broadcast.emit('set_backdrop', data);
 	});
 
 	socket.on('get_sketches_dm', function (fn) {
@@ -164,11 +164,11 @@ io.on('connection', function (socket) {
 
 	socket.on('set_sketch_dm', function (data) {
 		console.log('updating sketches',data);
-		io.emit('set_sketch', data);
+		socket.broadcast.emit('set_sketch', data);
 	});
 	socket.on('remove_sketch_dm', function (data) {
 		console.log('hide sketches',data);
-		io.emit('remove_sketch', data);
+		socket.broadcast.emit('remove_sketch', data);
 	});
 
 	socket.on('get_audiotracks_dm', function (fn) {
@@ -177,42 +177,50 @@ io.on('connection', function (socket) {
 	
 	socket.on('set_audio_dm', function (data) {
 		console.log('updating audio', data);
-		io.emit('set_audio', data);
+		socket.broadcast.emit('set_audio', data);
 	});
 
 	socket.on('set_actor_emoji_pc', function (data) {
 		console.log('setting player emoji',data);
-		io.emit('set_actor_emoji', data);
+		socket.broadcast.emit('set_actor_emoji', data);
+	});
+	socket.on('turn_actor_pc', function (data) {
+		console.log('setting player emoji',data);
+		socket.broadcast.emit('set_actor_emoji', data);
 	});
 
 	socket.on('set_peanut_emoji_pg', function (data) {
 		console.log('setting peanut emoji',data);
-		io.emit('set_peanut_emoji', data);
+		socket.broadcast.emit('set_peanut_emoji', data);
 	});
 
 	socket.on('add_actor_dm', (data, callbkfn) => {
 		console.log('adding actor', data);
 		data.id = onLiveData.actorID++;
-		io.emit('add_actor', data);
+		socket.broadcast.emit('add_actor', data);
 		callbkfn({id:data.id});
 	});
 	socket.on('update_actor_dm', function (data) {
 		console.log('updating actor', data);
-		io.emit('update_actor', data);
+		socket.broadcast.emit('update_actor', data);
 	});
 	socket.on('remove_actor_dm', function (data) {
 		console.log('removing actor', data);
-		io.emit('remove_actor', data);
+		socket.broadcast.emit('remove_actor', data);
 	});
 
 	socket.on('alert_new_initiative_dm', function (data) {
 		console.log('showing combat deck', data);
-		io.emit('alert_new_initiative', data);
+		socket.broadcast.emit('alert_new_initiative', data);
 	});
 
 	socket.on('toggle_initiative_display_dm', function (data) {
 		console.log('showing combat deck', data);
-		io.emit('toggle_initiative_display', data);
+		socket.broadcast.emit('toggle_initiative_display', data);
+	});
+
+	socket.on('reset', function (data) {
+		console.log('showing combat deck', data);
 	});
 
 });
