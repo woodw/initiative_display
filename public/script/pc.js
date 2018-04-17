@@ -1,5 +1,7 @@
 let app = {};
 
+//set_private_actor_sketch
+
 document.addEventListener('DOMContentLoaded', function() {
 	let socket,character,characterName,elements,onStage;
 
@@ -22,10 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			console.log(data);
 		});
 
-		socket.on('set_actor_presence', function(data){
-			console.log(data);
-		});
-
 		socket.on('set_actor_private_sketch', function(data){
 			console.log(data);
 		});
@@ -41,7 +39,10 @@ document.addEventListener('DOMContentLoaded', function() {
 			characterPortrait: byCSS('.character-background'),
 			actorActionTurn: byCSS('#action_turn'),
 			actorActionEnter: byCSS('#action_enter'),
-			actorActionLeave: byCSS('#action_leave')
+			actorActionLeave: byCSS('#action_leave'),
+			privateSketch: byCSS('#private_sketch'),
+			buttonSketchRemove: byCSS('#button_sketch-remove'),
+			buttonSketchSubmit: byCSS('#button_sketch-submit')
 		};
 	}
 
@@ -85,15 +86,28 @@ document.addEventListener('DOMContentLoaded', function() {
 		elements.actorActionTurn.addEventListener('click', turnActor);
 		elements.actorActionEnter.addEventListener('click', actorEnterStage);
 		elements.actorActionLeave.addEventListener('click', actorLeaveStage);
+		elements.buttonSketchRemove.addEventListener('click', hidePrivateSketch);
+		elements.buttonSketchSubmit.addEventListener('click', submitPrivateSketch);
 	}
 	function turnActor(event){
+		console.log('this is working');
 		socket.emit('turn_actor_pc');
 	}
 	function actorEnterStage(event){
+		console.log('this is working');
 		socket.emit('request_actor_move_pc',{move: 'enter'}, getResponse);
 	}
 	function actorLeaveStage(event){
+		console.log('this is working');
 		socket.emit('request_actor_move_pc',{move: 'leave'}, getResponse);
+	}
+	function hidePrivateSketch(event){
+		console.log('this is working');
+		console.log('hide sketch');
+	}
+	function submitPrivateSketch(event){
+		console.log('this is working');
+		console.log('hide sketch');
 	}
 	function getResponse(data){
 		console.log(data);
