@@ -152,80 +152,45 @@ io.on('connection', function (socket) {
 	socket.on('get_backdrops_dm', function (fn) {
 		fn(backdrops.campaign[onLiveData.group]);
 	});
-	
-	socket.on('set_backdrop_dm', function (data) {
-		console.log('updating backdrops', data);
-		socket.broadcast.emit('set_backdrop', data);
-	});
-
 	socket.on('get_sketches_dm', function (fn) {
 		fn(sketches.campaign[onLiveData.group]);
 	});
-
-	socket.on('set_sketch_dm', function (data) {
-		console.log('updating sketches',data);
-		socket.broadcast.emit('set_sketch', data);
-	});
-	socket.on('remove_sketch_dm', function (data) {
-		console.log('hide sketches',data);
-		socket.broadcast.emit('remove_sketch', data);
-	});
-
 	socket.on('get_audiotracks_dm', function (fn) {
 		fn(audioTracks.campaign[onLiveData.group]);
 	});
-	
-	socket.on('set_audio_dm', function (data) {
-		console.log('updating audio', data);
-		socket.broadcast.emit('set_audio', data);
-	});
 
-	socket.on('set_actor_emoji_pc', function (data) {
-		console.log('setting player emoji',data);
-		socket.broadcast.emit('set_actor_emoji', data);
-	});
-	socket.on('turn_actor_pc', function (data) {
-		console.log('setting player emoji',data);
-		socket.broadcast.emit('set_actor_emoji', data);
-	});
-
-	socket.on('set_peanut_emoji_pg', function (data) {
-		console.log('setting peanut emoji',data);
-		socket.broadcast.emit('set_peanut_emoji', data);
-	});
+	standardSocketRelay('set_backdrop_dm','set_backdrop');
+	standardSocketRelay('set_sketch_dm','set_sketch');
+	standardSocketRelay('set_audiotrack_dm','set_audiotrack');
 
 	socket.on('add_actor_dm', (data, callbkfn) => {
-		console.log('adding actor', data);
+		console.log('add_actor_dm', data);
 		data.id = onLiveData.actorID++;
 		socket.broadcast.emit('add_actor', data);
 		callbkfn({id:data.id});
 	});
-	socket.on('update_actor_dm', function (data) {
-		console.log('updating actor', data);
-		socket.broadcast.emit('update_actor', data);
-	});
-	socket.on('remove_actor_dm', function (data) {
-		console.log('removing actor', data);
-		socket.broadcast.emit('remove_actor', data);
-	});
 
-	socket.on('alert_new_initiative_dm', function (data) {
-		console.log('showing combat deck', data);
-		socket.broadcast.emit('alert_new_initiative', data);
-	});
-
-	socket.on('toggle_initiative_display_dm', function (data) {
-		console.log('showing combat deck', data);
-		socket.broadcast.emit('toggle_initiative_display', data);
-	});
-
-	socket.on('reset', function (data) {
-		console.log('showing combat deck', data);
-	});
-
+	standardSocketRelay('remove_actor_dm','remove_actor');
+	standardSocketRelay('update_actor_dm','update_actor');
+	standardSocketRelay('turn_actor','turn_actor_srv');
+	standardSocketRelay('play_actor_emoji','play_actor_emoji');
+	standardSocketRelay('play_audience_emoji_pg','play_audience_emoji');
+	standardSocketRelay('actor_stage_presence_request_pc','actor_stage_presence_request');
+	standardSocketRelay('set_actor_stage_presence_dm','set_actor_stage_presence');
+	standardSocketRelay('set_private_actor_sketch_dm','set_private_actor_sketch');
+	standardSocketRelay('set_actor_sketch_pc','set_actor_sketch');
+	standardSocketRelay('set_initiative_display_dm','set_initiative_display');	
+	standardSocketRelay('reset_dm','reset');	
+	
 });
 
 /** Private Funtions **/
+function standardSocketRelay(eventString,broadcastString){
+	socket.on(eventString, function (data) {
+		console.log(eventString, data);
+		socket.broadcast.emit(broadcastString, data);
+	});
+}
 
 function storeUser(clientIp, userObject){
 	console.log(clientIp, userObject);
