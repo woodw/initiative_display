@@ -1,4 +1,17 @@
 let app = {};
+
+//set_backdrop
+//set_sketch
+//set_audiotrack
+//add_actor
+//remove_actor
+//update_actor
+//turn_actor_srv
+//play_actor_emoji_srv
+//play_audience_emoji
+//set_actor_stage_presence
+//set_initiative_display
+
 document.addEventListener('DOMContentLoaded', function() {
 	let socket,elements;
 
@@ -19,14 +32,29 @@ document.addEventListener('DOMContentLoaded', function() {
 			sketch: byCSS('.sketch'),
 			characterLine: byCSS('.stage'),
 			audioPlayer: byCSS('audio source'),
-			initiativeOrder: byCSS('#initiative--order'),
-			initiativeOrderFirstName: byCSS('#initiative--order h3:first-child'),
-			initiativeOrderMiddleName: byCSS('#initiative--order h3:nth-child(2)'),
-			initiativeOrderLastName: byCSS('#initiative--order h3:last-child')
-			
 		}
 	}
 
+	function initSocket(){
+		socket = io.connect(window.location.href.replace(window.location.pathname,''));
+		
+		socket.on('socket connection', socketConnected);
+
+		socket.on('set_backdrop', setBackdrop);
+		socket.on('set_sketch', setSketch);
+		socket.on('set_audiotrack', setAudioTrack);
+		socket.on('add_actor', addActor);
+		socket.on('remove_actor', removeActor);
+		socket.on('update_actor', updateActor);
+		socket.on('turn_actor_srv', turnActor);
+		socket.on('play_actor_emoji_srv', setActorEmoji);
+		socket.on('play_audience_emoji',  addPeanutEmoji);
+		socket.on('set_actor_stage_presence', moveActor);
+		socket.on('set_initiative_display', updateInitiativeDisplay);
+		socket.on('reset', resetActors);
+	}
+
+	/*Utilities*/
 	function byCSS(cssSelector){
 		return document.querySelector(cssSelector);
 	}
@@ -35,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		return document.querySelectorAll(cssSelector);
 	}
 
+	/*socket functions*/
 	function changeTheBackdrop(newImage){
 		elements.backdropFront.style.backgroundImage = elements.backdropBack.style.backgroundImage;
 		elements.backdropBack.style.backgroundImage = 'url('+newImage+')';
@@ -52,35 +81,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		temp.classList.add('play');
 	}
 
-	function initSocket(){
-		socket = io.connect(window.location.href.replace(window.location.pathname,''));
-		
-		
-		socket.on('socket connection', socketConnected);
-
-		socket.on('set_backdrop', setBackdrop);
-		
-		socket.on('set_sketch', setSketch);
-		socket.on('remove_sketch', removeSketch);
-		
-		socket.on('set_audio', setAudio);
-
-		socket.on('set_actor_emoji', setActorEmoji);
-
-		socket.on('add_peanut_emoji',  addPeanutEmoji);
-
-		socket.on('add_actor', addActor);
-
-		socket.on('update_actor', updateActor);
-		
-		socket.on('remove_actor', removeActor);
-
-		socket.on('turn_actor', turnActor);
-		socket.on('move_actor', moveActor);
-
-		socket.on('reset_actors', resetActors);
-	}
-
 	/** Sockets */
 	function socketConnected(data){
 		console.log('I am connected');
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		console.log(data);
 	}
 
-	function setAudio(data){
+	function setAudioTrack(data){
 		//set the audio
 		elements.audioPlayer.setAttribute('src',data.url);
 	}
@@ -112,9 +112,16 @@ document.addEventListener('DOMContentLoaded', function() {
 		byCSS(data.actor).classList.toggle('turn');
 	}
 
-	function moveActor(data){
-		//turn the actor
-		byCSS(data.actor).classList.toggle('onstage');
+	function moveActor(data, callbkfn){
+		var actor;
+		actor = elements.characterLine.querySelector('div[dndid="'+data.id+'"]');
+		
+		if(data.onstage){
+			actor.classList.remove('onstage');
+		}
+		else{
+			actor.classList.add('onstage');
+		}
 	}
 
 	function addActor(data){
@@ -129,35 +136,27 @@ document.addEventListener('DOMContentLoaded', function() {
 		newActor.appendChild(mi);
 		
 		newActor.setAttribute('dndid',data.id);
-		//newActor.innerHTML = '<div class="emoji"></div><div class="mini"></div>';
-		if(data.classes.indexOf('npc')!== -1){
-			elements.characterLine.prepend(newActor);						
-		}
-		else{
-			elements.characterLine.appendChild(newActor);						
-		}
 		
-		/*perform a walk on*/
-		if(data.classes.indexOf('onstage')!=-1){
-			subClass = data.classes.replace(' onstage','');
-			newActor.className = subClass;	
-			void newActor.offsetWidth;
-			newActor.className = data.classes;
-		}
-		else{
-			newActor.className = data.classes;
-		}
+		elements.characterLine.appendChild(newActor);
+
+		newActor.className = data.classes;
+		console.log(newActor.classList);
+		newActor.classList.remove('onstage');
+		void newActor.offsetWidth;
+		newActor.classList.add('onstage');
 	}
 
 	function removeActor(data){
 		console.log(data);
-		var actor = elements.characterLine.querySelector('div[dndid="'+data.id+'"]');
+		var actor;
+		actor = elements.characterLine.querySelector('div[dndid="'+data.id+'"]');
 		actor.parentNode.removeChild(actor);
 	}
 
 	function updateActor(data){
 		console.log(data);
-		var actor = elements.characterLine.querySelector('div[dndid="'+data.id+'"]');
+		var actor;
+		actor = elements.characterLine.querySelector('div[dndid="'+data.id+'"]');
 		actor.className = data.classes;
 		playEmoji('div[dndid="'+data.id+'"] .emoji',data.emoji);
 	}
@@ -182,33 +181,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	}
 
+	function updateInitiativeDisplay(data){
+		console.log('updateInitiativeDisplay', data);
+	}
+
 	function resetActors(){
 		byCSSAll('.actor').forEach(function(actor){
 			actor.parentNode.removeChild(actor);
 		});
 	}
 
-	/*
-		socket.on('toggle initiative display', function (data) {
-			console.log('showing combat deck', data);
-			
-			elements.initiativeOrder.classList.toggle('hide');
-		});
-
-		socket.on('set deck', function(data){
-			console.log(data);
-			elements.initiativeOrderFirstName.classList.toggle('hide');
-			elements.initiativeOrderMiddleName.classList.toggle('hide');
-			elements.initiativeOrderLastName.classList.toggle('hide');
-			setTimeout(function(){
-				elements.initiativeOrderFirstName.innerText = data[0].split(' ')[1];
-				elements.initiativeOrderMiddleName.innerText = data[1].split(' ')[1];
-				elements.initiativeOrderLastName.innerText = data[2].split(' ')[1];
-
-				elements.initiativeOrderFirstName.classList.toggle('hide');
-				elements.initiativeOrderMiddleName.classList.toggle('hide');
-				elements.initiativeOrderLastName.classList.toggle('hide');
-			},1000);
-		});
-	*/
 });	
