@@ -182,16 +182,15 @@ io.on('connection', function (socket) {
 	standardSocketRelay('set_initiative_display_dm','set_initiative_display');	
 	standardSocketRelay('reset_dm','reset');	
 	
+	function standardSocketRelay(eventString,broadcastString){
+		socket.on(eventString, function (data) {
+			console.log(eventString, data);
+			socket.broadcast.emit(broadcastString, data);
+		});
+	}
 });
 
 /** Private Funtions **/
-function standardSocketRelay(eventString,broadcastString){
-	socket.on(eventString, function (data) {
-		console.log(eventString, data);
-		socket.broadcast.emit(broadcastString, data);
-	});
-}
-
 function storeUser(clientIp, userObject){
 	console.log(clientIp, userObject);
 	onLiveData.users[clientIp] = {
