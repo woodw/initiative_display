@@ -25,6 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 
 		socket.on('set_actor_private_sketch', function(data){
+			elements.privateSketch.classList.remove('hide');
+			elements.sketchPreviewImage.style.backgroundImage = 'url('+data.url+')';
+			elements.privateSketch.scrollIntoView();
 			console.log(data);
 		});
 	}
@@ -40,8 +43,10 @@ document.addEventListener('DOMContentLoaded', function() {
 			actorActionTurn: byCSS('#action_turn'),
 			actorActionEnter: byCSS('#action_enter'),
 			actorActionLeave: byCSS('#action_leave'),
-			privateSketch: byCSS('#private_sketch'),
+			privateSketch: byCSS('#sketch_preview'),
+			sketchPreviewImage: byCSS('#sketch_preview--image'),
 			buttonSketchRemove: byCSS('#button_sketch-remove'),
+			inputSketchSubmit: byCSS('#input_sketch-submit'),
 			buttonSketchSubmit: byCSS('#button_sketch-submit')
 		};
 	}
@@ -80,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	function registerListeners(){
 		addEventListenerList(elements.emojis, 'click', function(event){
 			console.log('hello', event);
-			socket.emit('set_actor_emoji_pc',{character:characterName,emoji:event.target.innerText});
+			socket.emit('play_actor_emoji',{class:characterName,emoji:event.target.innerText});
 		});
 
 		elements.actorActionTurn.addEventListener('click', turnActor);
@@ -91,23 +96,25 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 	function turnActor(event){
 		console.log('this is working');
-		socket.emit('turn_actor_pc');
+		socket.emit('turn_actor', {class: characterName});
 	}
 	function actorEnterStage(event){
 		console.log('this is working');
-		socket.emit('request_actor_move_pc',{move: 'enter'}, getResponse);
+		socket.emit('actor_stage_presence_request_pc',{class: characterName, onstage: true});
 	}
 	function actorLeaveStage(event){
 		console.log('this is working');
-		socket.emit('request_actor_move_pc',{move: 'leave'}, getResponse);
+		socket.emit('actor_stage_presence_request_pc',{class: characterName, onstage: false});
 	}
 	function hidePrivateSketch(event){
 		console.log('this is working');
-		console.log('hide sketch');
+		elements.privateSketch.classList.add('hide');
 	}
 	function submitPrivateSketch(event){
 		console.log('this is working');
-		console.log('hide sketch');
+		if(elements.inputSketchSubmit.value){
+			socket.emit('set_actor_sketch_pc',{url: elements.inputSketchSubmit.value});
+		}
 	}
 	function getResponse(data){
 		console.log(data);
