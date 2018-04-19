@@ -32,6 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			sketch: byCSS('.sketch'),
 			characterLine: byCSS('.stage'),
 			audioPlayer: byCSS('audio source'),
+			initiativeScreenTop: byCSS('.initiative_cover.top'),
+			initiativeScreenBottom: byCSS('.initiative_cover.bottom')
 		}
 	}
 
@@ -50,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		socket.on('play_actor_emoji_srv', setActorEmoji);
 		socket.on('play_audience_emoji',  addPeanutEmoji);
 		socket.on('set_actor_stage_presence', moveActor);
-		socket.on('set_initiative_display', updateInitiativeDisplay);
+		socket.on('toggle_initiative_display', toggleInitiativeDisplay);
 		socket.on('reset', resetActors);
 	}
 
@@ -190,8 +192,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	}
 
-	function updateInitiativeDisplay(data){
+	function toggleInitiativeDisplay(data){
 		console.log('updateInitiativeDisplay', data);
+		elements.initiativeScreenTop.classList.toggle('hide');
+		elements.initiativeScreenBottom.classList.toggle('hide');
 	}
 
 	function resetActors(){
