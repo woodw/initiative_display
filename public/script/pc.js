@@ -41,8 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			characterSheetLink: byCSS('#links a:nth-child(3)'),
 			characterPortrait: byCSS('.character-background'),
 			actorActionTurn: byCSS('#action_turn'),
-			actorActionEnter: byCSS('#action_enter'),
-			actorActionLeave: byCSS('#action_leave'),
+			actorActionMove: byCSS('#action_move'),
 			privateSketch: byCSS('#sketch_preview'),
 			sketchPreviewImage: byCSS('#sketch_preview--image'),
 			buttonSketchRemove: byCSS('#button_sketch-remove'),
@@ -89,8 +88,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 
 		elements.actorActionTurn.addEventListener('click', turnActor);
-		elements.actorActionEnter.addEventListener('click', actorEnterStage);
-		elements.actorActionLeave.addEventListener('click', actorLeaveStage);
+		elements.actorActionMove.addEventListener('click', actorMoveStage);
+		
 		elements.buttonSketchRemove.addEventListener('click', hidePrivateSketch);
 		elements.buttonSketchSubmit.addEventListener('click', submitPrivateSketch);
 	}
@@ -98,13 +97,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		console.log('this is working');
 		socket.emit('turn_actor', {class: characterName});
 	}
-	function actorEnterStage(event){
+	function actorMoveStage(event){
 		console.log('this is working');
 		socket.emit('actor_stage_presence_request_pc',{class: characterName, onstage: true});
-	}
-	function actorLeaveStage(event){
-		console.log('this is working');
-		socket.emit('actor_stage_presence_request_pc',{class: characterName, onstage: false});
 	}
 	function hidePrivateSketch(event){
 		console.log('this is working');
