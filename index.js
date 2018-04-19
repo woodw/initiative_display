@@ -11,6 +11,7 @@ const io = require('socket.io')(server);
 const backdrops = require(__dirname+'/app/data/backdrops.json');
 const sketches = require(__dirname+'/app/data/sketches.json');
 const audioTracks = require(__dirname+'/app/data/audiotracks.json');
+const players = require(__dirname+'/app/data/players.json');
 
 /*const stitch = require("mongodb-stitch");
 const clientPromise = stitch.StitchClientFactory.create(process.env.stitch_dbconn);*/
@@ -208,41 +209,10 @@ function storeUser(clientIp, userObject){
 
 function getPlayerCharacter(playerName){
 	console.log(playerName);
-	switch(playerName){
-		case 'Garrik (Noel)':
-			return {
-				
-					name: 'Garrik Greenwood',
-					portrait: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png',
-					mini: './images/sprites/garrikphase1.png',
-					css: 'garrik',
-					class:'Cleric: Knowledge Domain',
-					orcpub: 'https://orcpub2.com/pages/dnd/5e/characters/17592249352779',
-					spells:'http://www.5esrd.com/spellcasting/spell-lists/#clericlist'
-				
-			}; 	
-		case 'Morwen Katahl (Maura)':
-			return {
-					name: 'Morwen Katahl',
-					portrait: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png',
-					mini: './images/sprites/veloraphase1.png',
-					css: 'morwen',
-					class:'Ranger: Beastmaster',
-					orcpub: 'https://www.orcpub2.com/pages/dnd/5e/characters/17592251219558',
-					spells:'http://www.5esrd.com/spellcasting/spell-lists/#rangerlist'
-				
-			}; 	
-		case 'Prof. Thomas Black':
-		default:
-			return {
-					name: 'Professor Thomas Black',
-					portrait: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png',
-					mini: './images/sprites/thomasphase1.png',
-					css: 'thomas',
-					class:'Bard: College of Swords',
-					orcpub: 'https://www.orcpub2.com/pages/dnd/5e/characters/17592251200349',
-					spells:'http://www.5esrd.com/spellcasting/spell-lists/#bardlist'
-				
-			}; 		
+	if(players[onLiveData.group][playerName]){
+		return players[onLiveData.group][playerName];
+	}
+	else{
+		return players[onLiveData.group]['Bree'];
 	}
 }
