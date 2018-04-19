@@ -99,7 +99,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	function setSketch(data){
 		console.log(data);
 		elements.sketch.style.backgroundImage = 'url('+data.url+')';
-		elements.sketchContainer.classList.remove('hide');
+
+		(data.url)?elements.sketchContainer.classList.remove('hide'):elements.sketchContainer.classList.add('hide');;
 	}
 
 	function removeSketch(data){
@@ -109,19 +110,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function turnActor(data){
 		//set the audio
-		byCSS(data.actor).classList.toggle('turn');
+		if(data.id){
+			byCSS('div[dndid="'+data.id+'"]').classList.toggle('turn');
+		}
+		else if(data.class){
+			byCSS('.'+data.class).classList.toggle('turn');
+		}
 	}
 
 	function moveActor(data, callbkfn){
 		var actor;
 		actor = elements.characterLine.querySelector('div[dndid="'+data.id+'"]');
 		
-		if(data.onstage){
-			actor.classList.remove('onstage');
+		if(data.id){
+			byCSS('div[dndid="'+data.id+'"]').classList.toggle('onstage');
 		}
-		else{
-			actor.classList.add('onstage');
+		else if(data.class){
+			byCSS('.'+data.class).classList.toggle('onstage');
 		}
+
+		
 	}
 
 	function addActor(data){
@@ -140,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		elements.characterLine.appendChild(newActor);
 
 		newActor.className = data.classes;
-		console.log(newActor.classList);
+		newActor.classList.add('actor');
 		newActor.classList.remove('onstage');
 		void newActor.offsetWidth;
 		newActor.classList.add('onstage');
@@ -158,6 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		var actor;
 		actor = elements.characterLine.querySelector('div[dndid="'+data.id+'"]');
 		actor.className = data.classes;
+		actor.classList.add('actor');
 		playEmoji('div[dndid="'+data.id+'"] .emoji',data.emoji);
 	}
 

@@ -97,7 +97,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	function addNewOnStageRequest(data){
-		console.log();
+		console.log('addNewOnStageRequest');
+	}
+	function displayActorSketch(){
+		console.log('displayActorSketch');
 	}
 
 	function setBackdrops(backdrops){
@@ -227,6 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			newActor = new Actor(actorAddElements);
 			elements.actorList.appendChild(newActor.elements.container);
 			actors.push(newActor);
+			newActor.arrayIdx = actors.length-1;
 		}
 	}
 	function clearInitiative(event){
@@ -294,7 +298,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		this.elements = buildNewActor.call(this,actorAddElements);
 		this.id = null;
 		this.initiative = null;
-		
+		this.arrayIdx = null;
+
 		registerActorEventListeners.call(this);
 		console.log('sending add actor');
 		//send out emit for stage to pick up	
@@ -394,7 +399,11 @@ document.addEventListener('DOMContentLoaded', function() {
 				console.log('sending remove actor talk');
 				socket.emit('remove_actor_dm', {id:this.id});
 				this.elements.container.parentNode.removeChild(this.elements.container);
-				this.alive = true;
+				this.alive = false;
+				console.log(actors.toString(),actors.length);
+				actors.splice(this.arrayIdx,1);
+				console.log(actors.toString(),actors.length);
+				
 			}.bind(this));  
 
 			this.elements.point.addEventListener('click', function(event){
