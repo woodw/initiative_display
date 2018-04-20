@@ -97,7 +97,7 @@ background-image:url(https://img00.deviantart.net/a0f3/i/2013/193/f/0/magical_ca
 }
 .actor:not(.onstage){
 	animation: offstage 2s linear 0s 1 alternate;
-	transform: translateY(60%);
+	transform: translateY(45%);
 }
 .actor.onstage{
 	transform: translateY(0%);

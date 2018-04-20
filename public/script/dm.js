@@ -380,11 +380,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			
 			elements.container.appendChild(elements.turn);
 
-			elements.sketch = document.createElement('button');
-			elements.sketch.innerText = 'send sketch';  
-			
-			elements.container.appendChild(elements.sketch);
-
 			return elements;
 		}
 
@@ -417,15 +412,12 @@ document.addEventListener('DOMContentLoaded', function() {
 			}.bind(this));
 
 			this.elements.onstage.addEventListener('click', function(event){
+				console.log('do i get in here?');
 				socket.emit('set_actor_stage_presence_dm', {id:this.id});
 			}.bind(this));
 
 			this.elements.turn.addEventListener('click', function(event){
 				socket.emit('turn_actor', {id:this.id});
-			}.bind(this));
-
-			this.elements.sketch.addEventListener('click', function(event){
-				socket.emit('set_private_actor_sketch_dm', {id:this.id});
 			}.bind(this));
 		}
 	}

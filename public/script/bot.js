@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function turnActor(data){
 		//set the audio
-		if(data.id){
+		if(data.id || data.id == 0){
 			byCSS('div[dndid="'+data.id+'"]').classList.toggle('turn');
 		}
 		else if(data.class){
@@ -121,10 +121,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	function moveActor(data, callbkfn){
-		var actor;
-		actor = elements.characterLine.querySelector('div[dndid="'+data.id+'"]');
-		
-		if(data.id){
+		console.log('this is me', data);
+		if(data.id || data.id == 0){
+			console.log('div[dndid="'+data.id+'"]');
 			byCSS('div[dndid="'+data.id+'"]').classList.toggle('onstage');
 		}
 		else if(data.class){
@@ -175,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	function setActorEmoji(data) {
 		console.log('set emoji',data);
 		
-		if(data.id){
+		if(data.id || data.id == 0){
 			console.log('div[dndid="'+data.id+'"] .emoji');
 			playEmoji('div[dndid="'+data.id+'"] .emoji',data.emoji);
 		}
