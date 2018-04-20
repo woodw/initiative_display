@@ -33,7 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			characterLine: byCSS('.stage'),
 			audioPlayer: byCSS('audio source'),
 			initiativeScreenTop: byCSS('.initiative_cover.top'),
-			initiativeScreenBottom: byCSS('.initiative_cover.bottom')
+			initiativeScreenBottom: byCSS('.initiative_cover.bottom'),
+			stage: byCSS('.stage')
 		}
 	}
 
@@ -53,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		socket.on('play_audience_emoji',  addPeanutEmoji);
 		socket.on('set_actor_stage_presence', moveActor);
 		socket.on('toggle_initiative_display', toggleInitiativeDisplay);
+		socket.on('set_combat_actors', setCombatActors);
 		socket.on('reset', resetActors);
 	}
 
@@ -86,6 +88,31 @@ document.addEventListener('DOMContentLoaded', function() {
 	/** Sockets */
 	function socketConnected(data){
 		console.log('I am connected');
+	}
+
+	function setCombatActors(data){
+		console.log(data.length);
+		var was,is,will;
+
+		if(data.length<=0){
+			elements.stage.classList.remove('fight');
+		}
+		else{
+			elements.stage.classList.add('fight');
+
+			was = byCSS('.acted');
+			if(was){was.classList.remove('acted');}
+			
+			is = byCSS('.acting');
+			if(is){is.classList.remove('acting');}
+			
+			will = byCSS('.will_act');
+			if(will){will.classList.remove('will_act');}
+
+			byCSS('div[dndid="'+data[0].id+'"]').classList.add('acted');
+			byCSS('div[dndid="'+data[1].id+'"]').classList.add('acting');
+			byCSS('div[dndid="'+data[2].id+'"]').classList.add('will_act');
+		}
 	}
 
 	function setBackdrop(data){

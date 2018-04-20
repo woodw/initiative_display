@@ -248,6 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			elements.actorList.appendChild(actor.elements.container);
 		});
 		initiativePointer = 0;
+		socket.emit('set_combat_actors_dm',[]);
 	}
 	function fillInitiative(event){
 		while (elements.actorList.firstChild) {
@@ -265,11 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 
 		if(actors.length>=3){
-			socket.emit('alert_new_initiative_dm',[
-				actors[((initiativePointer-1)<0)?(actors.length-1):(initiativePointer-1)].elements.classes.value,
-				actors[initiativePointer].elements.classes.value,
-				actors[((initiativePointer+1)>(actors.length-1))?(0):(initiativePointer+1)].elements.classes.value]
-			);
+			socket.emit('set_combat_actors_dm',getCombatPlayers());
 		}
 	}
 
@@ -277,19 +274,35 @@ document.addEventListener('DOMContentLoaded', function() {
 		socket.emit('toggle_initiative_display_dm');
 	}
 
-	function advanceInitiative(event){
-		if(actors.length>=3){
-			initiativePointer++;
-			if(initiativePointer>(actors.length-1)){
-				initiativePointer = 0;
+	function getCombatPlayers(){
+		return [
+			{
+				id:validArraySpot(initiativePointer-1).id
+			},
+			{
+				id:validArraySpot(initiativePointer).id
+			},
+			{
+				id:validArraySpot(initiativePointer+1).id
 			}
+		];
+	}
+	function validArraySpot(idx){
+		//05 15 25 35 45 55 65/05
+		while(idx<0){
+			idx+=actors.length;
+		}
+		while(idx>(actors.length-1)){
+			idx-=actors.length;
+		}
 
-			socket.emit('alert_new_initiative_dm',[
-				actors[((initiativePointer-1)<0)?(actors.length-1):(initiativePointer-1)].elements.classes.value,
-				actors[initiativePointer].elements.classes.value,
-				actors[((initiativePointer+1)>(actors.length-1))?(0):(initiativePointer+1)].elements.classes.value]
-			);
-			
+		return actors[idx];
+	}
+
+	function advanceInitiative(event){
+		initiativePointer++;
+		if(actors.length>=3){
+			socket.emit('set_combat_actors_dm',getCombatPlayers());
 		}
 	}
 

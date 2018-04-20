@@ -180,7 +180,8 @@ io.on('connection', function (socket) {
 	standardSocketRelay('set_actor_stage_presence_dm','set_actor_stage_presence');
 	standardSocketRelay('set_private_actor_sketch_dm','set_private_actor_sketch');
 	standardSocketRelay('set_actor_sketch_pc','set_actor_sketch');
-	standardSocketRelay('toggle_initiative_display_dm','toggle_initiative_display');		
+	standardSocketRelay('toggle_initiative_display_dm','toggle_initiative_display');	
+	standardSocketRelay('set_combat_actors_dm','set_combat_actors');		
 	
 	socket.on('reset_dm', function (data) {
 		console.log('reset_dm', data);
