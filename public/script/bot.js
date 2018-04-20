@@ -165,16 +165,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function updateActor(data){
 		console.log(data);
-		var actor;
-		actor = elements.characterLine.querySelector('div[dndid="'+data.id+'"]');
-		actor.className = data.classes;
-		actor.classList.add('actor');
+		//var actor;
+		//actor = elements.characterLine.querySelector('div[dndid="'+data.id+'"]');
+		//actor.className = data.classes;
+		//actor.classList.add('actor');
 		playEmoji('div[dndid="'+data.id+'"] .emoji',data.emoji);
 	}
 
 	function setActorEmoji(data) {
 		console.log('set emoji',data);
-		playEmoji('div[dndid="'+data.id+'"] .emoji',data.emoji);
+		
+		if(data.id){
+			console.log('div[dndid="'+data.id+'"] .emoji');
+			playEmoji('div[dndid="'+data.id+'"] .emoji',data.emoji);
+		}
+		else if(data.class){
+			console.log('.'+data.class+' .emoji');
+			playEmoji('.'+data.class+' .emoji',data.emoji);
+		}
 	}
 
 	function addPeanutEmoji(data) {

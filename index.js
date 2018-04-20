@@ -174,15 +174,20 @@ io.on('connection', function (socket) {
 	standardSocketRelay('remove_actor_dm','remove_actor');
 	standardSocketRelay('update_actor_dm','update_actor');
 	standardSocketRelay('turn_actor','turn_actor_srv');
-	standardSocketRelay('play_actor_emoji','play_actor_emoji');
+	standardSocketRelay('play_actor_emoji','play_actor_emoji_srv');
 	standardSocketRelay('play_audience_emoji_pg','play_audience_emoji');
 	standardSocketRelay('set_actor_stage_presence_pc','set_actor_stage_presence');
 	standardSocketRelay('set_actor_stage_presence_dm','set_actor_stage_presence');
 	standardSocketRelay('set_private_actor_sketch_dm','set_private_actor_sketch');
 	standardSocketRelay('set_actor_sketch_pc','set_actor_sketch');
-	standardSocketRelay('toggle_initiative_display_dm','toggle_initiative_display');	
-	standardSocketRelay('reset_dm','reset');	
+	standardSocketRelay('toggle_initiative_display_dm','toggle_initiative_display');		
 	
+	socket.on('reset_dm', function (data) {
+		console.log('reset_dm', data);
+		onLiveData.actorID = 0;
+		socket.broadcast.emit('reset', data);
+	});
+
 	function standardSocketRelay(eventString,broadcastString){
 		socket.on(eventString, function (data) {
 			console.log(eventString, data);
