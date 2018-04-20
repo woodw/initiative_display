@@ -11,7 +11,21 @@
 				[],
 				[],
 				[
-					{"name":"Dungeon Mechanical","url":"https://sounds.tabletopaudio.com/90_Dungeon_II_Mechanical.mp3"}
+					{"name":"Ethereal Plane","url":"https://sounds.tabletopaudio.com/112_Ethereal_Plane.mp3"},
+					{"name":"River Town","url":"https://sounds.tabletopaudio.com/104_River_Town.mp3"},
+					{"name":"Lost Mine","url":"https://sounds.tabletopaudio.com/98_Lost_Mine.mp3"},
+					{"name":"Skirmish","url":"https://sounds.tabletopaudio.com/92_Skirmish.mp3"},
+					{"name":"Dungeon Mechanical","url":"https://sounds.tabletopaudio.com/90_Dungeon_II_Mechanical.mp3"},
+					{"name":"Medieval Battle","url":"https://sounds.tabletopaudio.com/79_Medieval_Battle.mp3"},
+					{"name":"Dungeon","url":"https://sounds.tabletopaudio.com/65_Dungeon_I.mp3"},
+					{"name":"Goblin Cave","url":"https://sounds.tabletopaudio.com/49_Goblin's_Cave.mp3"},
+					{"name":"Catherdral","url":"https://sounds.tabletopaudio.com/46_Cathedral.mp3"},
+					{"name":"Rise of the Ancients","url":"https://sounds.tabletopaudio.com/42_Rise_of_the_Ancients.mp3"},
+					{"name":"Temple of the eye","url":"https://sounds.tabletopaudio.com/39_Temple_of_the_Eye.mp3"},
+					{"name":"Clash of Kings","url":"https://sounds.tabletopaudio.com/34_Clash_of_Kings.mp3"},
+					{"name":"Catacombs","url":"https://sounds.tabletopaudio.com/37_Catacombs.mp3"},
+					{"name":"Cave of Time","url":"https://sounds.tabletopaudio.com/13_Cave_of_Time.mp3"},
+					{"name":"Combat Battle Music","url":"https://staticcrate.com/content/audio-pro/soundscrate-battle-rally.mp3"}
 				]
 			]
 		},
