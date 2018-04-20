@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 	function actorMoveStage(event){
 		console.log('this is working');
-		socket.emit('actor_stage_presence_request_pc',{class: characterName, onstage: true});
+		socket.emit('set_actor_stage_presence_pc',{class: characterName, onstage: true});
 	}
 	function hidePrivateSketch(event){
 		console.log('this is working');

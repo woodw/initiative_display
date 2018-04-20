@@ -1,3 +1,13 @@
+@keyframes onstage{
+	from{transform:translateY(60%)}
+	to{transform:translateY(0%)}
+}
+@keyframes offstage{
+	from{transform:translateY(0%)}
+	to{transform:translateY(60%)}
+}
+
+
 body{
 	margin:0;
 	padding:0;
@@ -31,23 +41,6 @@ background-image:url(https://img00.deviantart.net/a0f3/i/2013/193/f/0/magical_ca
   transition: opacity 3s;
   opacity:0;
 }
-
-/*.stage{
-  left:3vw;
-  bottom:-3vh;
-  background-image:
-	  url(https://s3.amazonaws.com/spoonflower/public/design_thumbnails/0464/6980/r12x12_Pixel_Block_Stone_NEW_DESIGN_2015_PRINT_FILE_shop_preview.png),
-	  radial-gradient(#777,rgb(70, 43, 2));
-  width:95vw;
-  height:20vh;
-  margin: 0 auto;
-  background-repeat:no-repeat;
-  background-size:cover;
-  background-blend-mode:multiply;
-  box-shadow:0 0 20px 5px rgba(22, 22, 22, 0.658);
-  z-index:1;
-  transform: perspective( 600px ) rotateX( 45deg );
-}*/
 
 .forground{
 	position:absolute;
@@ -97,6 +90,22 @@ background-image:url(https://img00.deviantart.net/a0f3/i/2013/193/f/0/magical_ca
 	grid-template-columns:1fr;
 	z-index:2;
 }
+.actor:not(.onstage){
+	animation: offstage 2s linear 0s 1 alternate;
+	transform: translateY(60%);
+}
+.actor.onstage{
+	grid-column:4;
+	grid-row:1/3;
+
+	display:grid;
+	grid-template-rows:repeat(2,1fr);
+	grid-template-columns:1fr;
+	z-index:2;
+	transform: translateY(0%);
+
+	animation: onstage 2s linear 0s 1 alternate;
+}
 .stage:not(.fight) .actor ~ .actor{
 	grid-column:3;
 }
@@ -122,6 +131,10 @@ background-image:url(https://img00.deviantart.net/a0f3/i/2013/193/f/0/magical_ca
 	background-size:contain;
 	background-position:bottom;
 	background-repeat:no-repeat;
+	transition:transform .5s;
+}
+.actor.turn .mini{
+	transform:scaleX(-1);
 }
 
 
@@ -150,6 +163,10 @@ background-image:url(https://img00.deviantart.net/a0f3/i/2013/193/f/0/magical_ca
 	grid-template-rows:20% 60% 20%;
 	background-color:rgba(0,0,0,.8);
 }
+.sketch--container{
+	transition-timing-function: ease;
+	transition:opacity 2s;
+}
 .sketch--container.hide{
 	opacity:0;
 }
@@ -174,13 +191,25 @@ background-image:url(https://img00.deviantart.net/a0f3/i/2013/193/f/0/magical_ca
 	background-color:rgb(51,51,51);
 	background-size: 70vw 100vh;
 }
+
+.initiative_cover{
+	transition-timing-function: ease-in;
+	transition:top 1s, bottom 1s;
+}
 .initiative_cover.top{
+	top:0px;
+	left:0px;
 	bottom:inherit;
-	top:-50vh;
 	background-position:top;
 }
 .initiative_cover.bottom{
 	top:inherit;
-	bottom:-50vh;
 	background-position:bottom;
+}
+.initiative_cover.top.hide{
+	top:-50vh;
+	left:0px;
+}
+.initiative_cover.bottom.hide{
+	bottom:-50vh;
 }
