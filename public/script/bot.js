@@ -124,6 +124,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	function setAudioTrack(data){
 		//set the audio
 		console.log(data, elements.audioPlayer, elements.audioPlayerSource);
+		elements.audioPlayer.pause();
+		elements.audioPlayer.currentTime = 0;
 		elements.audioPlayerSource.src = data.url;
 		elements.audioPlayer.play();
 	}
