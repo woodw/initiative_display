@@ -31,7 +31,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			sketchContainer: byCSS('.sketch--container'),
 			sketch: byCSS('.sketch'),
 			characterLine: byCSS('.stage'),
-			audioPlayer: byCSS('audio source'),
+			audioPlayer: byCSS('audio'),
+			audioPlayerSource: byCSS('audio source'),
 			initiativeScreenTop: byCSS('.initiative_cover.top'),
 			initiativeScreenBottom: byCSS('.initiative_cover.bottom'),
 			stage: byCSS('.stage')
@@ -122,7 +123,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function setAudioTrack(data){
 		//set the audio
-		elements.audioPlayer.setAttribute('src',data.url);
+		console.log(data, elements.audioPlayer, elements.audioPlayerSource);
+		elements.audioPlayerSource.src = data.url;
+		elements.audioPlayer.play();
 	}
 
 	function setSketch(data){
