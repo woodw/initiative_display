@@ -411,7 +411,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				console.log(actors.toString(),actors.length);
 				actors.splice(this.arrayIdx,1);
 				console.log(actors.toString(),actors.length);
-				
+				fillInitiative(event);
 			}.bind(this));  
 
 			this.elements.point.addEventListener('click', function(event){

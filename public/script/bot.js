@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	function init(){
 		elements = registerElements();
 		initSocket();
+  
 	}
 
 	function registerElements(){
@@ -31,8 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			sketchContainer: byCSS('.sketch--container'),
 			sketch: byCSS('.sketch'),
 			characterLine: byCSS('.stage'),
-			audioPlayer: byCSS('audio'),
-			audioPlayerSource: byCSS('audio source'),
+			youtubePlayer: byCSS('#youtube_audio'),
 			initiativeScreenTop: byCSS('.initiative_cover.top'),
 			initiativeScreenBottom: byCSS('.initiative_cover.bottom'),
 			stage: byCSS('.stage')
@@ -123,11 +123,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function setAudioTrack(data){
 		//set the audio
-		console.log(data, elements.audioPlayer, elements.audioPlayerSource);
-		elements.audioPlayer.pause();
-		elements.audioPlayerSource.src = data.url;
-		elements.audioPlayer.load();
-		elements.audioPlayer.play();
+		console.log(data, elements.youtubePlayer);
+		var shortName;
+		shortName = data.url.replace('https://www.youtube.com/watch?v=','');
+		elements.youtubePlayer.src='https://www.youtube.com/embed/'+shortName+'?autoplay=1&loop=1';
 	}
 
 	function setSketch(data){
