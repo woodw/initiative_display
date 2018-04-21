@@ -20,9 +20,12 @@ const onLiveData = {
 	group: 'tythos',
 	users: {},
 	directAuth: [
-		'yTgHnB',
-		'tRfGbV',
-		'rEdFvC'
+		'qzWXecRV',
+		'wxECrvTB',
+		'ecRVtbYN',
+		'rvTBynUM',
+		'tbYNumIm',
+		'ynUMimPM',
 	],
 	actorID: 0
 };
@@ -67,18 +70,32 @@ console.log(clientIp, req.query.auth);
 		};
 		switch(req.query.auth){
 			case onLiveData.directAuth[0]:
-			console.log('muara');
-				fakeUser.user.name = 'Morwen Katahl (Maura)';
+				fakeUser.user.name = 'atticusjack';
 				storeUser(clientIp,fakeUser);
 				res.sendFile(__dirname+'/app/pc_screen.html');
 				break;
 			case onLiveData.directAuth[1]:
-				fakeUser.user.name = 'Prof. Thomas Black';
+				fakeUser.user.name = 'Bree';
 				storeUser(clientIp,fakeUser);
 				res.sendFile(__dirname+'/app/pc_screen.html');
 				break;
 			case onLiveData.directAuth[2]:
-				fakeUser.user.name = 'Garrik (Noel)';
+				fakeUser.user.name = 'Nell';
+				storeUser(clientIp,fakeUser);
+				res.sendFile(__dirname+'/app/pc_screen.html');
+				break;
+			case onLiveData.directAuth[3]:
+				fakeUser.user.name = 'Thal The Thalificient';
+				storeUser(clientIp,fakeUser);
+				res.sendFile(__dirname+'/app/pc_screen.html');
+				break;
+			case onLiveData.directAuth[4]:
+				fakeUser.user.name = 'Toph\'ee';
+				storeUser(clientIp,fakeUser);
+				res.sendFile(__dirname+'/app/pc_screen.html');
+				break;
+			case onLiveData.directAuth[5]:
+				fakeUser.user.name = 'Umbar';
 				storeUser(clientIp,fakeUser);
 				res.sendFile(__dirname+'/app/pc_screen.html');
 				break;

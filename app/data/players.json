@@ -6,8 +6,8 @@
 			"mini": "./images/sprites/garrikphase1.png",
 			"css": "ack",
 			"class":"Wizard: School of Transmutation",
-			"orcpub": "https://orcpub2.com/pages/dnd/5e/characters/17592249352779",
-			"spells":"http://www.5esrd.com/spellcasting/spell-lists/#clericlist"
+			"orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592189873255",
+			"spells":"http://www.5esrd.com/spellcasting/spell-lists/#wizardlist"
 		},
 		"Bree":{
 			"name": "Bree",
@@ -15,7 +15,7 @@
 			"mini": "./images/sprites/bree.png",
 			"css": "bree",
 			"class":"Ranger: Beastmaster",
-			"orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592251219558",
+			"orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592229788780",
 			"spells":"http://www.5esrd.com/spellcasting/spell-lists/#rangerlist"
 		},
 		"Nell":{
@@ -24,7 +24,7 @@
 			"mini": "./images/sprites/nell.png",
 			"css": "nell",
 			"class":"Fighter: Battlemaster",
-			"orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592251200349",
+			"orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592189908022",
 			"spells":"http://www.5esrd.com/spellcasting/spell-lists/#bardlist"
 		},
 		"Thal The Thalificient":{
@@ -33,8 +33,8 @@
 			"mini": "./images/sprites/thaliss.png",
 			"css": "thaliss",
 			"class":"Sorcerer: Draconic",
-			"orcpub": "https://orcpub2.com/pages/dnd/5e/characters/17592249352779",
-			"spells":"http://www.5esrd.com/spellcasting/spell-lists/#clericlist"
+			"orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592229244832",
+			"spells":"http://www.5esrd.com/spellcasting/spell-lists/#sorcererlist"
 		},
 		"Toph'ee":{
 			"name": "Toph'ee",
@@ -42,7 +42,7 @@
 			"mini": "./images/sprites/tophee.png",
 			"css": "tophee",
 			"class":"Rogue: Assassin",
-			"orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592251219558",
+			"orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592208615993",
 			"spells":"http://www.5esrd.com/spellcasting/spell-lists/#rangerlist"
 		},
 		"Umbar":{
@@ -51,8 +51,8 @@
 			"mini": "./images/sprites/umbar.png",
 			"css": "umbar",
 			"class":"Warlock: Pact of the Blade",
-			"orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592251200349",
-			"spells":"http://www.5esrd.com/spellcasting/spell-lists/#bardlist"
+			"orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592229987189",
+			"spells":"http://www.5esrd.com/spellcasting/spell-lists/#warlocklist"
 		}
 	},
 	"valdrin":{
