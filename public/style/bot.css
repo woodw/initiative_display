@@ -208,7 +208,7 @@ background-image:url(https://img00.deviantart.net/a0f3/i/2013/193/f/0/magical_ca
 	display:grid;
 	grid-template-columns:20% 60% 20%;
 	grid-template-rows:20% 60% 20%;
-	background-color:rgba(0,0,0,.8);
+	background-color:rgba(0,0,0,.2);
 }
 .sketch--container{
 	transition-timing-function: ease;
