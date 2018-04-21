@@ -188,7 +188,7 @@ background-image:url(https://img00.deviantart.net/a0f3/i/2013/193/f/0/magical_ca
 
 @keyframes wait{
 	from{transform: scale(0.8) translate(0vw,6vh);}
-	to{transform: scale(1) translate(-30vw,0vh);}
+	to{transform: scale(1) translate(-30vw,9vh);}
 }
 @keyframes acted{
 	from{transform: scale(1.5) translate(17vw,-9vh);}
@@ -199,7 +199,7 @@ background-image:url(https://img00.deviantart.net/a0f3/i/2013/193/f/0/magical_ca
 	to{transform: scale(1.5) translate(0vw,-9vh);}
 }
 @keyframes will_act{
-	from{transform: scale(1) translate(30vw,0vh);}
+	from{transform: scale(1) translate(30vw,9vh);}
 	to{transform: scale(0.8) translate(0vw,6vh);}
 }
 

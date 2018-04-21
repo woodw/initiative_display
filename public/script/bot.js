@@ -101,18 +101,30 @@ document.addEventListener('DOMContentLoaded', function() {
 		else{
 			elements.stage.classList.add('fight');
 
-			was = byCSS('.acted');
-			if(was){was.classList.remove('acted');}
-			
-			is = byCSS('.acting');
-			if(is){is.classList.remove('acting');}
-			
-			will = byCSS('.will_act');
-			if(will){will.classList.remove('will_act');}
+			was = byCSSAll('.acted');
+			if(was){
+				was.forEach(function(item){
+					item.classList.remove('acted');
+				});
+			}
 
-			byCSS('div[dndid="'+data[0].id+'"]').classList.add('acted');
-			byCSS('div[dndid="'+data[1].id+'"]').classList.add('acting');
-			byCSS('div[dndid="'+data[2].id+'"]').classList.add('will_act');
+			is = byCSSAll('.acting');
+			if(is){
+				is.forEach(function(item){
+					item.classList.remove('acting');
+				});
+			}
+
+			will = byCSSAll('.will_act');
+			if(will){
+				will.forEach(function(item){
+					item.classList.remove('will_act');
+				});
+			}
+
+			byCSS('div[dndid="'+data[0].id+'"]').classList.add('acted','turn');
+			byCSS('div[dndid="'+data[1].id+'"]').classList.add('acting','turn');
+			byCSS('div[dndid="'+data[2].id+'"]').classList.add('will_act','turn');
 		}
 	}
 

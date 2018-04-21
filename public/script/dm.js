@@ -406,11 +406,26 @@ document.addEventListener('DOMContentLoaded', function() {
 			this.elements.remove.addEventListener('click', function(event){
 				console.log('sending remove actor talk');
 				socket.emit('remove_actor_dm', {id:this.id});
+				console.log('id',this.id);
+				console.log('array',actors.toString());
+				
+				var heep;
+
+				heep = actors.findIndex((element) => {
+					console.log(element, element.id, this.id);
+					console.log((element.id == this.id));
+					return element.id == this.id;
+				});
+
+				console.log('index',heep);
+				
+
 				this.elements.container.parentNode.removeChild(this.elements.container);
 				this.alive = false;
-				console.log(actors.toString(),actors.length);
-				actors.splice(this.arrayIdx,1);
-				console.log(actors.toString(),actors.length);
+
+				actors.splice(heep,1);
+				console.log('id',this.id);
+				console.log('array',actors.toString());
 				fillInitiative(event);
 			}.bind(this));  
 
@@ -434,5 +449,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			}.bind(this));
 		}
 	}
+	Actor.prototype.toString = function(){
+		return this.id + ' | ' + this.elements.classes.value;
+	};
 
 });	
