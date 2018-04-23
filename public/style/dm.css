@@ -163,4 +163,5 @@ body{
 }
 .alert h4{
 	margin-bottom:0;
+	text-transform: uppercase;
 }

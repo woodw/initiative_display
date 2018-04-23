@@ -179,6 +179,7 @@ io.on('connection', function (socket) {
 
 	standardSocketRelay('set_backdrop_dm','set_backdrop');
 	standardSocketRelay('set_sketch_dm','set_sketch');
+	standardSocketRelay('set_sketch_pc','set_sketch');
 	standardSocketRelay('set_audiotrack_dm','set_audiotrack');
 
 	socket.on('add_actor_dm', (data, callbkfn) => {
@@ -197,6 +198,7 @@ io.on('connection', function (socket) {
 	standardSocketRelay('set_actor_stage_presence_dm','set_actor_stage_presence');
 	standardSocketRelay('set_private_actor_sketch_dm','set_private_actor_sketch');
 	standardSocketRelay('set_actor_sketch_pc','set_actor_sketch');
+	standardSocketRelay('actor_stage_presence_request_pc','actor_stage_presence_request');
 	standardSocketRelay('toggle_initiative_display_dm','toggle_initiative_display');	
 	standardSocketRelay('set_combat_actors_dm','set_combat_actors');		
 	

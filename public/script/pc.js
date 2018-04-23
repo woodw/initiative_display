@@ -99,7 +99,13 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 	function actorMoveStage(event){
 		console.log('this is working');
-		socket.emit('set_actor_stage_presence_pc',{class: characterName, onstage: true});
+
+		socket.emit('actor_stage_presence_request_pc',{
+			title: characterName+' request',
+			class: characterName,
+			detail: 'wants to move'
+		});
+		
 	}
 	function hidePrivateSketch(event){
 		console.log('this is working');
@@ -108,7 +114,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	function submitPrivateSketch(event){
 		console.log('this is working');
 		if(elements.inputSketchSubmit.value){
-			socket.emit('set_actor_sketch_pc',{url: elements.inputSketchSubmit.value});
+			socket.emit('set_actor_sketch_pc',{
+				title: characterName+' request',
+				class: characterName,
+				detail: 'wants to show sketch',
+				image: elements.inputSketchSubmit.value
+			});
 		}
 	}
 	function getResponse(data){

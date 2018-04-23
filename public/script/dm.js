@@ -58,7 +58,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				toggleOverlay: byCSS('#actors-control__toggle-overlay'),
 				advance: byCSS('#actors-control__advance'),
 				reset: byCSS('#actors-control__reset'),
-			}
+			},
+
+			actorRequests: byCSS('.bar__requests')
 		};
 	}
 
@@ -104,11 +106,67 @@ document.addEventListener('DOMContentLoaded', function() {
 		console.log(data);
 	}
 
+	//Request coming from the player
 	function addNewOnStageRequest(data){
 		console.log('addNewOnStageRequest');
+		var newAlert, doAction;
+		
+		doAction = function(){
+			socket.emit('set_actor_stage_presence_pc',{class: data.class, onstage: true});
+		};
+		
+		newAlert = createAlert(data,doAction);
+		
+		elements.actorRequests.appendChild(newAlert);
 	}
-	function displayActorSketch(){
+	//request coming from the player
+	function displayActorSketch(data){
 		console.log('displayActorSketch');
+		var newAlert, preview, doAction;
+		
+		doAction = function(){
+			socket.emit('set_sketch_pc',{'url':data.image});
+		};
+		
+		newAlert = createAlert(data,doAction);
+		
+		preview = document.createElement('img');
+			preview.className = 'alert__image';
+			preview.src = data.image;
+			newAlert.insertBefore(preview, newAlert.querySelector('button'));
+		
+			elements.actorRequests.appendChild(newAlert);
+	}
+
+	function createAlert(data, doAction){
+		var newAlert, alertTitle, alertDetails, alertAccpet, alertDecline;
+		newAlert = document.createElement('div');
+		newAlert.className = 'alert';
+
+		alertTitle = document.createElement('h4');
+			alertTitle.className = 'alert__title';
+			alertTitle.innerText = data.title;
+			newAlert.appendChild(alertTitle);
+		alertDetails = document.createElement('p');
+			alertDetails.className = 'alert__details';
+			alertDetails.innerText = data.detail;
+			newAlert.appendChild(alertDetails);
+		alertAccept = document.createElement('button');
+			alertAccept.className = 'alert__button';
+			alertAccept.innerText = 'Accept';
+			alertAccept.addEventListener('click', function(){
+				doAction();
+				elements.actorRequests.removeChild(newAlert);
+			});
+			newAlert.appendChild(alertAccept);
+		alertDecline = document.createElement('button');
+			alertDecline.className = 'alert__button';
+			alertDecline.innerText = 'Decline';
+			alertDecline.addEventListener('click', function(){
+				elements.actorRequests.removeChild(newAlert);
+			});
+			newAlert.appendChild(alertDecline);
+		return newAlert;
 	}
 
 	function setBackdrops(backdrops){
