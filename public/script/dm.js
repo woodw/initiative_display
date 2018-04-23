@@ -200,8 +200,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			var shortName;
 			elements.audioList.value = audioTracks.session[app.session-1][0].url;	
 				
-			shortName = data.url.replace('https://www.youtube.com/watch?v=','');
-			elements.youtubePlayer.src='https://www.youtube.com/embed/'+shortName;
+			shortName = elements.audioList.value.replace('https://www.youtube.com/watch?v=','');
+			elements.audioPreview.src='https://www.youtube.com/embed/'+shortName;
 		}
 	}
 

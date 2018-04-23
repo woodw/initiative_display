@@ -66,9 +66,10 @@ body{
 	"a z"
     "b z"
 	"c z"
-	"d z";
+	"d z"
+	"e z";
 	grid-template-columns: 33.5% 66.5%;
-	grid-template-rows:8vh 6vh 6vh 11vh 11vh;
+	grid-template-rows:8vh 6vh 6vh 10vh 11vh 11vh;
 }
 
 .card#emoji{
