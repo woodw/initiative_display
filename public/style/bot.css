@@ -13,16 +13,6 @@
 	100%{opacity:0;transform:rotateY(1080deg);}
 }
 
-
-/*transform: scale(0.8) translate(0vw,6vh);        transform: scale(1) translate(-30vw,0vh);*/
-
-/*transform: scale(1.5) translate(17vw,-9vh);      transform: scale(0.8) translate(0vw,6vh);*/
-
-/*transform: scale(0.8) translate(37vw,6vh);       transform: scale(1.5) translate(0vw,-9vh);*/
-
-/*transform: scale(1) translate(30vw,0vh);          transform: scale(0.8) translate(0vw,6vh);*/
-
-
 body{
 	margin:0;
 	padding:0;
@@ -43,7 +33,7 @@ body > div{
 	background-repeat:no-repeat;
 	background-position:center;
 
-background-image:url(https://img00.deviantart.net/a0f3/i/2013/193/f/0/magical_camping_by_blazi76-d6d53k2.jpg),radial-gradient(#FFF,#FAA);
+background-image:url(https://orig00.deviantart.net/c745/f/2013/219/0/d/tavern_by_anthonyavon-d6h3utd.jpg),radial-gradient(#FFF,#FAA);
   background-repeat:no-repeat;
   background-size:cover;
   background-position:center;

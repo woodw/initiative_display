@@ -137,8 +137,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		//set the audio
 		console.log(data, elements.youtubePlayer);
 		var shortName;
-		shortName = data.url.replace('https://www.youtube.com/watch?v=','');
-		elements.youtubePlayer.src='https://www.youtube.com/embed/'+shortName+'?autoplay=1&loop=1';
+		if(data.url){
+			shortName = data.url.replace('https://www.youtube.com/watch?v=','');
+			elements.youtubePlayer.src = 'https://www.youtube.com/embed/'+shortName+'?autoplay=1&loop=1';
+		}
+		else{
+			elements.youtubePlayer.src = '';
+		}
 	}
 
 	function setSketch(data){

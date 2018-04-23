@@ -197,8 +197,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 		
 		if(audioTracks.session[app.session-1].length>0){
+			var shortName;
 			elements.audioList.value = audioTracks.session[app.session-1][0].url;	
-			//elements.audioPreview.src = elements.audioList.value;
+				
+			shortName = data.url.replace('https://www.youtube.com/watch?v=','');
+			elements.youtubePlayer.src='https://www.youtube.com/embed/'+shortName;
 		}
 	}
 
@@ -272,16 +275,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	function newAudioTrackSelected(event){
-/*		elements.audioPreviewContainer.removeChild(elements.audioPreview);
-		elements.audioPreview = document.createElement('iframe');
-		elements.audioPreview.className = 'card__audio-preview';
-		elements.audioPreview.src = elements.audioList.value;
-		elements.audioPreview.setAttribute('frameborder','0');
-		elements.audioPreview.setAttribute('allow','autoplay; encrypted-media');
-		elements.audioPreviewContainer.appendChild(elements.audioPreview);*/
-
 		shortName = elements.audioList.value.replace('https://www.youtube.com/watch?v=','');
-		elements.audioPreview.src='https://www.youtube.com/embed/'+shortName+'';
+		elements.audioPreview.src='https://www.youtube.com/embed/'+shortName;
 	}
 	function setBotAudio(event){
 		var url;
