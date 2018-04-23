@@ -24,34 +24,41 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function registerElements(){
 		return {
-			container: byCSS('#container'),
-			tabs: document.querySelectorAll('.tab'),
-			backdropTab: byCSS('#backdrop_tab'),
-			backdropList: byCSS('#backdrop_list'),
-			backdropSubmit: byCSS('#backdrop_button'),
-			backdropPreview: byCSS('#backdrop_preview'),
-			backdropCustomUrl: byCSS('#backdrop_custom'),
-			backdropUseCustomUrl: byCSS('#backdrop_use_custom'),
-			sketchTab: byCSS('#sketch_tab'),
-			sketchList: byCSS('#sketch_list'),
-			sketchSet: byCSS('#sketch_button--set'),
-			sketchRemove: byCSS('#sketch_button--remove'),
-			sketchPreview: byCSS('#sketch_preview'),
-			sketchCustomUrl: byCSS('#sketch_custom'),
-			sketchUseCustomUrl: byCSS('#sketch_use_custom'),
-			audioTab: byCSS('#audio_tab'),
-			audioList: byCSS('#audio_list'),
-			audioSubmit: byCSS('#audio_button'),
-			audioCustomUrl: byCSS('#audio_custom'),
-			audioUseCustomUrl: byCSS('#audio_use_custom'),
-			actorList: byCSS('#actor_list'),
-			actorAdd: byCSS('#actor--add'),
-			actorAddSubmit: byCSS('#actor--add button'),
-			initiativesClearBtn: byCSS('#initiative--clear'),
-			initiativesFillBtn: byCSS('#initiative--fill'),
-			initiativeToggleBtn: byCSS('#initiative--toggle'),
-			initiativeNextBtn: byCSS('#initiative--next'),
-			reset: byCSS('#reset')
+			container: byCSS('.container'),
+
+			backdropList: byCSS('#backdrop .card__selection'),
+			backdropSubmit: byCSS('#backdrop .card__emit-button'),
+			backdropPreview: byCSS('#backdrop .card__image-preview'),
+			backdropCustomUrl: byCSS('#backdrop .url-input'),
+			backdropUseCustomUrl: byCSS('#backdrop .checkbox__check'),
+
+			sketchList: byCSS('#sketch .card__selection'),
+			sketchSet: byCSS('#sketch .card__emit-button--on'),
+			sketchRemove: byCSS('#sketch .card__emit-button--off'),
+			sketchPreview: byCSS('#sketch .card__image-preview'),
+			sketchCustomUrl: byCSS('#sketch  .url-input'),
+			sketchUseCustomUrl: byCSS('#sketch  .checkbox__check'),
+
+			audioContainer: byCSS('#audio'),
+			audioList: byCSS('#audio .card__selection'),
+			audioSet: byCSS('#audio .card__emit-button--on'),
+			audioRemove: byCSS('#audio .card__emit-button--off'),
+			audioPreviewContainer: byCSS('#audio .card__audio-preview-container'),
+			audioPreview: byCSS('#audio .card__audio-preview'),
+			audioCustomUrl: byCSS('#audio  .url-input'),
+			audioUseCustomUrl: byCSS('#audio  .checkbox__check'),
+
+			actorList: byCSS('#actor-controls'),
+			
+			actorControls:{
+				element: byCSS('#new-actor-controls'),
+				newActor: byCSS('#actors-control__add'),
+				clear: byCSS('#actors-control__clear'),
+				fill: byCSS('#actors-control__fill'),
+				toggleOverlay: byCSS('#actors-control__toggle-overlay'),
+				advance: byCSS('#actors-control__advance'),
+				reset: byCSS('#actors-control__reset'),
+			}
 		};
 	}
 
@@ -65,16 +72,17 @@ document.addEventListener('DOMContentLoaded', function() {
 		elements.sketchRemove.addEventListener('click', removeBotSketch);
 
 		elements.audioList.addEventListener('change', newAudioTrackSelected);
-		elements.audioSubmit.addEventListener('click', setBotAudio);
+		elements.audioSet.addEventListener('click', setBotAudio);
+		elements.audioRemove.addEventListener('click', removeBotAudio);//
 
-		elements.actorAddSubmit.addEventListener('click', addNewActor);
+		elements.actorControls.newActor.addEventListener('click', addNewActor);
 
-		elements.initiativesClearBtn.addEventListener('click', clearInitiative);
-		elements.initiativesFillBtn.addEventListener('click',fillInitiative);
-		elements.initiativeToggleBtn.addEventListener('click',toggleBotInitiativeDisplay);
-		elements.initiativeNextBtn.addEventListener('click',advanceInitiative);
+		elements.actorControls.clear.addEventListener('click', clearInitiative);
+		elements.actorControls.fill.addEventListener('click',fillInitiative);
+		elements.actorControls.toggleOverlay.addEventListener('click',toggleBotInitiativeDisplay);
+		elements.actorControls.advance.addEventListener('click',advanceInitiative);
 
-		elements.reset.addEventListener('click', reset);
+		elements.actorControls.reset.addEventListener('click', reset);
 	}
 
 /*-------------------------------SOCKET FUNCTIONS*/
@@ -104,13 +112,14 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	function setBackdrops(backdrops){
+		console.log(backdrops);
 		backdrops.session[app.session-1].forEach(function(backdrop){
 			newSelectOption(elements.backdropList,backdrop);
 		});
 
 		if(backdrops.session[app.session-1].length>0){
 			elements.backdropList.value = backdrops.session[app.session-1][0].url;
-			elements.backdropPreview.style.backgroundImage = 'url('+elements.backdropList.value+')';						
+			elements.backdropPreview.src = elements.backdropList.value;						
 		}
 	}
 	function setSketches(sketches){
@@ -120,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		if(sketches.session[app.session-1].length>0){
 			elements.sketchList.value = sketches.session[app.session-1][0].url;
-			elements.sketchPreview.style.backgroundImage = 'url('+elements.sketchList.value+')';						
+			elements.sketchPreview.src = elements.sketchList.value;						
 		}
 	}
 	function setAudioTracks(audioTracks){
@@ -130,7 +139,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 		
 		if(audioTracks.session[app.session-1].length>0){
-			elements.audioList.value = audioTracks.session[app.session-1][0].url;						
+			elements.audioList.value = audioTracks.session[app.session-1][0].url;	
+			//elements.audioPreview.src = elements.audioList.value;
 		}
 	}
 
@@ -171,7 +181,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		socket.emit('reset_dm');
 	}
 	function newBackdropSelected(event){
-		elements.backdropPreview.style.backgroundImage = 'url('+elements.backdropList.value+')';
+
+		elements.backdropPreview.src = elements.backdropList.value;
 	}
 	function setBotBackdrop(event){
 		var url;
@@ -185,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		socket.emit('set_backdrop_dm',{'url':url});
 	}
 	function newSketchSelected(event){
-		elements.sketchPreview.style.backgroundImage = 'url('+elements.sketchList.value+')';
+		elements.sketchPreview.src = elements.sketchList.value;
 	}
 	function setBotSketch(event){
 		var url;
@@ -203,7 +214,16 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	function newAudioTrackSelected(event){
-		elements.audioPreview.style.backgroundImage = 'url('+elements.audioList.value+')';
+/*		elements.audioPreviewContainer.removeChild(elements.audioPreview);
+		elements.audioPreview = document.createElement('iframe');
+		elements.audioPreview.className = 'card__audio-preview';
+		elements.audioPreview.src = elements.audioList.value;
+		elements.audioPreview.setAttribute('frameborder','0');
+		elements.audioPreview.setAttribute('allow','autoplay; encrypted-media');
+		elements.audioPreviewContainer.appendChild(elements.audioPreview);*/
+
+		shortName = elements.audioList.value.replace('https://www.youtube.com/watch?v=','');
+		elements.audioPreview.src='https://www.youtube.com/embed/'+shortName+'';
 	}
 	function setBotAudio(event){
 		var url;
@@ -216,14 +236,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		socket.emit('set_audiotrack_dm',{'url':url});
 	}
+	function removeBotAudio(event){
+		socket.emit('set_audiotrack_dm',{'url':false});
+	}
 
 	function addNewActor(event){
 		var newActor, actorAddElements;
 		
 		actorAddElements = {
-			classes: byCSS('#actor--add input:nth-child(1)'),
-			hitpoints: byCSS('#actor--add input:nth-child(2)'),
-			description: byCSS('#actor--add input:nth-child(3)')
+			classes: byCSS('#new-actor__css'),
+			hitpoints: byCSS('#new-actor__hp'),
+			description: byCSS('#new-actor__desc')
 		};
 		
 		if(actorAddElements.classes.value){
@@ -324,8 +347,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		function toJSON(){
 			return {
 				id:this.id,
-				classes:this.elements.classes.value,
-				emoji:this.elements.emoji.value
+				classes:this.elements.classes.value
 			};
 		};
 		
@@ -362,17 +384,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			
 			elements.container.appendChild(elements.initiative);
 			
-			elements.emoji = document.createElement('input');
-			elements.emoji.setAttribute("type", "text");
-			elements.emoji.setAttribute("placeholder", "😀");
-			
-			elements.container.appendChild(elements.emoji);
-			
-			elements.update = document.createElement('button');
-			elements.update.innerText = '✔';
-			
-			elements.container.appendChild(elements.update);
-			
 			elements.remove = document.createElement('button');
 			elements.remove.innerText = '✖';
 			
@@ -397,11 +408,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 
 		function registerActorEventListeners(){
-
-			this.elements.update.addEventListener('click', function(event){
-				console.log('sending update actor');
-				socket.emit('update_actor_dm', toJSON.call(this));		
-			}.bind(this));  
 
 			this.elements.remove.addEventListener('click', function(event){
 				console.log('sending remove actor talk');

@@ -10,58 +10,119 @@
 
 	</head>
 	<body>
-		<div id="container">
-			<h1>DM Screen</h1>
-			<section id="sketches">
-				<div id="sketch_preview" class="image" style="background-image:linear-gradient(white, grey);"></div>
-				<select id="sketch_list"></select>
-				<button id="sketch_button--set">Set Sketch</button>
-				<button id="sketch_button--remove">Remove Sketch</button>
-				<br />
-				<input type="url" id="sketch_custom" placeholder="custom url"/>
-				<input type="checkbox" id="sketch_use_custom">
-      			<label for="sketch_use_custom">Use Custom Url?</label>
-				
-				
-			</section>
-			<section id="backdrops">
-				<div id="backdrop_preview" class="image" style="background-image:linear-gradient(white, grey);"></div>
-				<select id="backdrop_list"></select>
-				<button id="backdrop_button">Update Backdrop</button>
-				<br />
-				<input type="url" id="backdrop_custom" placeholder="custom url"/>
-				<input type="checkbox" id="backdrop_use_custom">
-      			<label for="backdrop_use_custom">Use Custom Url?</label>
-			</section>
-
-			<section id="audio">
-				<select id="audio_list"></select>
-				<button id="audio_button">Update Audio</button>
-				<br />
-				<input type="url" id="audio_custom" placeholder="custom url"/>
-				<input type="checkbox" id="audio_use_custom">
-      			<label for="audio_use_custom">Use Custom Url?</label>
-			</section>
-
-			<section id="actors">
-				<p>!  $  ?  0  1  2  3  4  5  6  7  8  9  ✔  ✖  ⌕  ⏸  ▷  ☼  ☾  ★  ♥  ♫  ⚒  ⚔  ➳  ⛏  ☀  ☠  ⚓  ⛵  ⛺  ✨  ⏳  💀  😃  😇  😈  😉  😍  😎  😏  😐  😠  😢   😮 😱 😲 😴 😵 ⚰ 🌲 🌿 🍗 🍴 🍺 🍻 🎣 🎨 🎪 🎸 🐃 🐎 🐾 👂 👆 👇 👈 👉 👊 👋 👌 👍 👎 👏 👑 👣 👤 👥 💎 💕 💔 💘 💢 💣 💤 💩 💪 💰 🔑 🔒 🔓 🔥 🔧 🔨 🔮 🔪 ⌕</p>
-					
-				<div id="actor--add">
-					<input type="text" placeholder="css classes"/>
-					<input type="number" placeholder="10"/>
-					<input type="text" placeholder="brief description"/>
-					<button >+</button>
+		<div class="bar">
+			<div class="bar__title">Game Master Screen</div>
+			<div class="bar__navigation">
+					<a href="#backdrop">Backdrop Selection</a><br />
+					<a href="#sketch">Sketch Selection</a><br />
+					<a href="#audio">Audio Selection</a><br />
+					<a href="#emoji">Emoji Selection</a><br />
+					<a href="#actor">Actor Selection</a><br />
+			</div>
+			<div class="bar__requests">
+					<div class="alert">
+							<h4 class="alert__button">Tophee request</h4>
+							<p class="alert__detail">Show custom sketch?</p>
+							<img class="alert__image" src="http://www.allthingsbunnies.com/v/vspfiles/assets/images/images_clipped_rev_2.jpg" />
+							<button class="alert__button">Allow</button>
+							<button class="alert__button">Deny</button>
+						</div>
+						<div class="alert">
+							<h4 class="alert__button">Tophee request</h4>
+							<p class="alert__detail">Actor wants to move</p>
+							<button class="alert__button">Allow</button>
+							<button class="alert__button">Deny</button>	
+						</div>
+						<div class="alert">
+								<h4 class="alert__button">Tophee request</h4>
+								<p class="alert__detail">Show custom sketch?</p>
+								<img class="alert__image" src="http://www.allthingsbunnies.com/v/vspfiles/assets/images/images_clipped_rev_2.jpg" />
+								<button class="alert__button">Allow</button>
+								<button class="alert__button">Deny</button>
+							</div>
+							<div class="alert">
+								<h4 class="alert__button">Tophee request</h4>
+								<p class="alert__detail">Actor wants to move</p>
+								<button class="alert__button">Allow</button>
+								<button class="alert__button">Deny</button>	
+							</div>
+							<div class="alert">
+									<h4 class="alert__button">Tophee request</h4>
+									<p class="alert__detail">Show custom sketch?</p>
+									<img class="alert__image" src="http://www.allthingsbunnies.com/v/vspfiles/assets/images/images_clipped_rev_2.jpg" />
+									<button class="alert__button">Allow</button>
+									<button class="alert__button">Deny</button>
+								</div>
+								<div class="alert">
+									<h4 class="alert__button">Tophee request</h4>
+									<p class="alert__detail">Actor wants to move</p>
+									<button class="alert__button">Allow</button>
+									<button class="alert__button">Deny</button>	
+								</div>
+			</div>
+		</div>
+		<div class="container">
+			<section id="backdrop" class="card">
+				<h3 class="card__title">Stage Backdrop Controls</h3>
+				<img class="card__image-preview" src="http://www.allthingsbunnies.com/v/vspfiles/assets/images/images_clipped_rev_2.jpg" />
+				<select class="card__selection"></select>
+				<div class="checkbox">
+					<input id="backdrop_custom_flag" type="checkbox" class="checkbox__label">
+					<label for="backdrop_custom_flag" class="checkbox__check">Use Custom Url?</label>
 				</div>
-				<div>
-					<button id="initiative--clear">empty initiatives</button>
-					<button id="initiative--fill">fill initiatives</button>
-					<button id="initiative--toggle">toggle initiative screen</button>
-					<button id="initiative--next">set next initiative</button>
-					<button id="reset">reset actors</button>
+				<input type="url" placeholder="www.custom.url" class="url-input"/>
+				<button class="card__button card__emit-button">Update Stage Backdrop</button>
+			</section>
+			<section id="sketch" class="card">
+				<h3 class="card__title">Stage Sketch Controls</h3>
+				<img class="card__image-preview" src="http://www.allthingsbunnies.com/v/vspfiles/assets/images/images_clipped_rev_2.jpg" />
+				<select class="card__selection"></select>
+				<div class="checkbox">
+					<input id="sketch_custom_flag" type="checkbox" class="checkbox__label">
+					<label for="sketch_custom_flag" class="checkbox__check">Use Custom Url?</label>
 				</div>
-				<div id="actor_list"></div>
-		
-				
+				<input type="url" placeholder="www.custom.url" class="url-input"/>
+				<select id="sketch_target" class="card__selection">
+					<option>stage</option>
+					<option>umbar</option>
+					<option>tophee</option>
+					<option>bree</option>
+					<option>ack</option>
+					<option>nell</option>
+					<option>thaliss</option>
+				</select>
+				<button class="card__button card__emit-button--on">Show sketch on stage</button>
+				<button class="card__button card__emit-button--off">Hide sketch on stage</button>
+			</section>
+			<section id="audio" class="card">
+					<h3 class="card__title">Stage Audio Controls</h3>
+					<span class="card__audio-preview-container">
+							<iframe class="card__audio-preview" src="https://www.youtube.com/embed/2UPkwe_5p_w"  frameborder="0" allow="autoplay; encrypted-media"></iframe>
+					</span>
+					<select class="card__selection"></select>
+					<button class="card__button card__emit-button--on">Play Audio</button>
+					<button class="card__button card__emit-button--off">Stop Audio</button>
+			</section>
+			<section id="emoji" class="card">
+					<h3 class="card__title">Stage Audience Emoji Controls</h3>
+					<div id="emojis">
+							<button>!</button>  <button>$</button>  <button>?</button>  <button>0</button>  <button>1</button>  <button>2</button>  <button>3</button>  <button>4</button>  <button>5</button>  <button>6</button>  <button>7</button>  <button>8</button>  <button>9</button>  <button>✔</button>  <button>✖</button>  <button>⌕</button>  <button>⏸</button>  <button>▷</button>  <button>☼</button>  <button>☾</button>  <button>★</button>  <button>♥</button>  <button>♫</button>  <button>⚒</button>  <button>⚔</button>  <button>➳</button>  <button>⛏</button>  <button>☀</button>  <button>☠</button>  <button>⚓</button>  <button>⛵</button>  <button>⛺</button>  <button>✨</button>  <button>⏳</button>  <button>💀</button>  <button>😃</button>  <button>😇</button>  <button>😈</button>  <button>😉</button>  <button>😍</button>  <button>😎</button>  <button>😏</button>  <button>😐</button>  <button>😠</button>  <button>😢</button>  <button>😮</button><button>😱</button><button>😲</button><button>😴</button><button>😵</button><button>⚰</button><button>🌲</button><button>🌿</button><button>🍗</button><button>🍴</button><button>🍺</button><button>🍻</button><button>🎣</button><button>🎨</button><button>🎪</button><button>🎸</button><button>🐃</button><button>🐎</button><button>🐾</button><button>👂</button><button>👆</button><button>👇</button><button>👈</button><button>👉</button><button>👊</button><button>👋</button><button>👌</button><button>👍</button><button>👎</button><button>👏</button><button>👑</button><button>👣</button><button>👤</button><button>👥</button><button>💎</button><button>💕</button><button>💔</button><button>💘</button><button>💢</button><button>💣</button><button>💤</button><button>💩</button><button>💪</button><button>💰</button><button>🔑</button><button>🔒</button><button>🔓</button><button>🔥</button><button>🔧</button><button>🔨</button><button>🔮</button><button>🔪</button><button>⌕</button>
+					</div>
+			</section>
+			<section id="actor" class="card">
+					<h3 class="card__title">Stage Actor Controls</h3>
+					<div id="new-actor-controls" class="card__sub-card">
+						<input id="new-actor__css" class="card__input" type="text" placeholder="css classes"/>
+						<input id="new-actor__hp" class="card__input" type="number" placeholder="10"/>
+						<input id="new-actor__desc" class="card__input" type="text" placeholder="brief description"/>
+						<button id="actors-control__add" class="card__button">Add New Actor</button>
+						<button id="actors-control__clear" class="card__button">empty initiatives</button>
+						<button id="actors-control__fill" class="card__button">fill initiatives</button>
+						<button id="actors-control__toggle-overlay" class="card__button">toggle initiative screen</button>
+						<button id="actors-control__advance" class="card__button">set next initiative</button>
+						<button id="actors-control__reset" class="card__button">reset actors</button>
+					</div>
+					<div id="actor-controls"></div>
 			</section>
 		</div>
 	</body>
