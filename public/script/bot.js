@@ -239,9 +239,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	function addPeanutEmoji(data) {
 		console.log('show peanut emoji',data);						
 		var temp = document.createElement('div');
-		temp.className = 'peanut emoji';
+		temp.className = 'peanut-emoji';
 		temp.innerText = data.emoji;
-		temp.style.top = Math.round(Math.random()*50)+'vh';
+		temp.style.left = (20 + Math.round(Math.random()*60))+'vw';
 		document.querySelector('body').appendChild(temp);
 		console.log(temp,temp.innerText);
 

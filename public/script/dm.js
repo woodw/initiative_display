@@ -61,7 +61,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				reset: byCSS('#actors-control__reset'),
 			},
 
-			actorRequests: byCSS('.bar__requests')
+			actorRequests: byCSS('.bar__requests'),
+
+			emojis: byCSSAll('#emojis button')
 		};
 	}
 
@@ -86,6 +88,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		elements.actorControls.advance.addEventListener('click',advanceInitiative);
 
 		elements.actorControls.reset.addEventListener('click', reset);
+
+		addEventListenerList(elements.emojis, 'click', function(event){
+			console.log('hello', event);
+			socket.emit('play_audience_emoji_pg',{emoji:event.target.innerText});
+		});
 	}
 
 /*-------------------------------SOCKET FUNCTIONS*/

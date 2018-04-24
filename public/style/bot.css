@@ -12,6 +12,11 @@
 	85%{opacity:1;transform:rotateY(1080deg);}
 	100%{opacity:0;transform:rotateY(1080deg);}
 }
+@keyframes peanutplay{
+	0%{opacity:1;top:-10%;}
+	20%{opacity:1;top:-5%;}
+	100%{opacity:0;top:12%;}
+}
 
 body{
 	margin:0;
@@ -249,4 +254,16 @@ background-image:url(https://orig00.deviantart.net/c745/f/2013/219/0/d/tavern_by
 }
 .initiative_cover.bottom.hide{
 	bottom:-50vh;
+}
+
+.peanut-emoji{
+	z-index:80;
+	position:absolute;
+	
+	width:10vmin;
+	height:10vmin;
+	color:white;
+	font-size:calc(10vmin);
+	animation: peanutplay 2s linear 0s 1 alternate;
+	animation-fill-mode: forwards;
 }
