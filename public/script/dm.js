@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		var newAlert, preview, doAction;
 		
 		doAction = function(){
-			socket.emit('set_sketch_pc',{'url':data.image});
+			socket.emit('set_sketch_dm',{'target':data.class,'url':data.image});
 		};
 		
 		newAlert = createAlert(data,doAction);
@@ -503,7 +503,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				actors.splice(heep,1);
 				console.log('id',this.id);
 				console.log('array',actors.toString());
-				fillInitiative(event);
+				if(this.initiative){
+					fillInitiative(event);
+				}
 			}.bind(this));  
 
 			this.elements.point.addEventListener('click', function(event){
