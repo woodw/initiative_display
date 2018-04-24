@@ -3,7 +3,30 @@
 	"campaign":{
 		"tythos":{
 			"session":[
-
+				[],
+				[],
+				[],
+				[],
+				[],
+				[],
+				[],
+				[
+					{"name":"baby_couatl_by_spipes","url":"https://img00.deviantart.net/5af0/i/2015/066/c/8/baby_couatl_by_spipes-d8jnc2i.png"},
+					{"name":"two headed dragooning","url":"http://1.bp.blogspot.com/-ODdJIymyRck/UUjIGUV0m5I/AAAAAAAACJ0/-RghPGkptEI/s1600/Dragon+Bicefalo.png"},
+					{"name":"stairs switchback","url":"https://78.media.tumblr.com/a7520c89e20a450dbbeadb1cc2cc9832/tumblr_mnqm9njAsV1rpf7dco1_1280.jpg"},
+					{"name":"tunnel monster","url":"https://pre00.deviantart.net/6f7e/th/pre/i/2011/341/2/9/diablo_2_act_2_maggot_lair_by_unidcolor-d4ify4j.jpg"},
+					{"name":"rubble","url":"http://www.kumakura.biz/wp-content/themes/kumaura/images/haikibutsu/haikibutsu_024.jpg"},
+					{"name":"rubble castle hallway","url":"http://www.jakerowell.com/blog/wp-content/uploads/2010/01/final_fantasy_IX_jakerowell_design_castle17.jpg"},
+					{"name":"evil unbroken circle leader","url":"http://static.tvtropes.org/pmwiki/pub/images/9_garland_8942.jpg"},
+					{"name":"phorlei mantacore","url":"https://orig00.deviantart.net/b32d/f/2014/262/8/7/savage_manticore_by_isvoc-d7zqsnv.png"},
+					{"name":"temple artifact","url":"https://i.imgur.com/XNMQ2jq.png"},
+					{"name":"temple treasure room","url":"https://i.imgur.com/bELp4JH.png"},
+					{"name":"temple treasure basement","url":"https://i.imgur.com/91QPfRQ.png"},
+					{"name":"temple sand hatch","url":"https://i.imgur.com/G2cTAfJ.png"},
+					{"name":"ack in the bubble","url":"https://i.imgur.com/CoV1h6w.png"},
+					{"name":"temple mid layout","url":"https://i.imgur.com/gGZL78E.png"},
+					{"name":"temple pillar puzzles","url":"https://i.imgur.com/kV3vJ82.png"}
+				]
 			]
 		},
 		"valdrin":{

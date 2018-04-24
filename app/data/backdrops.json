@@ -3,7 +3,23 @@
 	"campaign":{
 		"tythos":{
 			"session":[
-
+				[],
+				[],
+				[],
+				[],
+				[],
+				[],
+				[],
+				[
+					{"name":"coat room wall","url":"https://img00.deviantart.net/6fb2/i/2007/217/8/3/golden_clockwork_by_shortgreenpigg.jpg"},
+					{"name":"coat room wall 2","url":"https://pre00.deviantart.net/7a5b/th/pre/f/2017/014/0/3/clockwork_by_fractaldesire-davdg41.jpg"},
+					{"name":"star map","url":"https://pre00.deviantart.net/096e/th/pre/i/2008/174/5/d/clockwork_universe_by_nitrox72.png"},
+					{"name":"stairs","url":"https://img00.deviantart.net/fdac/i/2010/252/8/3/wizard_tower_05_by_rusty001-d2ycrto.jpg"},
+					{"name":"dungeon passage","url":"https://pre00.deviantart.net/1cf6/th/pre/f/2012/021/c/1/c14fbb07fc936cb4ad23d0bdaf5e0079-d4n4zuk.jpg"},
+					{"name":"temple big hall","url":"https://cdn2.unrealengine.com/egcom/community/wp-content/uploads/2013/02/courthouse_by_m_wojtala-d5nqq9r.jpg"},
+					{"name":"forgotten temple","url":"https://i.pinimg.com/originals/06/d6/d5/06d6d5ac862ebbb7bf2399a6ce4b5e27.jpg"},
+					{"name":"temple ruins","url":"https://cdna.artstation.com/p/assets/images/images/003/909/682/large/mohammx-qureshi-memories.jpg?1478459900"}	
+				]
 			]
 		},
 		"valdrin":{
@@ -31,6 +47,7 @@
 					{"name":"night camp perfect","url":"https://img00.deviantart.net/a0f3/i/2013/193/f/0/magical_camping_by_blazi76-d6d53k2.jpg"},
 					{"name":"scholar opening","url":"https://pre00.deviantart.net/0fc0/th/pre/f/2014/230/8/5/scholar_by_tsonline-d7vpcly.jpg"},
 					{"name":"forest walk big trees","url":"https://orig00.deviantart.net/a6e3/f/2013/044/3/b/forest_stroll_by_tsonline-d5uucaq.png"}
+
 				]
 			]
 		}

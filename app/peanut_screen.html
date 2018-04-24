@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Player Screen</title>
 		<script src="/socket.io/socket.io.js"></script>
 		<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
@@ -60,10 +61,10 @@
 
 				function registerListeners(){
 					addEventListenerList(elements.emojis, 'click', function(event){
-						console.log('hello', event);
+						console.log('hello');
 						
 						
-						socket.emit('display peanut emoji',{emoji:event.target.innerText});
+						socket.emit('play_audience_emoji_pg',{emoji:event.target.innerText});
 					});
 				}
 			});	

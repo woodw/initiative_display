@@ -1,0 +1,87 @@
+{
+	"tythos":{
+		"atticusjack":{
+			"name": "Ack",
+			"portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
+			"mini": "./images/sprites/garrikphase1.png",
+			"css": "ack",
+			"class":"Wizard: School of Transmutation",
+			"orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592189873255",
+			"spells":"http://www.5esrd.com/spellcasting/spell-lists/#wizardlist"
+		},
+		"Bree":{
+			"name": "Bree",
+			"portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
+			"mini": "./images/sprites/bree.png",
+			"css": "bree",
+			"class":"Ranger: Beastmaster",
+			"orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592229788780",
+			"spells":"http://www.5esrd.com/spellcasting/spell-lists/#rangerlist"
+		},
+		"Nell":{
+			"name": "Nell",
+			"portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
+			"mini": "./images/sprites/nell.png",
+			"css": "nell",
+			"class":"Fighter: Battlemaster",
+			"orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592189908022",
+			"spells":"http://www.5esrd.com/spellcasting/spell-lists/#bardlist"
+		},
+		"Thal The Thalificient":{
+			"name": "Thal The Thalificient",
+			"portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
+			"mini": "./images/sprites/thaliss.png",
+			"css": "thaliss",
+			"class":"Sorcerer: Draconic",
+			"orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592229244832",
+			"spells":"http://www.5esrd.com/spellcasting/spell-lists/#sorcererlist"
+		},
+		"Toph'ee":{
+			"name": "Toph'ee",
+			"portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
+			"mini": "./images/sprites/tophee.png",
+			"css": "tophee",
+			"class":"Rogue: Assassin",
+			"orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592208615993",
+			"spells":"http://www.5esrd.com/spellcasting/spell-lists/#rangerlist"
+		},
+		"Umbar":{
+			"name": "Umbar",
+			"portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
+			"mini": "./images/sprites/umbar.png",
+			"css": "umbar",
+			"class":"Warlock: Pact of the Blade",
+			"orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592229987189",
+			"spells":"http://www.5esrd.com/spellcasting/spell-lists/#warlocklist"
+		}
+	},
+	"valdrin":{
+		"Garrik (Noel)":{
+			"name": "Garrik Greenwood",
+			"portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
+			"mini": "./images/sprites/garrikphase1.png",
+			"css": "garrik",
+			"class":"Cleric: Knowledge Domain",
+			"orcpub": "https://orcpub2.com/pages/dnd/5e/characters/17592249352779",
+			"spells":"http://www.5esrd.com/spellcasting/spell-lists/#clericlist"
+		},
+		"Morwen Katahl (Maura)":{
+			"name": "Morwen Katahl (Maura)",
+			"portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
+			"mini": "./images/sprites/veloraphase1.png",
+			"css": "morwen",
+			"class":"Ranger: Beastmaster",
+			"orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592251219558",
+			"spells":"http://www.5esrd.com/spellcasting/spell-lists/#rangerlist"
+		},
+		"Prof. Thomas Black":{
+			"name": "Prof. Thomas Black",
+			"portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
+			"mini": "./images/sprites/thomasphase1.png",
+			"css": "thomas",
+			"class":"Bard: College of Swords",
+			"orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592251200349",
+			"spells":"http://www.5esrd.com/spellcasting/spell-lists/#bardlist"
+		}
+	}
+}

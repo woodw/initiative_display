@@ -1,0 +1,269 @@
+@keyframes onstage{
+	from{transform:translateY(60%)}
+	to{transform:translateY(0%)}
+}
+@keyframes offstage{
+	from{transform:translateY(0%)}
+	to{transform:translateY(60%)}
+}
+@keyframes emojiplay{
+	0%{opacity:1;transform:rotateY(0deg);}
+	65%{opacity:1;transform:rotateY(1080deg);}
+	85%{opacity:1;transform:rotateY(1080deg);}
+	100%{opacity:0;transform:rotateY(1080deg);}
+}
+@keyframes peanutplay{
+	0%{opacity:1;top:-10%;}
+	20%{opacity:1;top:-5%;}
+	100%{opacity:0;top:12%;}
+}
+
+body{
+	margin:0;
+	padding:0;
+	overflow:hidden;
+}
+
+body > div{
+	position:absolute;
+	width:100vw;
+	height:100vh;
+	left:0;
+	bottom:0;
+	
+}
+
+.backdrop{
+	background-size:cover;
+	background-repeat:no-repeat;
+	background-position:center;
+
+background-image:url(https://orig00.deviantart.net/c745/f/2013/219/0/d/tavern_by_anthonyavon-d6h3utd.jpg),radial-gradient(#FFF,#FAA);
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center;
+}
+
+.backdrop.front{
+  transition: opacity 0s;
+  opacity:1;
+}
+.backdrop.front.hide{
+  transition: opacity 3s;
+  opacity:0;
+}
+
+.forground{
+	position:absolute;
+	left:0;
+	bottom:0;
+	width:100vw;
+	height:100vh;
+
+	display:grid;
+	grid-template-columns:1fr;
+	grid-template-rows:25% 75%;
+	
+}
+
+.stage{
+	grid-column:1;
+	grid-row:2;
+
+	display:grid;
+	grid-template-columns: repeat(7,1fr);
+	grid-template-rows: 75% 15% 10%;
+	transform:translateY(4%) rotateX(10deg);
+}
+
+.floor{
+	grid-column:1/8;
+	grid-row:2/4;
+
+	background-image:
+	  url(https://s3.amazonaws.com/spoonflower/public/design_thumbnails/0464/6980/r12x12_Pixel_Block_Stone_NEW_DESIGN_2015_PRINT_FILE_shop_preview.png),
+		radial-gradient(#777,rgb(70, 43, 2));
+	
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-blend-mode:multiply;
+	box-shadow:0 0 20px 5px rgba(22, 22, 22, 0.658);
+  z-index:1;
+  transform: perspective( 600px ) rotateX( 45deg );
+}
+
+.actor{
+	grid-column:4;
+	grid-row:1/3;
+
+	display:grid;
+	grid-template-rows:30% 30% 40%;
+	grid-template-columns:1fr;
+	z-index:2;
+}
+.stage:not(.fight) .actor:not(.onstage){
+	animation: offstage 2s linear 0s 1 alternate;
+	transform: translateY(45%);
+}
+.stage:not(.fight) .actor.onstage{
+	transform: translateY(0%);
+	animation: onstage 2s linear 0s 1 alternate;
+}
+.stage:not(.fight) .actor ~ .actor{
+	grid-column:3;
+}
+.stage:not(.fight) .actor ~ .actor ~ .actor{
+	grid-column:5;
+}
+.stage:not(.fight) .actor ~ .actor ~ .actor ~ .actor{
+	grid-column:2;
+}
+.stage:not(.fight) .actor ~ .actor ~ .actor ~ .actor ~ .actor{
+	grid-column:6;
+}
+
+.emoji{
+	grid-column:1;
+	grid-row:2;
+
+	display: flex;
+    justify-content: center;
+	align-items: flex-end;
+	font-size:0vw;
+	color:white;
+	font-family: Arial, Helvetica, sans-serif;
+	transition: font-size 0s;
+}
+.emoji.play{
+	animation: emojiplay 4s ease-in-out 0s 1 alternate;
+	animation-fill-mode: forwards;
+	font-size:6vw;
+	transition: font-size 2s;
+}
+
+.mini{
+	grid-column:1;
+	grid-row:3;	
+
+	background-size:contain;
+	background-position:bottom;
+	background-repeat:no-repeat;
+	transition:transform .5s;
+}
+.actor.turn .mini{
+	transform:scaleX(-1);
+}
+
+
+/*-----------------------initiative*/
+.stage.fight .actor{
+	transition:transform 2s;
+	transform:scaleX(-1);
+}
+.stage.fight .actor.acting{
+	grid-column:4;
+	transform: scale(1.5) translate(0vw,-9vh);
+	animation: acting 2s linear 0s 1 alternate;
+}
+.stage.fight .actor.acted{
+	grid-column:2;
+	transform: scale(0.8) translate(0vw,6vh);
+	animation: acted 2s linear 0s 1 alternate;
+}
+.stage.fight .actor.will_act{
+	grid-column:6;
+	transform: scale(0.8) translate(0vw,6vh);
+	animation: will_act 2s linear 0s 1 alternate;
+}
+.stage.fight .actor:not(.acting):not(.acted):not(.will_act){
+	grid-column:2;
+	transform: scale(1) translate(-30vw,0vh);
+	animation: wait 2s linear 0s 1 alternate;
+}
+
+@keyframes wait{
+	from{transform: scale(0.8) translate(0vw,6vh);}
+	to{transform: scale(1) translate(-30vw,9vh);}
+}
+@keyframes acted{
+	from{transform: scale(1.5) translate(17vw,-9vh);}
+	to{transform: scale(0.8) translate(0vw,6vh);}
+}
+@keyframes acting{
+	from{transform: scale(0.8) translate(37vw,6vh);}
+	to{transform: scale(1.5) translate(0vw,-9vh);}
+}
+@keyframes will_act{
+	from{transform: scale(1) translate(30vw,9vh);}
+	to{transform: scale(0.8) translate(0vw,6vh);}
+}
+
+
+.sketch--container{
+	display:grid;
+	grid-template-columns:20% 60% 20%;
+	grid-template-rows:20% 60% 20%;
+	background-color:rgba(0,0,0,.2);
+}
+.sketch--container{
+	transition-timing-function: ease;
+	transition:opacity 2s;
+}
+.sketch--container.hide{
+	opacity:0;
+}
+.sketch{
+	grid-column:2;
+	grid-row:2;
+
+	background-image:url(http://aircampgames.com/wp-content/uploads/2016/08/2016-08-09-mars-003-1024x676.jpg);
+	background-size:contain;
+	background-repeat:no-repeat;
+	background-position:center;
+}
+
+
+.initiative_cover, test2{
+	width:100vw;
+	height:50vh;
+
+	background-image:url(http://d3u67r7pp2lrq5.cloudfront.net/product_photos/20622315/rollforinitiative_original.png);
+	z-index:10;
+	background-repeat:no-repeat;
+	background-color:rgb(51,51,51);
+	background-size: 70vw 100vh;
+}
+
+.initiative_cover{
+	transition-timing-function: ease-in;
+	transition:top 1s, bottom 1s;
+}
+.initiative_cover.top{
+	top:0px;
+	left:0px;
+	bottom:inherit;
+	background-position:top;
+}
+.initiative_cover.bottom{
+	top:inherit;
+	background-position:bottom;
+}
+.initiative_cover.top.hide{
+	top:-50vh;
+	left:0px;
+}
+.initiative_cover.bottom.hide{
+	bottom:-50vh;
+}
+
+.peanut-emoji{
+	z-index:80;
+	position:absolute;
+	
+	width:10vmin;
+	height:10vmin;
+	color:white;
+	font-size:calc(10vmin);
+	animation: peanutplay 2s linear 0s 1 alternate;
+	animation-fill-mode: forwards;
+}

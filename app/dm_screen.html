@@ -1,472 +1,94 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Dungeon Master Screen</title>
 		<script src="/socket.io/socket.io.js"></script>
-		<script>
-			let app = {};
+		<link href="/style/dm.css" rel="stylesheet" type="text/css" />
+		<link href="/style/minis_style.css" rel="stylesheet" type="text/css" />
+		<script src="/script/dm.js" type="application/javascript"></script>
 
-			document.addEventListener('DOMContentLoaded', function() {
-				let socket,backdrops,sketches,elements, actors, uniqueID, initiativePointer;
-
-				app.init = init;
-				
-				app.init();
-
-				function init(){
-					elements = registerElements();
-					registerListeners();
-					initSocket();
-					actors=[];
-					uniqueID = 0;
-					initiativePointer = 0;
-				}
-
-				function initSocket(){
-					socket = io.connect(window.location.href.replace(window.location.pathname,''));
-					
-					socket.on('socket connection', function (data) {
-						console.log(data);
-					});
-
-					socket.emit('get backdrops');
-
-					socket.emit('get sketches');
-
-					socket.on('send backdrops', function(data){
-						backdrops = data;
-						
-						backdrops.session[0].forEach(function(backdrop){
-							newBackDropOption(elements.backDropList,backdrop);
-						});
-
-						if(backdrops.session[0].length>0){
-							elements.backDropList.value = backdrops.session[0][0].url;
-							elements.backDropPreview.style.backgroundImage = 'url('+elements.backDropList.value+')';						
-						}
-					});
-
-					socket.on('send sketches', function(data){
-						sketches = data;
-						
-						sketches.session[0].forEach(function(sketch){
-							newBackDropOption(elements.sketchList,sketch);
-						});
-						
-						if(sketches.session[0].length>0){
-							elements.sketchList.value = sketches.session[0][0].url;
-							elements.sketchPreview.style.backgroundImage = 'url('+elements.sketchList.value+')';						
-						}
-					});
-				}
-
-				function newBackDropOption(selectElm,optionObj){
-					var element;
-					
-					element = document.createElement('option');
-					element.value = optionObj.url;
-					element.text = optionObj.name;
-					
-					selectElm.appendChild(element);
-
-				}
-
-				function registerElements(){
-					return {
-						container: byCSS('#container'),
-						tabs: document.querySelectorAll('.tab'),
-						backDropTab: byCSS('#back-drop_tab'),
-						backDropList: byCSS('#back-drop_list'),
-						backDropSubmit: byCSS('#back-drop_button'),
-						backDropPreview: byCSS('#back-drop_preview'),
-						backDropCustomUrl: byCSS('#back-drop_custom'),
-						backDropUseCustomUrl: byCSS('#back-drop_use_custom'),
-						sketchTab: byCSS('#sketch_tab'),
-						sketchList: byCSS('#sketch_list'),
-						sketchShow: byCSS('#sketch_button--show'),
-						sketchHide: byCSS('#sketch_button--hide'),
-						sketchPreview: byCSS('#sketch_preview'),
-						sketchCustomUrl: byCSS('#sketch_custom'),
-						sketchUseCustomUrl: byCSS('#sketch_use_custom'),
-						actorList: byCSS('#actor_list'),
-						actorAdd: byCSS('#actor--add'),
-						actorAddSubmit: byCSS('#actor--add button'),
-						initiativesClearBtn: byCSS('#initiative--clear'),
-						initiativesFillBtn: byCSS('#initiative--fill'),
-						initiativeToggleBtn: byCSS('#initiative--toggle'),
-						initiativeNextBtn: byCSS('#initiative--next')
-					};
-				}
-
-				function addEventListenerList(list, event, fn) {
-					for (var i = 0, len = list.length; i < len; i++) {
-						list[i].addEventListener(event, fn, false);
-					}
-				}
-
-				function byCSS(cssSelector){
-					return document.querySelector(cssSelector);
-				}
-
-				function registerListeners(){
-
-					elements.backDropList.addEventListener('change', function(event, no){
-						elements.backDropPreview.style.backgroundImage = 'url('+elements.backDropList.value+')';
-					});
-					elements.backDropSubmit.addEventListener('click', function(event){
-						if(elements.backDropCustomUrl.value.length>7 && elements.backDropUseCustomUrl.checked){
-							socket.emit('update backdrop',{'url':elements.backDropCustomUrl.value});
-						}
-						else{
-							socket.emit('update backdrop',{'url':elements.backDropList.value});
-						}
-					});
-
-					elements.sketchList.addEventListener('change', function(event, no){
-						elements.sketchPreview.style.backgroundImage = 'url('+elements.sketchList.value+')';
-					});
-					elements.sketchShow.addEventListener('click', function(event){
-
-						if(elements.sketchCustomUrl.value.length>7 && elements.sketchUseCustomUrl.checked){
-							socket.emit('update sketch',{'url':elements.sketchCustomUrl.value});
-						}
-						else{
-							socket.emit('update sketch',{'url':elements.sketchList.value});
-						}
-					});
-					elements.sketchHide.addEventListener('click', function(event){
-						console.log('hude');
-						socket.emit('hide sketch');
-					});
-					elements.actorAddSubmit.addEventListener('click', function(){
-						var newActor, actorAddElements;
-						
-						actorAddElements = {
-							classes: byCSS('#actor--add input:nth-child(1)'),
-							hitpoints: byCSS('#actor--add input:nth-child(2)'),
-							description: byCSS('#actor--add input:nth-child(3)')
-						};
-						
-						if(actorAddElements.classes.value){
-
-							newActor = new Actor(actorAddElements);
-							elements.actorList.appendChild(newActor.elements.container);
-							actors.push(newActor);
-						}
-					});
-
-					elements.initiativesClearBtn.addEventListener('click',function(event){
-						while (elements.actorList.firstChild) {
-							elements.actorList.removeChild(elements.actorList.firstChild);
-						}
-						actors.forEach(function(actor){
-							actor.initiative = 0;
-							actor.elements.initiative.value = actor.initiative;
-						});
-						actors.sort(function(a,b){
-							return a.id - b.id;
-						});
-						actors.forEach(function(actor){
-							elements.actorList.appendChild(actor.elements.container);
-						});
-						initiativePointer = 0;
-					});
-
-					elements.initiativesFillBtn.addEventListener('click',function(event){
-						console.log('we are in the fill', actors);
-						while (elements.actorList.firstChild) {
-							elements.actorList.removeChild(elements.actorList.firstChild);
-						}
-						actors.forEach(function(actor){
-							actor.initiative = actor.initiative||Math.ceil(Math.random()*20);
-							actor.elements.initiative.value = actor.initiative;
-						});
-						actors.sort(function(a,b){
-							return b.initiative - a.initiative;
-						});
-						actors.forEach(function(actor){
-							elements.actorList.appendChild(actor.elements.container);
-						});
-
-						if(actors.length>=3){
-console.log('im going to emit');
-
-							socket.emit('set deck',[
-								actors[
-									((initiativePointer-1)<0)?(actors.length-1):(initiativePointer-1)
-								].elements.classes.value,
-								actors[initiativePointer].elements.classes.value,
-								actors[
-									((initiativePointer+1)>(actors.length-1))?(0):(initiativePointer+1)
-								].elements.classes.value]
-							);
-						}
-					});
-
-					elements.initiativeToggleBtn.addEventListener('click',function(event){
-						socket.emit('toggle initiative display');
-					});
-
-					elements.initiativeNextBtn.addEventListener('click',function(event){
-						console.log(actors.length);
-						if(actors.length>=3){
-							initiativePointer++;
-							if(initiativePointer>(actors.length-1)){
-								initiativePointer = 0;
-							}
-
-							socket.emit('set deck',[
-								actors[
-									((initiativePointer-1)<0)?(actors.length-1):(initiativePointer-1)
-								].elements.classes.value,
-								actors[initiativePointer].elements.classes.value,
-								actors[
-									((initiativePointer+1)>(actors.length-1))?(0):(initiativePointer+1)
-								].elements.classes.value]
-							);
-							
-						}
-					});
-				}
-
-				/*Actor Object Class*/
-				function Actor(actorAddElements){
-					this.elements = buildNewActor.call(this,actorAddElements);
-					this.id = null;
-					this.initiative = null;
-					
-					registerActorEventListeners.call(this);
-					console.log('sending add actor');
-					//send out emit for stage to pick up	
-					socket.emit('add actor', toJSON.call(this), (data) => {
-						console.log('i got back an ID from the server');
-						this.id = data.id;
-					});	
-
-					function toJSON(){
-						return {
-							id:this.id,
-							classes:this.elements.classes.value,
-							emoji:this.elements.emoji.value
-						};
-					};
-
-					function registerActorEventListeners(){
-
-						this.elements.update.addEventListener('click', function(event){
-							console.log('sending update actor');
-							socket.emit('update actor', toJSON.call(this));		
-						}.bind(this));  
-
-						this.elements.remove.addEventListener('click', function(event){
-							console.log('sending remove actor talk');
-							socket.emit('remove actor', {id:this.id});
-							this.elements.container.parentNode.removeChild(this.elements.container);
-							this.alive = true;
-						}.bind(this));  
-
-						this.elements.point.addEventListener('click', function(event){
-							this.elements.emoji.value = '👇';
-							socket.emit('update actor', toJSON.call(this));
-							this.elements.emoji.value = '';
-						}.bind(this));
-
-						this.elements.initiative.addEventListener('change', function(event){
-							this.initiative = this.elements.initiative.value;
-						}.bind(this));
-
-						this.elements.onstage.addEventListener('click', function(event){
-							if(this.elements.classes.value.indexOf('onstage')!=-1){
-								this.elements.classes.value = this.elements.classes.value.replace(' onstage','');
-								
-							}else{
-								this.elements.classes.value = this.elements.classes.value+' onstage';
-							
-							}
-							this.elements.emoji.innerText = '';
-							socket.emit('update actor', toJSON.call(this));
-						}.bind(this));
-
-						this.elements.turn.addEventListener('click', function(event){
-							if(this.elements.classes.value.indexOf('turn')!=-1){
-								this.elements.classes.value = this.elements.classes.value.replace(' turn','');
-								
-							}else{
-								this.elements.classes.value = this.elements.classes.value+' turn';
-							
-							}
-							this.elements.emoji.innerText = '';
-							socket.emit('update actor', toJSON.call(this));
-						}.bind(this));
-					}
-					
-					function buildNewActor(actorAddElements){
-						var elements={};
-
-						elements.container = document.createElement('div');
-						elements.container.className = 'actor--update';
-
-						elements.classes = document.createElement('input');
-						elements.classes.setAttribute("type", "text");
-						elements.classes.setAttribute("placeholder", "css classes");
-						elements.classes.value = actorAddElements.classes.value;
-
-						elements.container.appendChild(elements.classes);
-						
-						elements.hitpoints = document.createElement('input');
-						elements.hitpoints.setAttribute("type", "number");
-						elements.hitpoints.setAttribute("placeholder", "10");
-						elements.hitpoints.value = actorAddElements.hitpoints.value;
-						
-						elements.container.appendChild(elements.hitpoints);  
-						
-						elements.description = document.createElement('input');
-						elements.description.setAttribute("type", "text");
-						elements.description.setAttribute("placeholder", "brief description");
-						elements.description.value = actorAddElements.description.value;
-						
-						elements.container.appendChild(elements.description);
-						
-						elements.initiative = document.createElement('input');
-						elements.initiative.setAttribute("type", "number");
-						elements.initiative.setAttribute("placeholder", "1");
-						
-						elements.container.appendChild(elements.initiative);
-						
-						elements.emoji = document.createElement('input');
-						elements.emoji.setAttribute("type", "text");
-						elements.emoji.setAttribute("placeholder", "😀");
-						
-						elements.container.appendChild(elements.emoji);
-						
-						elements.update = document.createElement('button');
-						elements.update.innerText = '✔';
-						
-						elements.container.appendChild(elements.update);
-						
-						elements.remove = document.createElement('button');
-						elements.remove.innerText = '✖';
-						
-						elements.container.appendChild(elements.remove);
-
-						elements.point = document.createElement('button');
-						elements.point.innerText = '👇';  
-						
-						elements.container.appendChild(elements.point);
-
-						elements.onstage = document.createElement('button');
-						elements.onstage.innerText = 'toggle onstage';  
-						
-						elements.container.appendChild(elements.onstage);
-
-						elements.turn = document.createElement('button');
-						elements.turn.innerText = 'toggle turn';  
-						
-						elements.container.appendChild(elements.turn);
-
-						return elements;
-					}
-				}
-
-			});	
-		</script>
-		<style>
-			*{
-				margin:0;
-				padding:0;
-				color:white;
-				font-family: Arial, Helvetica, sans-serif;
-			}
-			body{
-				background-color:rgba(27, 44, 49, 0.925);
-			}
-			div#container{
-				margin-left:10vw;
-				margin-right:10vw;
-				width:80vw;
-			}
-			section{
-				margin-top:5vh;
-				margin-bottom:5vh;
-				border:1px solid rgba(0,0,0,.5);
-				box-shadow:0 0 10px 2px rgba(0,0,0,.5);
-				padding:1vh 1vw;
-				background-color:rgba(42, 68, 77, 0.925);
-			}
-			#back-drop_preview, #sketch_preview{
-				width:70vw;
-				height:40vh;
-			}
-			.image{
-				margin:2vh 2vw;
-				background-position:center;
-				background-size:contain;
-				background-repeat:no-repeat;
-			}
-			#actors div > input:nth-child(2){
-				width:3rem;
-			}
-
-			#actors div > input:nth-child(4){
-				width:3rem;
-			}
-
-			#actors div > input:nth-child(5){
-				width:3rem;
-			}
-			button,select,input{
-				padding:1vh 1vw;
-			}
-			button,select{
-				background-color:rgba(64, 105, 119, 0.925);
-			}
-			input{
-				color:rgb(48, 41, 36);
-			}
-		</style>
 	</head>
 	<body>
-		<div id="container">
-			<h1>DM Screen</h1>
-			<section id="sketches">
-				<div id="sketch_preview" class="image" style="background-image:linear-gradient(white, grey);"></div>
-				<select id="sketch_list"></select>
-				<button id="sketch_button--show">Show Sketch</button>
-				<button id="sketch_button--hide">Hide Sketch</button>
-				<br />
-				<input type="url" id="sketch_custom" placeholder="custom url"/>
-				<input type="checkbox" id="sketch_use_custom">
-      			<label for="sketch_use_custom">Use Custom Url?</label>
-				
-				
-			</section>
-			<section id="backdrops">
-				<div id="back-drop_preview" class="image" style="background-image:linear-gradient(white, grey);"></div>
-				<select id="back-drop_list"></select>
-				<button id="back-drop_button">Update Backdrop</button>
-				<br />
-				<input type="url" id="back-drop_custom" placeholder="custom url"/>
-				<input type="checkbox" id="back-drop_use_custom">
-      			<label for="back-drop_use_custom">Use Custom Url?</label>
-			</section>
-			<section id="actors">
-				<p>!  $  ?  0  1  2  3  4  5  6  7  8  9  ✔  ✖  ⌕  ⏸  ▷  ☼  ☾  ★  ♥  ♫  ⚒  ⚔  ➳  ⛏  ☀  ☠  ⚓  ⛵  ⛺  ✨  ⏳  💀  😃  😇  😈  😉  😍  😎  😏  😐  😠  😢   😮 😱 😲 😴 😵 ⚰ 🌲 🌿 🍗 🍴 🍺 🍻 🎣 🎨 🎪 🎸 🐃 🐎 🐾 👂 👆 👇 👈 👉 👊 👋 👌 👍 👎 👏 👑 👣 👤 👥 💎 💕 💔 💘 💢 💣 💤 💩 💪 💰 🔑 🔒 🔓 🔥 🔧 🔨 🔮 🔪 ⌕</p>
-					
-				<div id="actor--add">
-					<input type="text" placeholder="css classes"/>
-					<input type="number" placeholder="10"/>
-					<input type="text" placeholder="brief description"/>
-					<button >+</button>
+		<div class="bar">
+			<div class="bar__title">Game Master Screen</div>
+			<div class="bar__navigation">
+					<a href="#backdrop">Backdrop Selection</a><br />
+					<a href="#sketch">Sketch Selection</a><br />
+					<a href="#audio">Audio Selection</a><br />
+					<a href="#emoji">Emoji Selection</a><br />
+					<a href="#actor">Actor Selection</a><br />
+			</div>
+			<div class="bar__requests">
+			</div>
+		</div>
+		<div class="container">
+			<section id="backdrop" class="card">
+				<h3 class="card__title">Stage Backdrop Controls</h3>
+				<img class="card__image-preview" src="http://www.allthingsbunnies.com/v/vspfiles/assets/images/images_clipped_rev_2.jpg" />
+				<select class="card__selection"></select>
+				<div class="checkbox">
+					<input id="backdrop_custom_flag" type="checkbox" class="checkbox__check">
+					<label for="backdrop_custom_flag" class="checkbox__label">Use Custom Url?</label>
 				</div>
-				<div>
-					<button id="initiative--clear">empty initiatives</button>
-					<button id="initiative--fill">fill initiatives</button>
-					<button id="initiative--toggle">show/hide initiative</button>
-					<button id="initiative--next">set next initiative</button>
+				<input type="url" placeholder="www.custom.url" class="url-input"/>
+				<button class="card__button card__emit-button">Update Stage Backdrop</button>
+			</section>
+			<section id="sketch" class="card">
+				<h3 class="card__title">Stage Sketch Controls</h3>
+				<img class="card__image-preview" src="http://www.allthingsbunnies.com/v/vspfiles/assets/images/images_clipped_rev_2.jpg" />
+				<select class="card__selection"></select>
+				<div class="checkbox">
+					<input id="sketch_custom_flag" type="checkbox" class="checkbox__check">
+					<label for="sketch_custom_flag" class="checkbox__label">Use Custom Url?</label>
 				</div>
-				<div id="actor_list"></div>
-		
-				
+				<input type="url" placeholder="www.custom.url" class="url-input"/>
+				<select id="sketch_target" class="card__selection">
+					<option>stage</option>
+					<option>umbar</option>
+					<option>tophee</option>
+					<option>bree</option>
+					<option>ack</option>
+					<option>nell</option>
+					<option>thaliss</option>
+				</select>
+				<button class="card__button card__emit-button--on">Show sketch on stage</button>
+				<button class="card__button card__emit-button--off">Hide sketch on stage</button>
+			</section>
+			<section id="audio" class="card">
+					<h3 class="card__title">Stage Audio Controls</h3>
+					<span class="card__audio-preview-container">
+							<iframe class="card__audio-preview" src=""  frameborder="0" allow="autoplay; encrypted-media"></iframe>
+					</span>
+					<select class="card__selection"></select>
+					<div class="checkbox">
+						<input id="audio_custom_flag" type="checkbox" class="checkbox__check">
+						<label for="audio_custom_flag" class="checkbox__label">Use Custom Url?</label>
+					</div>
+					<input type="url" placeholder="www.custom.url" class="url-input"/>
+					<button class="card__button card__emit-button--on">Play Audio</button>
+					<button class="card__button card__emit-button--off">Stop Audio</button>
+			</section>
+			<section id="emoji" class="card">
+					<h3 class="card__title">Stage Audience Emoji Controls</h3>
+					<div id="emojis">
+							<button>!</button>  <button>$</button>  <button>?</button>  <button>0</button>  <button>1</button>  <button>2</button>  <button>3</button>  <button>4</button>  <button>5</button>  <button>6</button>  <button>7</button>  <button>8</button>  <button>9</button>  <button>✔</button>  <button>✖</button>  <button>⌕</button>  <button>⏸</button>  <button>▷</button>  <button>☼</button>  <button>☾</button>  <button>★</button>  <button>♥</button>  <button>♫</button>  <button>⚒</button>  <button>⚔</button>  <button>➳</button>  <button>⛏</button>  <button>☀</button>  <button>☠</button>  <button>⚓</button>  <button>⛵</button>  <button>⛺</button>  <button>✨</button>  <button>⏳</button>  <button>💀</button>  <button>😃</button>  <button>😇</button>  <button>😈</button>  <button>😉</button>  <button>😍</button>  <button>😎</button>  <button>😏</button>  <button>😐</button>  <button>😠</button>  <button>😢</button>  <button>😮</button><button>😱</button><button>😲</button><button>😴</button><button>😵</button><button>⚰</button><button>🌲</button><button>🌿</button><button>🍗</button><button>🍴</button><button>🍺</button><button>🍻</button><button>🎣</button><button>🎨</button><button>🎪</button><button>🎸</button><button>🐃</button><button>🐎</button><button>🐾</button><button>👂</button><button>👆</button><button>👇</button><button>👈</button><button>👉</button><button>👊</button><button>👋</button><button>👌</button><button>👍</button><button>👎</button><button>👏</button><button>👑</button><button>👣</button><button>👤</button><button>👥</button><button>💎</button><button>💕</button><button>💔</button><button>💘</button><button>💢</button><button>💣</button><button>💤</button><button>💩</button><button>💪</button><button>💰</button><button>🔑</button><button>🔒</button><button>🔓</button><button>🔥</button><button>🔧</button><button>🔨</button><button>🔮</button><button>🔪</button><button>⌕</button>
+					</div>
+			</section>
+			<section id="actor" class="card">
+					<h3 class="card__title">Stage Actor Controls</h3>
+					<div id="new-actor-controls" class="card__sub-card">
+						<input id="new-actor__css" class="card__input" type="text" placeholder="css classes"/>
+						<input id="new-actor__hp" class="card__input" type="number" placeholder="10"/>
+						<input id="new-actor__desc" class="card__input" type="text" placeholder="brief description"/>
+						<button id="actors-control__add" class="card__button">Add New Actor</button>
+						<button id="actors-control__clear" class="card__button">empty initiatives</button>
+						<button id="actors-control__fill" class="card__button">fill initiatives</button>
+						<button id="actors-control__toggle-overlay" class="card__button">toggle initiative screen</button>
+						<button id="actors-control__advance" class="card__button">set next initiative</button>
+						<button id="actors-control__reset" class="card__button">reset actors</button>
+					</div>
+					<div id="actor-controls"></div>
 			</section>
 		</div>
 	</body>

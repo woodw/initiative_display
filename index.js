@@ -10,16 +10,22 @@ const io = require('socket.io')(server);
 
 const backdrops = require(__dirname+'/app/data/backdrops.json');
 const sketches = require(__dirname+'/app/data/sketches.json');
+const audioTracks = require(__dirname+'/app/data/audiotracks.json');
+const players = require(__dirname+'/app/data/players.json');
 
 /*const stitch = require("mongodb-stitch");
 const clientPromise = stitch.StitchClientFactory.create(process.env.stitch_dbconn);*/
 
 const onLiveData = {
+	group: 'tythos',
 	users: {},
 	directAuth: [
-		'yTgHnB',
-		'tRfGbV',
-		'rEdFvC'
+		'qzWXecRV',
+		'wxECrvTB',
+		'ecRVtbYN',
+		'rvTBynUM',
+		'tbYNumIm',
+		'ynUMimPM',
 	],
 	actorID: 0
 };
@@ -64,18 +70,32 @@ console.log(clientIp, req.query.auth);
 		};
 		switch(req.query.auth){
 			case onLiveData.directAuth[0]:
-			console.log('muara');
-				fakeUser.user.name = 'Morwen Katahl (Maura)';
+				fakeUser.user.name = 'atticusjack';
 				storeUser(clientIp,fakeUser);
 				res.sendFile(__dirname+'/app/pc_screen.html');
 				break;
 			case onLiveData.directAuth[1]:
-				fakeUser.user.name = 'Prof. Thomas Black';
+				fakeUser.user.name = 'Bree';
 				storeUser(clientIp,fakeUser);
 				res.sendFile(__dirname+'/app/pc_screen.html');
 				break;
 			case onLiveData.directAuth[2]:
-				fakeUser.user.name = 'Garrik (Noel)';
+				fakeUser.user.name = 'Nell';
+				storeUser(clientIp,fakeUser);
+				res.sendFile(__dirname+'/app/pc_screen.html');
+				break;
+			case onLiveData.directAuth[3]:
+				fakeUser.user.name = 'Thal The Thalificient';
+				storeUser(clientIp,fakeUser);
+				res.sendFile(__dirname+'/app/pc_screen.html');
+				break;
+			case onLiveData.directAuth[4]:
+				fakeUser.user.name = 'Toph\'ee';
+				storeUser(clientIp,fakeUser);
+				res.sendFile(__dirname+'/app/pc_screen.html');
+				break;
+			case onLiveData.directAuth[5]:
+				fakeUser.user.name = 'Umbar';
 				storeUser(clientIp,fakeUser);
 				res.sendFile(__dirname+'/app/pc_screen.html');
 				break;
@@ -147,67 +167,61 @@ app.get('/slack/auth', function(req, res){
 io.on('connection', function (socket) {
 	socket.emit('socket connection', { valid: true });
 
-	socket.on('get backdrops', function(){
-		io.emit('send backdrops', backdrops.campaign.valdrin);
+	socket.on('get_backdrops_dm', function (fn) {
+		fn(backdrops.campaign[onLiveData.group]);
 	});
-	
-	socket.on('update backdrop', function (data) {
-		console.log('updating backdrops', data);
-		io.emit('set backdrop', data);
+	socket.on('get_sketches_dm', function (fn) {
+		fn(sketches.campaign[onLiveData.group]);
 	});
-
-	socket.on('get sketches', function(){
-		io.emit('send sketches', sketches.campaign.valdrin);
+	socket.on('get_audiotracks_dm', function (fn) {
+		fn(audioTracks.campaign[onLiveData.group]);
 	});
 
-	socket.on('update sketch', function (data) {
-		console.log('updating sketches',data);
-		io.emit('set sketch', data);
-	});
-	socket.on('hide sketch', function (data) {
-		console.log('hide sketches',data);
-		io.emit('hide sketch', data);
+	standardSocketRelay('set_backdrop_dm','set_backdrop');
+
+	socket.on('set_sketch_dm', function (data) {
+		console.log('set_sketch_dm',data);
+		socket.broadcast.emit('set_sketch_'+data.target, data);
 	});
 
-	socket.on('update emoji', function (data) {
-		console.log('setting player emoji',data);
-		io.emit('set emoji', data);
-	});
+	standardSocketRelay('set_sketch_pc','set_sketch');
+	standardSocketRelay('set_audiotrack_dm','set_audiotrack');
 
-	socket.on('display peanut emoji', function (data) {
-		console.log('setting peanut emoji',data);
-		io.emit('show peanut emoji', data);
-	});
-
-	socket.on('add actor', (data, callbkfn) => {
-		console.log('adding actor', data);
+	socket.on('add_actor_dm', (data, callbkfn) => {
+		console.log('add_actor_dm', data);
 		data.id = onLiveData.actorID++;
-		io.emit('create actor', data);
+		socket.broadcast.emit('add_actor', data);
 		callbkfn({id:data.id});
 	});
-	socket.on('update actor', function (data) {
-		console.log('updating actor', data);
-		io.emit('set actor', data);
-	});
-	socket.on('remove actor', function (data) {
-		console.log('removing actor', data);
-		io.emit('delete actor', data);
+
+	standardSocketRelay('remove_actor_dm','remove_actor');
+	standardSocketRelay('update_actor_dm','update_actor');
+	standardSocketRelay('turn_actor','turn_actor_srv');
+	standardSocketRelay('play_actor_emoji','play_actor_emoji_srv');
+	standardSocketRelay('play_audience_emoji_pg','play_audience_emoji');
+	standardSocketRelay('set_actor_stage_presence_pc','set_actor_stage_presence');
+	standardSocketRelay('set_actor_stage_presence_dm','set_actor_stage_presence');
+	standardSocketRelay('set_private_actor_sketch_dm','set_private_actor_sketch');
+	standardSocketRelay('set_actor_sketch_pc','set_actor_sketch');
+	standardSocketRelay('actor_stage_presence_request_pc','actor_stage_presence_request');
+	standardSocketRelay('toggle_initiative_display_dm','toggle_initiative_display');	
+	standardSocketRelay('set_combat_actors_dm','set_combat_actors');		
+	
+	socket.on('reset_dm', function (data) {
+		console.log('reset_dm', data);
+		onLiveData.actorID = 0;
+		socket.broadcast.emit('reset', data);
 	});
 
-	socket.on('set deck', function (data) {
-		console.log('showing combat deck', data);
-		io.emit('set deck', data);
-	});
-
-	socket.on('toggle initiative display', function (data) {
-		console.log('showing combat deck', data);
-		io.emit('toggle initiative display', data);
-	});
-
+	function standardSocketRelay(eventString,broadcastString){
+		socket.on(eventString, function (data) {
+			console.log(eventString, data);
+			socket.broadcast.emit(broadcastString, data);
+		});
+	}
 });
 
 /** Private Funtions **/
-
 function storeUser(clientIp, userObject){
 	console.log(clientIp, userObject);
 	onLiveData.users[clientIp] = {
@@ -225,41 +239,10 @@ function storeUser(clientIp, userObject){
 
 function getPlayerCharacter(playerName){
 	console.log(playerName);
-	switch(playerName){
-		case 'Garrik (Noel)':
-			return {
-				
-					name: 'Garrik Greenwood',
-					portrait: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png',
-					mini: './images/sprites/garrikphase1.png',
-					css: 'garrik',
-					class:'Cleric: Knowledge Domain',
-					orcpub: 'https://orcpub2.com/pages/dnd/5e/characters/17592249352779',
-					spells:'http://www.5esrd.com/spellcasting/spell-lists/#clericlist'
-				
-			}; 	
-		case 'Morwen Katahl (Maura)':
-			return {
-					name: 'Morwen Katahl',
-					portrait: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png',
-					mini: './images/sprites/veloraphase1.png',
-					css: 'morwen',
-					class:'Ranger: Beastmaster',
-					orcpub: 'https://www.orcpub2.com/pages/dnd/5e/characters/17592251219558',
-					spells:'http://www.5esrd.com/spellcasting/spell-lists/#rangerlist'
-				
-			}; 	
-		case 'Prof. Thomas Black':
-		default:
-			return {
-					name: 'Professor Thomas Black',
-					portrait: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png',
-					mini: './images/sprites/thomasphase1.png',
-					css: 'thomas',
-					class:'Bard: College of Swords',
-					orcpub: 'https://www.orcpub2.com/pages/dnd/5e/characters/17592251200349',
-					spells:'http://www.5esrd.com/spellcasting/spell-lists/#bardlist'
-				
-			}; 		
+	if(players[onLiveData.group][playerName]){
+		return players[onLiveData.group][playerName];
+	}
+	else{
+		return players[onLiveData.group]['Bree'];
 	}
 }

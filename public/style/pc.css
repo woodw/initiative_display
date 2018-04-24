@@ -1,0 +1,90 @@
+*{
+	margin:0;
+	padding:0;
+	font-family: Arial, Helvetica, sans-serif;
+	letter-spacing: .1em;
+}
+h1,h2,h3{
+	font-family: fantasy;
+}
+h1,h3{
+	margin-top:1em;
+}
+h2{
+	margin-bottom:1em;
+}
+h3:before{
+	content:'<';
+}
+h3:after{
+	content:'>';
+}
+
+a{
+	display:list-item;
+	list-style-type: none;
+	margin-top:1em;
+	background-color:#495771;
+	color:rgb(255, 236, 228);
+	padding:1em;
+	text-decoration: none;
+	letter-spacing: .2em;
+	font-weight: bold;
+	box-shadow: 0px 7px 15px rgba(0,0,0,.2);
+}
+a:after{
+	content:' >';
+}
+
+body{
+	background-color:#495771;
+}
+#container{
+	width:80vw;
+	padding:5vh 5vw;
+	margin:5vh 5vw;
+	background-color:rgb(255, 236, 228);
+	box-shadow: 0px 7px 15px rgba(0,0,0,.2);
+}
+
+button{
+	
+	padding:1.5em;
+	margin:.4em;
+	box-shadow: 0px 4px 10px rgba(0,0,0,.2);
+	border-radius:.1em;
+	
+	text-transform: capitalize;
+	font-weight: bold;
+	
+}
+
+input{
+	padding:.5rem;
+}
+
+#sketch_preview{
+	display:grid;
+	grid-template-columns:1fr;
+	grid-template-rows:50px 1fr 200px 75px;
+}
+
+#sketch_preview--image{
+	background-size:contain;
+	background-image: url(https://sketch-cloud-storage.s3.amazonaws.com/355ad0e4-526f-4d5d-8185-ad252a93a175/a08441e2-a49d-40ee-9ab7-df13ed20310f_p?AWSAccessKeyId=AKIAIVK24H6RLSWCC7OA&Signature=dmiklSgkmouD9emolwtvwQtj6Kc%3D&Expires=1523999716);
+	background-repeat:no-repeat;
+	background-position:center;
+}
+
+#sketch_submit{
+	height:15vh;
+
+	display:grid;
+	grid-template-columns:1fr;
+	grid-template-rows:50% 50%;
+}
+
+.hide, #sketch_preview.hide{
+	opacity:0;
+	display:none;
+}

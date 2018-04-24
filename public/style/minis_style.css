@@ -1,0 +1,121 @@
+/*Minis*/
+.nell .mini{
+	background-image:url('../images/sprites/nell.png');
+  }
+.bree .mini{
+  background-image:url('../images/sprites/bree.png');
+}
+.umbar .mini{
+  background-image:url('../images/sprites/umbar.png');
+}
+.tophee .mini{
+  background-image:url('../images/sprites/tophee.png');
+}
+.ack .mini{
+  background-image:url('../images/sprites/ack.png');
+}
+.thaliss .mini{
+  background-image:url('../images/sprites/thaliss.png');
+}
+.thalin .mini{
+  background-image:url('../images/sprites/thalin.png');
+}
+.thomas .mini{
+  background-image:url('../images/sprites/thomasphase1.png');
+}
+.garrik .mini{
+  background-image:url('../images/sprites/garrikphase1.png');
+}
+.morwen .mini{
+  background-image:url('../images/sprites/veloraphase1.png');
+}
+.cloven .mini{
+  background-image:url('../images/sprites/cloven.png');
+}
+.jarkas .mini{
+  background-image:url('../images/sprites/jarkas.png');
+}
+.prin .mini{
+  background-image:url('../images/sprites/prin.png');
+}
+.leffy .mini{
+  background-image:url('../images/sprites/leffy.png');
+}
+.rona .mini{
+  background-image:url('../images/sprites/rona.png');
+}
+.leeroy .mini{
+  background-image:url('../images/sprites/leeroy.png');
+}
+
+.ghilanna .mini{
+  background-image:url('../images/sprites/ghilanna.png');
+}
+.baddie .mini{
+  background-image:url('../images/sprites/baddie.png');
+}
+
+.gaurd .mini{
+  background-image:url('../images/sprites/basicGaurd.png');
+}
+.wolf .mini{
+  background-image:url('../images/sprites/blackWolf.png');
+}
+.thug .mini{
+  background-image:url('../images/monsters/thug.png');
+}
+.wolfb .mini{
+  background-image:url('../images/monsters/wolf.png');
+}
+.evilmage .mini{
+  background-image:url('../images/monsters/evilmage.png');
+}
+.gaurdb .mini{
+  background-image:url('../images/monsters/gaurd.png');
+}
+.ruffian .mini{
+  background-image:url('../images/monsters/ruffian.png');
+}
+.bandit .mini{
+  background-image:url('../images/monsters/bandit.png');
+}
+.lymia .mini{
+  background-image:url('../images/monsters/lymia.png');
+  transform:scaleX(-1) scale(2.5,2.5);
+  margin-bottom:70%;
+}
+
+/*pokemon baddies*/
+.magnemite .mini{
+  background-image:url('http://guidesmedia.ign.com/guides/059687/images/blackwhite/pokemans_081.gif');
+}
+.magneton .mini{
+  background-image:url('http://guidesmedia.ign.com/guides/059687/images/blackwhite/pokemans_082.gif');
+}
+.magnezone .mini{
+  background-image:url('http://guidesmedia.ign.com/guides/059687/images/blackwhite/pokemans_462.gif');
+}
+
+.klink .mini{
+  background-image:url('http://guidesmedia.ign.com/guides/059687/images/blackwhite/pokemans_599.gif');
+}
+.klang .mini{
+  background-image:url('http://guidesmedia.ign.com/guides/059687/images/blackwhite/pokemans_600.gif');
+}
+.klinklang .mini{
+  background-image:url('http://guidesmedia.ign.com/guides/059687/images/blackwhite/pokemans_601.gif');
+}
+
+.gastly .mini{
+  background-image:url('http://guidesmedia.ign.com/guides/059687/images/blackwhite/pokemans_092.gif');
+}
+.haunter .mini{
+  background-image:url('http://guidesmedia.ign.com/guides/059687/images/blackwhite/pokemans_093.gif');
+}
+.gengar .mini{
+  background-image:url('http://guidesmedia.ign.com/guides/059687/images/blackwhite/pokemans_094.gif');
+}
+.megagengar .mini{
+  background-image:url('http://cdn.staticneo.com/w/pokemon/4/4c/MegaGengar.png');
+}
+
