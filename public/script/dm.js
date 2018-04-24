@@ -328,6 +328,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		socket.emit('set_combat_actors_dm',[]);
 	}
 	function fillInitiative(event){
+		var initialID;
+
+		initialID = validArraySpot(initiativePointer).id;
+
 		while (elements.actorList.firstChild) {
 			elements.actorList.removeChild(elements.actorList.firstChild);
 		}
@@ -338,9 +342,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		actors.sort(function(a,b){
 			return b.initiative - a.initiative;
 		});
-		actors.forEach(function(actor){
+		actors.forEach(function(actor, index){
+			if(actor.id === initialID){
+				initiativePointer = index;
+			}
 			elements.actorList.appendChild(actor.elements.container);
 		});
+
 
 		if(actors.length>=3){
 			socket.emit('set_combat_actors_dm',getCombatPlayers());
