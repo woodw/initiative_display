@@ -178,7 +178,12 @@ io.on('connection', function (socket) {
 	});
 
 	standardSocketRelay('set_backdrop_dm','set_backdrop');
-	standardSocketRelay('set_sketch_dm','set_sketch');
+
+	socket.on('set_sketch_dm', function (data) {
+		console.log('set_sketch_dm',data);
+		socket.broadcast.emit('set_sketch_'+data.target, data);
+	});
+
 	standardSocketRelay('set_sketch_pc','set_sketch');
 	standardSocketRelay('set_audiotrack_dm','set_audiotrack');
 

@@ -23,13 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		socket.on('socket connection', function (data) {
 			console.log(data);
 		});
-
-		socket.on('set_actor_private_sketch', function(data){
-			elements.privateSketch.classList.remove('hide');
-			elements.sketchPreviewImage.style.backgroundImage = 'url('+data.url+')';
-			elements.privateSketch.scrollIntoView();
-			console.log(data);
-		});
 	}
 
 	function registerElements(){
@@ -64,6 +57,19 @@ document.addEventListener('DOMContentLoaded', function() {
 				elements.characterSheetLink.setAttribute('href',jsonData.character.orcpub);
 				elements.characterPortrait.style.backgroundImage = 'url('+jsonData.character.mini+')';
 				console.log(jsonData);
+
+				socket.on('set_sketch_'+characterName, function(data){
+					
+					if(data.url){
+						elements.privateSketch.classList.remove('hide');
+						elements.sketchPreviewImage.style.backgroundImage = 'url('+data.url+')';
+						elements.privateSketch.scrollIntoView();
+						console.log(data);
+					}
+					else{
+						hidePrivateSketch();
+					}
+				});
 			}
 		};
 		xhttp.open("GET", "/userData", true);

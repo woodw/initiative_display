@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			sketchList: byCSS('#sketch .card__selection'),
 			sketchSet: byCSS('#sketch .card__emit-button--on'),
 			sketchRemove: byCSS('#sketch .card__emit-button--off'),
+			sketchTarget: byCSS('#sketch_target'),
 			sketchPreview: byCSS('#sketch .card__image-preview'),
 			sketchCustomUrl: byCSS('#sketch  .url-input'),
 			sketchUseCustomUrl: byCSS('#sketch  .checkbox__check'),
@@ -268,10 +269,10 @@ document.addEventListener('DOMContentLoaded', function() {
 			url = elements.sketchList.value;
 		}
 
-		socket.emit('set_sketch_dm',{'url':url});
+		socket.emit('set_sketch_dm',{'target':elements.sketchTarget.value,'url':url});
 	}
 	function removeBotSketch(event){
-		socket.emit('set_sketch_dm',{'url':false});
+		socket.emit('set_sketch_dm',{'target':elements.sketchTarget.value,'url':false});
 	}
 
 	function newAudioTrackSelected(event){
@@ -388,6 +389,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		this.id = null;
 		this.initiative = null;
 		this.arrayIdx = null;
+		this.emoji;
 
 		registerActorEventListeners.call(this);
 		console.log('sending add actor');
@@ -400,7 +402,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		function toJSON(){
 			return {
 				id:this.id,
-				classes:this.elements.classes.value
+				classes:this.elements.classes.value,
+				emoji:this.emoji
 			};
 		};
 		
@@ -489,9 +492,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			}.bind(this));  
 
 			this.elements.point.addEventListener('click', function(event){
-				this.elements.emoji.value = '👇';
+				this.emoji = '👇';
 				socket.emit('play_actor_emoji', toJSON.call(this));
-				this.elements.emoji.value = '';
+				this.emoji = '';
 			}.bind(this));
 
 			this.elements.initiative.addEventListener('change', function(event){

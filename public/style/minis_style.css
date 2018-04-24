@@ -84,3 +84,38 @@
   transform:scaleX(-1) scale(2.5,2.5);
   margin-bottom:70%;
 }
+
+/*pokemon baddies*/
+.magnemite .mini{
+  background-image:url('http://guidesmedia.ign.com/guides/059687/images/blackwhite/pokemans_081.gif');
+}
+.magneton .mini{
+  background-image:url('http://guidesmedia.ign.com/guides/059687/images/blackwhite/pokemans_082.gif');
+}
+.magnezone .mini{
+  background-image:url('http://guidesmedia.ign.com/guides/059687/images/blackwhite/pokemans_462.gif');
+}
+
+.klink .mini{
+  background-image:url('http://guidesmedia.ign.com/guides/059687/images/blackwhite/pokemans_599.gif');
+}
+.klang .mini{
+  background-image:url('http://guidesmedia.ign.com/guides/059687/images/blackwhite/pokemans_600.gif');
+}
+.klinklang .mini{
+  background-image:url('http://guidesmedia.ign.com/guides/059687/images/blackwhite/pokemans_601.gif');
+}
+
+.gastly .mini{
+  background-image:url('http://guidesmedia.ign.com/guides/059687/images/blackwhite/pokemans_092.gif');
+}
+.haunter .mini{
+  background-image:url('http://guidesmedia.ign.com/guides/059687/images/blackwhite/pokemans_093.gif');
+}
+.gengar .mini{
+  background-image:url('http://guidesmedia.ign.com/guides/059687/images/blackwhite/pokemans_094.gif');
+}
+.megagengar .mini{
+  background-image:url('http://cdn.staticneo.com/w/pokemon/4/4c/MegaGengar.png');
+}
+

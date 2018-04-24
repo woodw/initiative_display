@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		socket.on('socket connection', socketConnected);
 
 		socket.on('set_backdrop', setBackdrop);
-		socket.on('set_sketch', setSketch);
+		socket.on('set_sketch_stage', setSketch);
 		socket.on('set_audiotrack', setAudioTrack);
 		socket.on('add_actor', addActor);
 		socket.on('remove_actor', removeActor);
@@ -148,9 +148,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function setSketch(data){
 		console.log(data);
-		elements.sketch.style.backgroundImage = 'url('+data.url+')';
-
-		(data.url)?elements.sketchContainer.classList.remove('hide'):elements.sketchContainer.classList.add('hide');;
+		if(data.url){
+			elements.sketch.style.backgroundImage = 'url('+data.url+')';
+			elements.sketchContainer.classList.remove('hide')
+		}
+		else{
+			elements.sketchContainer.classList.add('hide');
+		}
 	}
 
 	function removeSketch(data){
