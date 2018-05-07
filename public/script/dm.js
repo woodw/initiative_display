@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		uniqueID = 0;
 		initiativePointer = 0;
 
-		app.session = 8;
-		app.game = 'tythos';
+		app.session = 2;
+		app.game = 'valdrin';
 	}
 
 	function registerElements(){

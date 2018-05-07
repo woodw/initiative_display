@@ -17,7 +17,7 @@ const players = require(__dirname+'/app/data/players.json');
 const clientPromise = stitch.StitchClientFactory.create(process.env.stitch_dbconn);*/
 
 const onLiveData = {
-	group: 'tythos',
+	group: 'valdrin',
 	users: {},
 	directAuth: [
 		'qzWXecRV',
