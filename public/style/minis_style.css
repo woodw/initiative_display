@@ -73,6 +73,9 @@
 .gaurdb .mini{
   background-image:url('../images/monsters/gaurd.png');
 }
+.dwarf .mini{
+  background-image:url('../images/monsters/dwarf.png');
+}
 .ruffian .mini{
   background-image:url('../images/monsters/ruffian.png');
 }
@@ -117,6 +120,9 @@
 }
 .wingedkobold .mini{
   background-image:url('../images/monsters/wingedkobold.png');
+}
+.owlbear .mini{
+  background-image:url('../images/monsters/owlbear.png');
 }
 
 
