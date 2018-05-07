@@ -85,6 +85,41 @@
   margin-bottom:70%;
 }
 
+.acolytekobold .mini{
+  background-image:url('../images/monsters/acolytekobold.png');
+}
+.gnoll .mini{
+  background-image:url('../images/monsters/gnoll.png');
+}
+.goblin .mini{
+  background-image:url('../images/monsters/goblin.png');
+}
+.halfogre .mini{
+  background-image:url('../images/monsters/halfogre.png');
+}
+.hobgoblin .mini{
+  background-image:url('../images/monsters/hobgoblin.png');
+}
+.jacklewere .mini{
+  background-image:url('../images/monsters/jacklewere.png');
+}
+.kenku .mini{
+  background-image:url('../images/monsters/kenku.png');
+}
+.ogre .mini{
+  background-image:url('../images/monsters/ogre.png');
+}
+.priestkobold .mini{
+  background-image:url('../images/monsters/priestkobold.png');
+}
+.shieldkobold .mini{
+  background-image:url('../images/monsters/shieldkobold.png');
+}
+.wingedkobold .mini{
+  background-image:url('../images/monsters/wingedkobold.png');
+}
+
+
 /*pokemon baddies*/
 .magnemite .mini{
   background-image:url('http://guidesmedia.ign.com/guides/059687/images/blackwhite/pokemans_081.gif');
