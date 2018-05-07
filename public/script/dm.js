@@ -493,6 +493,12 @@ document.addEventListener('DOMContentLoaded', function() {
 					console.log((element.id == this.id));
 					return element.id == this.id;
 				});
+				console.log('asasasasasa');
+console.log((initiativePointer % actors.length));
+console.log(heep<(initiativePointer % actors.length));
+				if(heep<(initiativePointer % actors.length)){
+					initiativePointer--;
+				}
 
 				console.log('index',heep);
 				
