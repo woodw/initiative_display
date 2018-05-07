@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		var shortName;
 		if(data.url){
 			shortName = data.url.replace('https://www.youtube.com/watch?v=','');
-			elements.youtubePlayer.src = 'https://www.youtube.com/embed/'+shortName+'?autoplay=1&controls=0&html5=1&loop=1&playlist='+shortName;
+			elements.youtubePlayer.src = 'https://www.youtube.com/embed/'+shortName+'?autoplay=1&vq=small&controls=0&html5=1&loop=1&playlist='+shortName;
 		}
 		else{
 			elements.youtubePlayer.src = '';
