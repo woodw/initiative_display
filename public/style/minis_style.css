@@ -1,138 +1,168 @@
-/*Minis*/
+/**********************PC Minis***************************/
 .nell .mini{
-	background-image:url('../images/sprites/nell.png');
+	background-image:url('../images/sprites/pc/tythos/nell.png');
   }
 .bree .mini{
-  background-image:url('../images/sprites/bree.png');
+  background-image:url('../images/sprites/pc/tythos/bree.png');
 }
 .umbar .mini{
-  background-image:url('../images/sprites/umbar.png');
+  background-image:url('../images/sprites/pc/tythos/umbar.png');
 }
 .tophee .mini{
-  background-image:url('../images/sprites/tophee.png');
+  background-image:url('../images/sprites/pc/tythos/tophee.png');
 }
 .ack .mini{
-  background-image:url('../images/sprites/ack.png');
+  background-image:url('../images/sprites/pc/tythos/ack.png');
 }
 .thaliss .mini{
-  background-image:url('../images/sprites/thaliss.png');
+  background-image:url('../images/sprites/pc/tythos/thaliss.png');
 }
-.thalin .mini{
-  background-image:url('../images/sprites/thalin.png');
-}
+
 .thomas .mini{
-  background-image:url('../images/sprites/thomasphase1.png');
+  background-image:url('../images/sprites/pc/valdrin/thomas.png');
 }
 .garrik .mini{
-  background-image:url('../images/sprites/garrikphase1.png');
+  background-image:url('../images/sprites/pc/valdrin/garrik.png');
 }
 .morwen .mini{
-  background-image:url('../images/sprites/veloraphase1.png');
+  background-image:url('../images/sprites/pc/valdrin/morwen.png');
 }
-.bison .mini{
-  background-image:url('http://www.pngmart.com/files/5/Bison-PNG-Transparent-Image.png');
-}
-.bisonreal .mini{
-  background-image:url('http://www.pngmart.com/files/5/Bison-Transparent-Background.png');
-}
+
+
+/**********************NPC Minis***************************/
 .cloven .mini{
-  background-image:url('../images/sprites/cloven.png');
+  background-image:url('../images/sprites/npc/cloven.png');
 }
 .jarkas .mini{
-  background-image:url('../images/sprites/jarkas.png');
+  background-image:url('../images/sprites/npc/jarkas.png');
 }
 .prin .mini{
-  background-image:url('../images/sprites/prin.png');
+  background-image:url('../images/sprites/npc/prin.png');
 }
 .leffy .mini{
-  background-image:url('../images/sprites/leffy.png');
+  background-image:url('../images/sprites/npc/leffy.png');
 }
 .rona .mini{
-  background-image:url('../images/sprites/rona.png');
+  background-image:url('../images/sprites/npc/rona.png');
 }
 .leeroy .mini{
-  background-image:url('../images/sprites/leeroy.png');
+  background-image:url('../images/sprites/npc/leeroy.png');
 }
+.boy-common .mini{
+  background-image:url('../images/sprites/npc/boy-common.png');
+}
+.girl-common .mini{
+  background-image:url('../images/sprites/npc/girl-common.png');
+}
+.woman-common .mini{
+  background-image:url('../images/sprites/npc/woman-common.png');
+}
+.thalin .mini{
+  background-image:url('../images/sprites/npc/thalin.png');
+}
+
+.bison .mini{
+  background-image:url('http://www.pngmart.com/files/5/Bison-Transparent-Background.png');
+}
+.bison-art .mini{
+  background-image:url('http://www.pngmart.com/files/5/Bison-PNG-Transparent-Image.png');
+}
+
+/**********************NPC Hostile Minis***************************/
 
 .ghilanna .mini{
-  background-image:url('../images/sprites/ghilanna.png');
+  background-image:url('../images/sprites/npc/hostile/ghilanna.png');
 }
-.baddie .mini{
-  background-image:url('../images/sprites/baddie.png');
+.necromancer-basic .mini{
+  background-image:url('../images/sprites/npc/hostile/necromancer-basic.png');
 }
-
-.gaurd .mini{
-  background-image:url('../images/sprites/basicGaurd.png');
-}
-.wolf .mini{
-  background-image:url('../images/sprites/blackWolf.png');
+.guard-basic .mini{
+  background-image:url('../images/sprites/npc/hostile/guard-basic.png');
 }
 .thug .mini{
-  background-image:url('../images/monsters/thug.png');
+  background-image:url('../images/sprites/npc/hostile/thug.png');
 }
-.wolfb .mini{
-  background-image:url('../images/monsters/wolf.png');
+.wolf .mini{
+  background-image:url('../images/sprites/npc/hostile/wolf.png');
 }
-.evilmage .mini{
-  background-image:url('../images/monsters/evilmage.png');
+.wolf-black .mini{
+  background-image:url('../images/sprites/npc/hostile/wolf-black.png');
 }
-.gaurdb .mini{
-  background-image:url('../images/monsters/gaurd.png');
+.wolf-dire .mini{
+  background-image:url('../images/sprites/npc/hostile/wolf-dire.png');
+}
+.willowwisps .mini{
+  background-image:url('../images/sprites/npc/hostile/willowwisps.png');
+}
+.skeleton .mini{
+  background-image:url('../images/sprites/npc/hostile/skeleton.png');
+}
+.minotaur-skeleton .mini{
+  background-image:url('../images/sprites/npc/hostile/minotaur-skeleton.png');
+}
+.mage-evil .mini{
+  background-image:url('../images/sprites/npc/hostile/mage-evil.png');
+}
+.guard .mini{
+  background-image:url('../images/sprites/npc/hostile/gaurd.png');
 }
 .dwarf .mini{
-  background-image:url('../images/monsters/dwarf.png');
+  background-image:url('../images/sprites/npc/hostile/dwarf.png');
 }
 .ruffian .mini{
-  background-image:url('../images/monsters/ruffian.png');
+  background-image:url('../images/sprites/npc/hostile/ruffian.png');
 }
 .bandit .mini{
-  background-image:url('../images/monsters/bandit.png');
+  background-image:url('../images/sprites/npc/hostile/bandit.png');
+}
+.bandit-captain .mini{
+  background-image:url('../images/sprites/npc/hostile/bandit-captain.png');
 }
 .lymia .mini{
-  background-image:url('../images/monsters/lymia.png');
+  background-image:url('../images/sprites/npc/hostile/lymia.png');
   transform:scaleX(-1) scale(2.5,2.5);
   margin-bottom:70%;
 }
 
-.acolytekobold .mini{
-  background-image:url('../images/monsters/acolytekobold.png');
+.kobold-acolyte .mini{
+  background-image:url('../images/sprites/npc/hostile/kobold-acolyte.png');
 }
 .gnoll .mini{
-  background-image:url('../images/monsters/gnoll.png');
+  background-image:url('../images/sprites/npc/hostile/gnoll.png');
 }
 .goblin .mini{
-  background-image:url('../images/monsters/goblin.png');
+  background-image:url('../images/sprites/npc/hostile/goblin.png');
 }
-.halfogre .mini{
-  background-image:url('../images/monsters/halfogre.png');
+.ogre-half .mini{
+  background-image:url('../images/sprites/npc/hostile/ogre-half.png');
 }
 .hobgoblin .mini{
-  background-image:url('../images/monsters/hobgoblin.png');
+  background-image:url('../images/sprites/npc/hostile/hobgoblin.png');
 }
 .jacklewere .mini{
-  background-image:url('../images/monsters/jacklewere.png');
+  background-image:url('../images/sprites/npc/hostile/jacklewere.png');
 }
 .kenku .mini{
-  background-image:url('../images/monsters/kenku.png');
+  background-image:url('../images/sprites/npc/hostile/kenku.png');
 }
 .ogre .mini{
-  background-image:url('../images/monsters/ogre.png');
+  background-image:url('../images/sprites/npc/hostile/ogre.png');
 }
-.priestkobold .mini{
-  background-image:url('../images/monsters/priestkobold.png');
+.kobold-priest .mini{
+  background-image:url('../images/sprites/npc/hostile/kobold-priest.png');
 }
-.shieldkobold .mini{
-  background-image:url('../images/monsters/shieldkobold.png');
+.kobold-shield .mini{
+  background-image:url('../images/sprites/npc/hostile/kobold-shield.png');
 }
-.wingedkobold .mini{
-  background-image:url('../images/monsters/wingedkobold.png');
+.kobold-winged .mini{
+  background-image:url('../images/sprites/npc/hostile/kobold-winged.png');
 }
 .owlbear .mini{
-  background-image:url('../images/monsters/owlbear.png');
+  background-image:url('../images/sprites/npc/hostile/owlbear.png');
 }
 
 
-/*pokemon baddies*/
+/**********************POKEMON Stand-ins Minis***************************/
 .magnemite .mini{
   background-image:url('http://guidesmedia.ign.com/guides/059687/images/blackwhite/pokemans_081.gif');
 }
