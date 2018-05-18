@@ -379,6 +379,27 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 		];
 	}
+
+	function setActiveStageActors(acted, acting, willAct){
+		var ids;
+
+		ids = [{id:acted},{id:acting},{id:willAct}];
+
+		actors.forEach(function(item){
+			item.elements.container.className = 'stage-actor';
+		});
+
+		actors[acted].elements.container.classList.add('acted');
+		actors[acting].elements.container.classList.add('acting');
+		actors[willAct].elements.container.classList.add('willAct');
+
+		socket.emit('set_combat_actors_dm',ids);
+	}
+
+	function getActorIndex(pointer){
+		return (pointer%actors.length + actors.length)%actors.length;
+	}
+
 	function validArraySpot(idx){
 		//05 15 25 35 45 55 65/05
 		while(idx<0){
@@ -426,7 +447,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			var elements={};
 
 			elements.container = document.createElement('div');
-			elements.container.className = 'actor--update';
+			elements.container.className = 'stage-actor';
 
 			elements.classes = document.createElement('input');
 			elements.classes.setAttribute("type", "text");
@@ -480,7 +501,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		function registerActorEventListeners(){
 
+			this.elements.container.addEventListener('click',function(event){
+				var arrayIdex,myId;
+				myId = this.id;
+
+				event.target.classList.add('acting');
+
+				function matchingId(element) {
+					return element.id == myId;
+				}
+
+				arrayIndex = actors.findIndex(matchingId);
+
+				setActiveStageActors(getActorIndex(arrayIndex-1),getActorIndex(arrayIndex),getActorIndex(arrayIndex+1));
+
+				console.log('hi there');
+				console.log();
+				console.log(getActorIndex(arrayIndex-1),getActorIndex(arrayIndex),getActorIndex(arrayIndex+1));
+
+			}.bind(this));
+
 			this.elements.remove.addEventListener('click', function(event){
+				event.stopPropagation();
 				console.log('sending remove actor talk');
 				socket.emit('remove_actor_dm', {id:this.id});
 				console.log('id',this.id);
@@ -513,21 +555,25 @@ document.addEventListener('DOMContentLoaded', function() {
 			}.bind(this));  
 
 			this.elements.point.addEventListener('click', function(event){
+				event.stopPropagation();
 				this.emoji = '👇';
 				socket.emit('play_actor_emoji', toJSON.call(this));
 				this.emoji = '';
 			}.bind(this));
 
 			this.elements.initiative.addEventListener('change', function(event){
+				event.stopPropagation();
 				this.initiative = this.elements.initiative.value;
 			}.bind(this));
 
 			this.elements.onstage.addEventListener('click', function(event){
+				event.stopPropagation();
 				console.log('do i get in here?');
 				socket.emit('set_actor_stage_presence_dm', {id:this.id});
 			}.bind(this));
 
 			this.elements.turn.addEventListener('click', function(event){
+				event.stopPropagation();
 				socket.emit('turn_actor', {id:this.id});
 			}.bind(this));
 		}
