@@ -286,11 +286,11 @@ document.addEventListener('DOMContentLoaded', function() {
 				return 0;
 			}
 			else
-			if(a.initiative){
+			if(!b.initiative){
 				return -1;
 			}
 			else
-			if(b.initiative){
+			if(!a.initiative){
 				return 1;
 			}
 			else{
@@ -513,23 +513,20 @@ document.addEventListener('DOMContentLoaded', function() {
 		function registerActorEventListeners(){
 
 			this.elements.container.addEventListener('click',function(event){
-				var arrayIdex,myId;
-				myId = this.id;
+				if(event.target==this.elements.container){			
+					var arrayIdex,myId;
+					myId = this.id;
 
-				event.target.classList.add('acting');
+					event.target.classList.add('acting');
 
-				function matchingId(element) {
-					return element.id == myId;
+					function matchingId(element) {
+						return element.id == myId;
+					}
+
+					arrayIndex = actors.findIndex(matchingId);
+
+					setActiveStageActors(getActorIndex(arrayIndex-1),getActorIndex(arrayIndex),getActorIndex(arrayIndex+1));
 				}
-
-				arrayIndex = actors.findIndex(matchingId);
-
-				setActiveStageActors(getActorIndex(arrayIndex-1),getActorIndex(arrayIndex),getActorIndex(arrayIndex+1));
-
-				console.log('hi there');
-				console.log();
-				console.log(getActorIndex(arrayIndex-1),getActorIndex(arrayIndex),getActorIndex(arrayIndex+1));
-
 			}.bind(this));
 
 			this.elements.remove.addEventListener('click', function(event){
