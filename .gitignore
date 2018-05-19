@@ -58,3 +58,5 @@ typings/
 .env
 
 template.json
+
+./public/**/*DS_Store*

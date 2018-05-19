@@ -17,7 +17,7 @@ const players = require(__dirname+'/app/data/players.json');
 const clientPromise = stitch.StitchClientFactory.create(process.env.stitch_dbconn);*/
 
 const onLiveData = {
-	group: 'tythos',
+	group: 'valdrin',
 	users: {},
 	directAuth: [
 		'qzWXecRV',
@@ -70,17 +70,17 @@ console.log(clientIp, req.query.auth);
 		};
 		switch(req.query.auth){
 			case onLiveData.directAuth[0]:
-				fakeUser.user.name = 'atticusjack';
+				fakeUser.user.name = 'Prof. Thomas Black';
 				storeUser(clientIp,fakeUser);
 				res.sendFile(__dirname+'/app/pc_screen.html');
 				break;
 			case onLiveData.directAuth[1]:
-				fakeUser.user.name = 'Bree';
+				fakeUser.user.name = 'Morwen Katahl (Maura)';
 				storeUser(clientIp,fakeUser);
 				res.sendFile(__dirname+'/app/pc_screen.html');
 				break;
 			case onLiveData.directAuth[2]:
-				fakeUser.user.name = 'Nell';
+				fakeUser.user.name = 'Garrik (Noel)';
 				storeUser(clientIp,fakeUser);
 				res.sendFile(__dirname+'/app/pc_screen.html');
 				break;

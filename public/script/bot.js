@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		var shortName;
 		if(data.url){
 			shortName = data.url.replace('https://www.youtube.com/watch?v=','');
-			elements.youtubePlayer.src = 'https://www.youtube.com/embed/'+shortName+'?autoplay=1&vq=tiny&controls=0&html5=1&loop=1&playlist='+shortName;
+			elements.youtubePlayer.src = 'https://www.youtube.com/embed/'+shortName+'?autoplay=1&vq=small&controls=0&html5=1&loop=1&playlist='+shortName;
 		}
 		else{
 			elements.youtubePlayer.src = '';
@@ -216,10 +216,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function updateActor(data){
 		console.log(data);
-		//var actor;
-		//actor = elements.characterLine.querySelector('div[dndid="'+data.id+'"]');
-		//actor.className = data.classes;
-		//actor.classList.add('actor');
 		playEmoji('div[dndid="'+data.id+'"] .emoji',data.emoji);
 	}
 

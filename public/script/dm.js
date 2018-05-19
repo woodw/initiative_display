@@ -1,12 +1,14 @@
 let app = {};
 
 document.addEventListener('DOMContentLoaded', function() {
+/****************************Scope Objects*****************************/	
 	let socket, backdrops, sketches, audioTracks, elements, actors, uniqueID, initiativePointer;
 
 	app.init = init;
 	
 	app.init();
 
+/****************************INIT Function*****************************/		
 	function init(){
 		elements = registerElements();
 
@@ -18,10 +20,37 @@ document.addEventListener('DOMContentLoaded', function() {
 		uniqueID = 0;
 		initiativePointer = 0;
 
-		app.session = 8;
-		app.game = 'tythos';
+		app.session = 2;
+		app.game = 'valdrin';
 	}
 
+/****************************INIT Function*****************************/
+	function newSelectOption(selectElm,optionObj){
+		var element;
+		
+		element = document.createElement('option');
+		element.value = optionObj.url;
+		element.text = optionObj.name;
+		
+		selectElm.appendChild(element);
+
+	}
+
+	function addEventListenerList(list, event, fn) {
+		for (var i = 0, len = list.length; i < len; i++) {
+			list[i].addEventListener(event, fn, false);
+		}
+	}
+
+	function byCSS(cssSelector){
+		return document.querySelector(cssSelector);
+	}
+	
+	function byCSSAll(cssSelector){
+		return document.querySelectorAll(cssSelector);
+	}
+
+/****************************REGISTER Functions*****************************/	
 	function registerElements(){
 		return {
 			container: byCSS('.container'),
@@ -57,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				clear: byCSS('#actors-control__clear'),
 				fill: byCSS('#actors-control__fill'),
 				toggleOverlay: byCSS('#actors-control__toggle-overlay'),
-				advance: byCSS('#actors-control__advance'),
+				sort: byCSS('#actors-control__sort'),
 				reset: byCSS('#actors-control__reset'),
 			},
 
@@ -85,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		elements.actorControls.clear.addEventListener('click', clearInitiative);
 		elements.actorControls.fill.addEventListener('click',fillInitiative);
 		elements.actorControls.toggleOverlay.addEventListener('click',toggleBotInitiativeDisplay);
-		elements.actorControls.advance.addEventListener('click',advanceInitiative);
+		elements.actorControls.sort.addEventListener('click',sortByInitiative);
 
 		elements.actorControls.reset.addEventListener('click', reset);
 
@@ -95,7 +124,192 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 	}
 
-/*-------------------------------SOCKET FUNCTIONS*/
+	function reset(event){
+		actors = [];
+		elements.actorList.innerHTML = '';
+		socket.emit('reset_dm');
+	}
+	
+	function newBackdropSelected(event){
+
+		elements.backdropPreview.src = elements.backdropList.value;
+	}
+
+	function setBotBackdrop(event){
+		var url;
+		if(elements.backdropCustomUrl.value.length>7 && elements.backdropUseCustomUrl.checked){
+			url = elements.backdropCustomUrl.value;
+		}
+		else{
+			url = elements.backdropList.value;
+		}
+
+		socket.emit('set_backdrop_dm',{'url':url});
+	}
+
+	function newSketchSelected(event){
+		elements.sketchPreview.src = elements.sketchList.value;
+	}
+
+	function setBotSketch(event){
+		var url;
+		if(elements.sketchCustomUrl.value.length>7 && elements.sketchUseCustomUrl.checked){
+			url = elements.sketchCustomUrl.value;
+		}
+		else{
+			url = elements.sketchList.value;
+		}
+
+		socket.emit('set_sketch_dm',{'target':elements.sketchTarget.value,'url':url});
+	}
+
+	function removeBotSketch(event){
+		socket.emit('set_sketch_dm',{'target':elements.sketchTarget.value,'url':false});
+	}
+
+	function newAudioTrackSelected(event){
+		shortName = elements.audioList.value.replace('https://www.youtube.com/watch?v=','');
+		elements.audioPreview.src='https://www.youtube.com/embed/'+shortName;
+	}
+
+	function setBotAudio(event){
+		var url;
+		if(elements.audioCustomUrl.value.length>7 && elements.audioUseCustomUrl.checked){
+			url = elements.audioCustomUrl.value;
+		}
+		else{
+			url = elements.audioList.value;
+		}
+
+		socket.emit('set_audiotrack_dm',{'url':url});
+	}
+
+	function removeBotAudio(event){
+		socket.emit('set_audiotrack_dm',{'url':false});
+	}
+
+	function addNewActor(event){
+		var newActor, actorAddElements;
+		
+		actorAddElements = {
+			classes: byCSS('#new-actor__css'),
+			hitpoints: byCSS('#new-actor__hp'),
+			description: byCSS('#new-actor__desc')
+		};
+		
+		if(actorAddElements.classes.value){
+			newActor = new Actor(actorAddElements);
+			elements.actorList.appendChild(newActor.elements.container);
+			actors.push(newActor);
+			newActor.arrayIdx = actors.length-1;
+		}
+	}
+
+	function clearInitiative(event){
+		while (elements.actorList.firstChild) {
+			elements.actorList.firstChild.className = 'stage-actor';
+			elements.actorList.removeChild(elements.actorList.firstChild);
+		}
+		
+		actors.forEach(function(actor){
+			actor.initiative = 0;
+			actor.elements.initiative.value = actor.initiative;
+		});
+		
+		actors.sort(function(a,b){
+			return a.id - b.id;
+		});
+		
+		actors.forEach(function(actor){
+			elements.actorList.appendChild(actor.elements.container);
+		});
+
+		socket.emit('set_combat_actors_dm',[]);
+	}
+
+	function fillInitiative(event){
+		while (elements.actorList.firstChild) {
+			elements.actorList.removeChild(elements.actorList.firstChild);
+		}
+		
+		actors.forEach(function(actor){
+			actor.initiative = actor.initiative||Math.ceil(Math.random()*20);
+			actor.elements.initiative.value = actor.initiative;
+		});
+		
+		actors.sort(function(a,b){
+			return b.initiative - a.initiative;
+		});
+		
+		actors.forEach(function(actor, index){
+			elements.actorList.appendChild(actor.elements.container);
+
+			if(actor.elements.container.classList.contains('acting')){				
+				setActiveStageActors(getActorIndex(index-1),getActorIndex(index),getActorIndex(index+1));
+			}
+			
+		});
+
+	}
+
+	function toggleBotInitiativeDisplay(event){
+		socket.emit('toggle_initiative_display_dm');
+	}
+
+	function setActiveStageActors(acted, acting, willAct){
+		var ids;
+
+		ids = [{id:actors[acted].id},{id:actors[acting].id},{id:actors[willAct].id}];
+
+		actors.forEach(function(item){
+			item.elements.container.className = 'stage-actor';
+		});
+
+		actors[acted].elements.container.classList.add('acted');
+		actors[acting].elements.container.classList.add('acting');
+		actors[willAct].elements.container.classList.add('willAct');
+
+		socket.emit('set_combat_actors_dm',ids);
+	}
+
+	function getActorIndex(pointer){
+		return (pointer%actors.length + actors.length)%actors.length;
+	}
+
+	function sortByInitiative(event){
+		while (elements.actorList.firstChild) {
+			elements.actorList.removeChild(elements.actorList.firstChild);
+		}
+		
+		actors.sort(function(a,b){
+			if(!a.initiative && !b.initiative){
+				return 0;
+			}
+			else
+			if(!b.initiative){
+				return -1;
+			}
+			else
+			if(!a.initiative){
+				return 1;
+			}
+			else{
+				return b.initiative - a.initiative;
+			}
+		});
+		
+		actors.forEach(function(actor, index){
+			elements.actorList.appendChild(actor.elements.container);
+
+			if(actor.elements.container.classList.contains('acting')){		
+				console.log(index,'asasasasas');		
+				setActiveStageActors(getActorIndex(index-1),getActorIndex(index),getActorIndex(index+1));
+			}
+			
+		});
+	}
+
+/****************************SOCKET Functions*****************************/
 	function initSocket(){
 		socket = io.connect(window.location.href.replace(window.location.pathname,''));
 
@@ -110,11 +324,49 @@ document.addEventListener('DOMContentLoaded', function() {
 		socket.on('set_actor_sketch', displayActorSketch);
 		
 	}
+
 	function socketConnection(data) {
 		console.log(data);
 	}
 
-	//Request coming from the player
+	function setBackdrops(backdrops){
+		console.log(backdrops);
+		backdrops.session[app.session-1].forEach(function(backdrop){
+			newSelectOption(elements.backdropList,backdrop);
+		});
+
+		if(backdrops.session[app.session-1].length>0){
+			elements.backdropList.value = backdrops.session[app.session-1][0].url;
+			elements.backdropPreview.src = elements.backdropList.value;						
+		}
+	}
+
+	function setSketches(sketches){
+		sketches.session[app.session-1].forEach(function(sketch){
+			newSelectOption(elements.sketchList,sketch);
+		});
+		
+		if(sketches.session[app.session-1].length>0){
+			elements.sketchList.value = sketches.session[app.session-1][0].url;
+			elements.sketchPreview.src = elements.sketchList.value;						
+		}
+	}
+
+	function setAudioTracks(audioTracks){
+		console.log(audioTracks);
+		audioTracks.session[app.session-1].forEach(function(track){
+			newSelectOption(elements.audioList,track);
+		});
+		
+		if(audioTracks.session[app.session-1].length>0){
+			var shortName;
+			elements.audioList.value = audioTracks.session[app.session-1][0].url;	
+				
+			shortName = elements.audioList.value.replace('https://www.youtube.com/watch?v=','');
+			elements.audioPreview.src='https://www.youtube.com/embed/'+shortName;
+		}
+	}
+
 	function addNewOnStageRequest(data){
 		console.log('addNewOnStageRequest');
 		var newAlert, doAction;
@@ -127,7 +379,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		elements.actorRequests.appendChild(newAlert);
 	}
-	//request coming from the player
+
 	function displayActorSketch(data){
 		console.log('displayActorSketch');
 		var newAlert, preview, doAction;
@@ -177,228 +429,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		return newAlert;
 	}
 
-	function setBackdrops(backdrops){
-		console.log(backdrops);
-		backdrops.session[app.session-1].forEach(function(backdrop){
-			newSelectOption(elements.backdropList,backdrop);
-		});
 
-		if(backdrops.session[app.session-1].length>0){
-			elements.backdropList.value = backdrops.session[app.session-1][0].url;
-			elements.backdropPreview.src = elements.backdropList.value;						
-		}
-	}
-	function setSketches(sketches){
-		sketches.session[app.session-1].forEach(function(sketch){
-			newSelectOption(elements.sketchList,sketch);
-		});
-		
-		if(sketches.session[app.session-1].length>0){
-			elements.sketchList.value = sketches.session[app.session-1][0].url;
-			elements.sketchPreview.src = elements.sketchList.value;						
-		}
-	}
-	function setAudioTracks(audioTracks){
-		console.log(audioTracks);
-		audioTracks.session[app.session-1].forEach(function(track){
-			newSelectOption(elements.audioList,track);
-		});
-		
-		if(audioTracks.session[app.session-1].length>0){
-			var shortName;
-			elements.audioList.value = audioTracks.session[app.session-1][0].url;	
-				
-			shortName = elements.audioList.value.replace('https://www.youtube.com/watch?v=','');
-			elements.audioPreview.src='https://www.youtube.com/embed/'+shortName;
-		}
-	}
-
-	/*emits*/
-
-/*----------------- Helper Functions */
-	function newSelectOption(selectElm,optionObj){
-		var element;
-		
-		element = document.createElement('option');
-		element.value = optionObj.url;
-		element.text = optionObj.name;
-		
-		selectElm.appendChild(element);
-
-	}
-
-	
-
-	function addEventListenerList(list, event, fn) {
-		for (var i = 0, len = list.length; i < len; i++) {
-			list[i].addEventListener(event, fn, false);
-		}
-	}
-
-	function byCSS(cssSelector){
-		return document.querySelector(cssSelector);
-	}
-	function byCSSAll(cssSelector){
-		return document.querySelectorAll(cssSelector);
-	}
-
-	/*-------------------- REGISTER EVENT LISTENERS */
-	
-	function reset(event){
-		actors = [];
-		elements.actorList.innerHTML = '';
-		socket.emit('reset_dm');
-	}
-	function newBackdropSelected(event){
-
-		elements.backdropPreview.src = elements.backdropList.value;
-	}
-	function setBotBackdrop(event){
-		var url;
-		if(elements.backdropCustomUrl.value.length>7 && elements.backdropUseCustomUrl.checked){
-			url = elements.backdropCustomUrl.value;
-		}
-		else{
-			url = elements.backdropList.value;
-		}
-
-		socket.emit('set_backdrop_dm',{'url':url});
-	}
-	function newSketchSelected(event){
-		elements.sketchPreview.src = elements.sketchList.value;
-	}
-	function setBotSketch(event){
-		var url;
-		if(elements.sketchCustomUrl.value.length>7 && elements.sketchUseCustomUrl.checked){
-			url = elements.sketchCustomUrl.value;
-		}
-		else{
-			url = elements.sketchList.value;
-		}
-
-		socket.emit('set_sketch_dm',{'target':elements.sketchTarget.value,'url':url});
-	}
-	function removeBotSketch(event){
-		socket.emit('set_sketch_dm',{'target':elements.sketchTarget.value,'url':false});
-	}
-
-	function newAudioTrackSelected(event){
-		shortName = elements.audioList.value.replace('https://www.youtube.com/watch?v=','');
-		elements.audioPreview.src='https://www.youtube.com/embed/'+shortName;
-	}
-	function setBotAudio(event){
-		var url;
-		if(elements.audioCustomUrl.value.length>7 && elements.audioUseCustomUrl.checked){
-			url = elements.audioCustomUrl.value;
-		}
-		else{
-			url = elements.audioList.value;
-		}
-
-		socket.emit('set_audiotrack_dm',{'url':url});
-	}
-	function removeBotAudio(event){
-		socket.emit('set_audiotrack_dm',{'url':false});
-	}
-
-	function addNewActor(event){
-		var newActor, actorAddElements;
-		
-		actorAddElements = {
-			classes: byCSS('#new-actor__css'),
-			hitpoints: byCSS('#new-actor__hp'),
-			description: byCSS('#new-actor__desc')
-		};
-		
-		if(actorAddElements.classes.value){
-			newActor = new Actor(actorAddElements);
-			elements.actorList.appendChild(newActor.elements.container);
-			actors.push(newActor);
-			newActor.arrayIdx = actors.length-1;
-		}
-	}
-	function clearInitiative(event){
-		while (elements.actorList.firstChild) {
-			elements.actorList.removeChild(elements.actorList.firstChild);
-		}
-		actors.forEach(function(actor){
-			actor.initiative = 0;
-			actor.elements.initiative.value = actor.initiative;
-		});
-		actors.sort(function(a,b){
-			return a.id - b.id;
-		});
-		actors.forEach(function(actor){
-			elements.actorList.appendChild(actor.elements.container);
-		});
-		initiativePointer = 0;
-		socket.emit('set_combat_actors_dm',[]);
-	}
-	function fillInitiative(event){
-		var initialID;
-
-		initialID = validArraySpot(initiativePointer).id;
-
-		while (elements.actorList.firstChild) {
-			elements.actorList.removeChild(elements.actorList.firstChild);
-		}
-		actors.forEach(function(actor){
-			actor.initiative = actor.initiative||Math.ceil(Math.random()*20);
-			actor.elements.initiative.value = actor.initiative;
-		});
-		actors.sort(function(a,b){
-			return b.initiative - a.initiative;
-		});
-		actors.forEach(function(actor, index){
-			if(actor.id === initialID){
-				initiativePointer = index;
-			}
-			elements.actorList.appendChild(actor.elements.container);
-		});
-
-
-		if(actors.length>=3){
-			socket.emit('set_combat_actors_dm',getCombatPlayers());
-		}
-	}
-
-	function toggleBotInitiativeDisplay(event){
-		socket.emit('toggle_initiative_display_dm');
-	}
-
-	function getCombatPlayers(){
-		return [
-			{
-				id:validArraySpot(initiativePointer-1).id
-			},
-			{
-				id:validArraySpot(initiativePointer).id
-			},
-			{
-				id:validArraySpot(initiativePointer+1).id
-			}
-		];
-	}
-	function validArraySpot(idx){
-		//05 15 25 35 45 55 65/05
-		while(idx<0){
-			idx+=actors.length;
-		}
-		while(idx>(actors.length-1)){
-			idx-=actors.length;
-		}
-
-		return actors[idx];
-	}
-
-	function advanceInitiative(event){
-		initiativePointer++;
-		if(actors.length>=3){
-			socket.emit('set_combat_actors_dm',getCombatPlayers());
-		}
-	}
-
-	/*----------------Actor Object Class*/
+	/****************************Actor Object Functions*****************************/
 	function Actor(actorAddElements){
 		this.elements = buildNewActor.call(this,actorAddElements);
 		this.id = null;
@@ -426,7 +458,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			var elements={};
 
 			elements.container = document.createElement('div');
-			elements.container.className = 'actor--update';
+			elements.container.className = 'stage-actor';
 
 			elements.classes = document.createElement('input');
 			elements.classes.setAttribute("type", "text");
@@ -480,7 +512,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		function registerActorEventListeners(){
 
+			this.elements.container.addEventListener('click',function(event){
+				if(event.target==this.elements.container){			
+					var arrayIdex,myId;
+					myId = this.id;
+
+					event.target.classList.add('acting');
+
+					function matchingId(element) {
+						return element.id == myId;
+					}
+
+					arrayIndex = actors.findIndex(matchingId);
+
+					setActiveStageActors(getActorIndex(arrayIndex-1),getActorIndex(arrayIndex),getActorIndex(arrayIndex+1));
+				}
+			}.bind(this));
+
 			this.elements.remove.addEventListener('click', function(event){
+				event.stopPropagation();
 				console.log('sending remove actor talk');
 				socket.emit('remove_actor_dm', {id:this.id});
 				console.log('id',this.id);
@@ -500,30 +550,47 @@ document.addEventListener('DOMContentLoaded', function() {
 				this.elements.container.parentNode.removeChild(this.elements.container);
 				this.alive = false;
 
+				
+				if(this.elements.container.classList.contains('acted')){
+					setActiveStageActors(getActorIndex(heep-1),getActorIndex(heep+1),getActorIndex(heep+2));
+				}
+				else
+				if(this.elements.container.classList.contains('willAct')){
+					setActiveStageActors(getActorIndex(heep-2),getActorIndex(heep-1),getActorIndex(heep+1));
+				}
+				else
+				if(this.elements.container.classList.contains('acting')){
+					setActiveStageActors(getActorIndex(heep-1),getActorIndex(heep+1),getActorIndex(heep+2));
+				}
+
 				actors.splice(heep,1);
 				console.log('id',this.id);
 				console.log('array',actors.toString());
-				if(this.initiative){
-					fillInitiative(event);
-				}
+				
+				
+
 			}.bind(this));  
 
 			this.elements.point.addEventListener('click', function(event){
+				event.stopPropagation();
 				this.emoji = '👇';
 				socket.emit('play_actor_emoji', toJSON.call(this));
 				this.emoji = '';
 			}.bind(this));
 
 			this.elements.initiative.addEventListener('change', function(event){
+				event.stopPropagation();
 				this.initiative = this.elements.initiative.value;
 			}.bind(this));
 
 			this.elements.onstage.addEventListener('click', function(event){
+				event.stopPropagation();
 				console.log('do i get in here?');
 				socket.emit('set_actor_stage_presence_dm', {id:this.id});
 			}.bind(this));
 
 			this.elements.turn.addEventListener('click', function(event){
+				event.stopPropagation();
 				socket.emit('turn_actor', {id:this.id});
 			}.bind(this));
 		}
