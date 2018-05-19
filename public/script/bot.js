@@ -216,10 +216,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function updateActor(data){
 		console.log(data);
-		//var actor;
-		//actor = elements.characterLine.querySelector('div[dndid="'+data.id+'"]');
-		//actor.className = data.classes;
-		//actor.classList.add('actor');
 		playEmoji('div[dndid="'+data.id+'"] .emoji',data.emoji);
 	}
 

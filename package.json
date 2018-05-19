@@ -1,7 +1,7 @@
 {
   "name": "initiative_display",
   "version": "0.1.0",
-  "description": "This will be used to display the initiative board on streaming media",
+  "description": "This will be jkused to display the initiative board on streaming media",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
