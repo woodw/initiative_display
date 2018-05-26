@@ -115,12 +115,15 @@ app.get('/dm',function(req,res){
 });
 
 app.get('/slack/auth', function(req, res){
+	console.log('here are the query values: ', req.query);
 	let options,headers,clientIp;
 	
 	if(req.query.code){
 		headers = {
 	        'Content-Type': 'application/x-www-form-urlencoded'
 		};
+
+
 
 		options = {
 			url: 'https://slack.com/api/oauth.access',
@@ -132,6 +135,10 @@ app.get('/slack/auth', function(req, res){
 				code: req.query.code
 			}
 		};
+
+		console.log("options",options);
+
+		console.log("process.env",process.env);
 
 		request(options, function (error, response, content) {
 			let jsonObj;
