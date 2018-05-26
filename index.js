@@ -12,6 +12,7 @@ const backdrops = require(__dirname+'/app/data/backdrops.json');
 const sketches = require(__dirname+'/app/data/sketches.json');
 const audioTracks = require(__dirname+'/app/data/audiotracks.json');
 const players = require(__dirname+'/app/data/players.json');
+const adventures = require(__dirname+'/app/data/adventures.json');
 
 /*const stitch = require("mongodb-stitch");
 const clientPromise = stitch.StitchClientFactory.create(process.env.stitch_dbconn);*/
@@ -126,8 +127,8 @@ app.get('/slack/auth', function(req, res){
 			method: 'POST',
 			headers: headers,
 			form: {
-				client_id: process.env.client_id,
-				client_secret: process.env.client_secret,
+				client_id: process.env[req.query.game].client_id,
+				client_secret: process.env[req.query.game].client_secret,
 				code: req.query.code
 			}
 		};
@@ -147,11 +148,11 @@ app.get('/slack/auth', function(req, res){
 				clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 				storeUser(clientIp, jsonObj);
 
-				if(process.env.dm_id == onLiveData.users[clientIp].auth.id){
-					res.redirect('/pcscreen');
+				if(adventures[req.query.game].meta.dm == onLiveData.users[clientIp].info.name){
+					res.redirect('/dm');
 				}
 				else{
-					res.redirect('/dmscreen');
+					res.redirect('/pc');
 				}
 
 			}
@@ -176,6 +177,14 @@ io.on('connection', function (socket) {
 	socket.on('get_audiotracks_dm', function (fn) {
 		fn(audioTracks.campaign[onLiveData.group]);
 	});
+
+	socket.on('get_adventure_dm', (data, callbkfn) => {
+		var foo;
+		console.log('get_adventure_dm', data);
+		foo = adventures[data.game];
+		callbkfn({meta:(foo)?foo.meta:false});
+	});
+
 
 	standardSocketRelay('set_backdrop_dm','set_backdrop');
 
