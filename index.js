@@ -116,22 +116,24 @@ app.get('/dm',function(req,res){
 
 app.get('/slack/auth', function(req, res){
 	console.log('here are the query values: ', req.query);
-	let options,headers,clientIp;
+	let options,headers,clientIp,workSpaceApp;
 	
+	workSpaceApp = JSON.parse(process.env[req.query.game]);
+
 	if(req.query.code){
 		headers = {
 	        'Content-Type': 'application/x-www-form-urlencoded'
 		};
 
-
+console.log('hello there',process.env[req.query.game].clientId);
 
 		options = {
 			url: 'https://slack.com/api/oauth.access',
 			method: 'POST',
 			headers: headers,
 			form: {
-				client_id: process.env[req.query.game].client_id,
-				client_secret: process.env[req.query.game].client_secret,
+				client_id: workSpaceApp.clientId,
+				client_secret: workSpaceApp.clientSecret,
 				code: req.query.code
 			}
 		};
