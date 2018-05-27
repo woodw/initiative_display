@@ -119,14 +119,6 @@ app.get('/slack/auth', function(req, res){
 	
 	workSpaceApp = JSON.parse(process.env[req.query.game]);
 
-	console.log('1',workSpaceApp, req.query.code);
-	console.log('11',adventures);
-	console.log('111',req.query.game);
-	console.log('1111', adventures[req.query.game].meta);
-	console.log('11111', adventures[req.query.game].meta.dungeonMaster);
-	console.log('111111', adventures[req.query.game].meta.dungeonMaster.id);
-
-
 	if(req.query.code){
 		headers = {
 	        'Content-Type': 'application/x-www-form-urlencoded'
@@ -158,8 +150,8 @@ app.get('/slack/auth', function(req, res){
 				clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 				storeUser(clientIp, jsonObj);
 
-				console.log('5',adventures[req.query.game].meta.dungeonMaster.id , onLiveData.users[clientIp].auth.id);
-				if(adventures[req.query.game].meta.dungeonMaster.id == onLiveData.users[clientIp].auth.id){
+				console.log('5',adventures[req.query.game].dungeonMaster.id , onLiveData.users[clientIp].auth.id);
+				if(adventures[req.query.game].dungeonMaster.id == onLiveData.users[clientIp].auth.id){
 					console.log('going to dm');
 					res.redirect('/dm');
 				}
