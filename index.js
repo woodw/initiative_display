@@ -119,6 +119,8 @@ app.get('/slack/auth', function(req, res){
 	
 	workSpaceApp = JSON.parse(process.env[req.query.game]);
 
+	console.log('1',workSpaceApp, req.query.code);
+
 	if(req.query.code){
 		headers = {
 	        'Content-Type': 'application/x-www-form-urlencoded'
@@ -140,8 +142,8 @@ app.get('/slack/auth', function(req, res){
 			
 			jsonObj = JSON.parse(content);
 			
-			console.log(jsonObj);
-			console.log(error, jsonObj.ok);
+			console.log('2', jsonObj);
+			console.log('3', error, jsonObj.ok);
 			
 			if(error || !jsonObj.ok){
 				res.sendFile(__dirname+'/app/error.html');
