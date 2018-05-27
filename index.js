@@ -59,7 +59,7 @@ app.get('/pc',function(req,res){
 	let clientIp, fakeUser;
 
 	clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-console.log(clientIp, req.query.auth);
+
 	if(req.query.auth){
 		fakeUser = {
 			user:{
@@ -115,7 +115,6 @@ app.get('/dm',function(req,res){
 });
 
 app.get('/slack/auth', function(req, res){
-	console.log('here are the query values: ', req.query);
 	let options,headers,clientIp,workSpaceApp;
 	
 	workSpaceApp = JSON.parse(process.env[req.query.game]);
@@ -124,8 +123,6 @@ app.get('/slack/auth', function(req, res){
 		headers = {
 	        'Content-Type': 'application/x-www-form-urlencoded'
 		};
-
-console.log('hello there',process.env[req.query.game].clientId);
 
 		options = {
 			url: 'https://slack.com/api/oauth.access',
@@ -137,10 +134,6 @@ console.log('hello there',process.env[req.query.game].clientId);
 				code: req.query.code
 			}
 		};
-
-		console.log("options",options);
-
-		console.log("process.env",process.env);
 
 		request(options, function (error, response, content) {
 			let jsonObj;
@@ -157,10 +150,13 @@ console.log('hello there',process.env[req.query.game].clientId);
 				clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 				storeUser(clientIp, jsonObj);
 
+				console.log('5',adventures[req.query.game].meta.dm.id , onLiveData.users[clientIp].auth.id);
 				if(adventures[req.query.game].meta.dm.id == onLiveData.users[clientIp].auth.id){
+					console.log('going to dm');
 					res.redirect('/dm');
 				}
 				else{
+					console.log('going to pc');
 					res.redirect('/pc');
 				}
 
@@ -241,7 +237,7 @@ io.on('connection', function (socket) {
 
 /** Private Funtions **/
 function storeUser(clientIp, userObject){
-	console.log(clientIp, userObject);
+	console.log('6', clientIp, userObject);
 	onLiveData.users[clientIp] = {
 		auth:{
 			id: userObject.user.id,
@@ -256,7 +252,7 @@ function storeUser(clientIp, userObject){
 }
 
 function getPlayerCharacter(playerName){
-	console.log(playerName);
+	console.log('7',playerName);
 	if(players[onLiveData.group][playerName]){
 		return players[onLiveData.group][playerName];
 	}
