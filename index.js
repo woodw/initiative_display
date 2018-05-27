@@ -120,6 +120,10 @@ app.get('/slack/auth', function(req, res){
 	workSpaceApp = JSON.parse(process.env[req.query.game]);
 
 	console.log('1',workSpaceApp, req.query.code);
+	console.log('11',adventures);
+	console.log('111',req.query.game);
+	console.log('1111', adventures[req.query.game]);
+
 
 	if(req.query.code){
 		headers = {
