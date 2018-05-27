@@ -150,8 +150,8 @@ app.get('/slack/auth', function(req, res){
 				clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 				storeUser(clientIp, jsonObj);
 
-				console.log('5',adventures[req.query.game].meta.dm.id , onLiveData.users[clientIp].auth.id);
-				if(adventures[req.query.game].meta.dm.id == onLiveData.users[clientIp].auth.id){
+				console.log('5',adventures[req.query.game].meta.dungeonMaster.id , onLiveData.users[clientIp].auth.id);
+				if(adventures[req.query.game].meta.dungeonMaster.id == onLiveData.users[clientIp].auth.id){
 					console.log('going to dm');
 					res.redirect('/dm');
 				}
