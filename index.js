@@ -122,7 +122,9 @@ app.get('/slack/auth', function(req, res){
 	console.log('1',workSpaceApp, req.query.code);
 	console.log('11',adventures);
 	console.log('111',req.query.game);
-	console.log('1111', adventures[req.query.game]);
+	console.log('1111', adventures[req.query.game].meta);
+	console.log('11111', adventures[req.query.game].meta.dungeonMaster);
+	console.log('111111', adventures[req.query.game].meta.dungeonMaster.id);
 
 
 	if(req.query.code){
