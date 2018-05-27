@@ -157,7 +157,7 @@ console.log('hello there',process.env[req.query.game].clientId);
 				clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 				storeUser(clientIp, jsonObj);
 
-				if(adventures[req.query.game].meta.dm == onLiveData.users[clientIp].info.name){
+				if(adventures[req.query.game].meta.dm.id == onLiveData.users[clientIp].auth.id){
 					res.redirect('/dm');
 				}
 				else{

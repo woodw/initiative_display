@@ -4,9 +4,13 @@
             "client":"191860339156.308207846070",
             "mural":"https://files.slack.com/files-pri/T5MRA9Z4L-F8Y16L71T/dnd_group.jpg"
         },
-        "dungeonMaster":"bill",
+        "dungeonMaster":{
+            "id": "U5MTBP99B",
+            "name": "Bill"
+        },
         "players":{
             "atticusjack":{
+                "id": "U5M6RQDEU",
                 "name": "Ack",
                 "portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
                 "mini": "./images/sprites/garrikphase1.png",
@@ -16,6 +20,7 @@
                 "spells":"http://www.5esrd.com/spellcasting/spell-lists/#wizardlist"
             },
             "Bree":{
+                "id": "U5N9ZT3NW",
                 "name": "Bree",
                 "portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
                 "mini": "./images/sprites/bree.png",
@@ -25,6 +30,7 @@
                 "spells":"http://www.5esrd.com/spellcasting/spell-lists/#rangerlist"
             },
             "Nell":{
+                "id": "U5MSN7MHB",
                 "name": "Nell",
                 "portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
                 "mini": "./images/sprites/nell.png",
@@ -34,6 +40,7 @@
                 "spells":"http://www.5esrd.com/spellcasting/spell-lists/#bardlist"
             },
             "Thal The Thalificient":{
+                "id": "U8B3UEQ2F",
                 "name": "Thal The Thalificient",
                 "portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
                 "mini": "./images/sprites/thaliss.png",
@@ -43,6 +50,7 @@
                 "spells":"http://www.5esrd.com/spellcasting/spell-lists/#sorcererlist"
             },
             "Toph'ee":{
+                "id": "U5MA3MA8H",
                 "name": "Toph'ee",
                 "portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
                 "mini": "./images/sprites/tophee.png",
@@ -52,6 +60,7 @@
                 "spells":"http://www.5esrd.com/spellcasting/spell-lists/#rangerlist"
             },
             "Umbar":{
+                "id": "U8721CRRR",
                 "name": "Umbar",
                 "portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
                 "mini": "./images/sprites/umbar.png",
