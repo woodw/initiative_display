@@ -43,6 +43,7 @@
 			<div class="search_container">
 				<label for="groupname">Please enter your registered group name in the field below. We utilize slack to validate who you are and your role within the group.</label>
 				<input name="groupname" id="group-name" type="text" placeholder="group name"/>
+				<button id="group-search">Search</button>
 			</div>
 			<div class="login_container hide">
 				<a class="slack_login-link" href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=191860339156.308207846070"><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
@@ -90,17 +91,18 @@
 					groupName: byCSS('#group-name'),
 					slackButton: byCSS('.slack_login-link'),
 					searchGroup: byCSS('.search_container'),
+					searchButton: byCSS('#group-search'),
 					loginGroup: byCSS('.login_container')
 				};
 			}
 
 			function registerListeners(){
-				elements.groupName.addEventListener('keyup', lookForGame);	
+				elements.searchButton.addEventListener('click', lookForGame);	
 			}
 			function lookForGame(event, one, two){
 				
-				if(event.target.value.length>=3){
-					socket.emit('get_adventure_indx',{game:event.target.value}, function(data){
+				if(elements.groupName.value.length>=3){
+					socket.emit('get_adventure_indx',{game:elements.groupName.value}, function(data){
 						if(data.meta){
 							elements.slackButton.setAttribute('href', 'https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=' + data.meta.client);
 							elements.searchGroup.classList.toggle('hide');
