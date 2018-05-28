@@ -18,16 +18,7 @@ const adventures = require(__dirname+'/app/data/adventures.json');
 const clientPromise = stitch.StitchClientFactory.create(process.env.stitch_dbconn);*/
 
 const onLiveData = {
-	group: 'valdrin',
 	users: {},
-	directAuth: [
-		'qzWXecRV',
-		'wxECrvTB',
-		'ecRVtbYN',
-		'rvTBynUM',
-		'tbYNumIm',
-		'ynUMimPM',
-	],
 	actorID: 0
 };
 
@@ -50,35 +41,21 @@ app.get('/stage',function(req,res){
 app.get('/userdata',function(req,res){
 	let clientIp,response;
 
-	console.log('i am in userdata');
 	clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 	res.setHeader('Content-Type', 'application/json');	
 	
-	console.log(onLiveData.users[clientIp]);
 	if(onLiveData.users[clientIp]){
 		response = onLiveData.users[clientIp].info;
 	}
 	else{
 		response = false;
 	}
+
 	res.send(response);
 });
 
 app.get('/pc',function(req,res){
-	let clientIp, fakeUser;
-
-	clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-
-		fakeUser = {
-			user:{
-				id:'',
-				name:'',
-				image_192:''	
-			},
-			access_token:'',
-		};
-	
-		res.sendFile(__dirname+'/app/pc_screen.html');
+	res.sendFile(__dirname+'/app/pc_screen.html');
 });
 
 app.get('/dm',function(req,res){
@@ -111,24 +88,17 @@ app.get('/slack/auth', function(req, res){
 			
 			jsonObj = JSON.parse(content);
 			
-			console.log('2', jsonObj);
-			console.log('3', error, jsonObj.ok);
-			
 			if(error || !jsonObj.ok){
 				res.sendFile(__dirname+'/app/error.html');
 			}
 			else{
 				clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-				storeUser(clientIp, jsonObj);
 
-				console.log('5',adventures[req.query.game].dungeonMaster.id , onLiveData.users[clientIp].auth.id);
-				
 				if(adventures[req.query.game].dungeonMaster.id == onLiveData.users[clientIp].auth.id){
-					console.log('going to dm');
 					res.redirect('/dm');
 				}
 				else{
-					console.log('going to pc');
+					storeUser(clientIp, jsonObj);
 					res.redirect('/pc');
 				}
 
@@ -156,10 +126,10 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('get_adventure_indx', (data, callbkfn) => {
-		var foo;
-		console.log('get_adventure_indx', data);
-		foo = adventures[data.game];
-		callbkfn({meta:(foo)?foo.meta:false});
+		var adventure;
+		
+		adventure = adventures[data.game];
+		callbkfn({meta:(adventure)?adventure.meta:false});
 	});
 
 
@@ -209,9 +179,6 @@ io.on('connection', function (socket) {
 
 /** Private Funtions **/
 function storeUser(clientIp, userObject){
-	console.log('6', clientIp, userObject);
-	userObject.user.id = 'U5MSN7MHB';
-	console.log('testing', userObject);
 	onLiveData.users[clientIp] = {
 		auth:{
 			id: userObject.user.id,
@@ -226,7 +193,6 @@ function storeUser(clientIp, userObject){
 }
 
 function getPlayerCharacter(workSpaceName, userId){
-	console.log('7',workSpaceName, userId);
 	if(adventures[workSpaceName]){
 		return adventures[workSpaceName].players.find(function(player){
 			return player.id === userId;
