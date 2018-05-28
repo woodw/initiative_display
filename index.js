@@ -54,14 +54,6 @@ app.get('/userdata',function(req,res){
 	res.send(response);
 });
 
-app.get('/pc',function(req,res){
-	res.sendFile(__dirname+'/app/pc_screen.html');
-});
-
-app.get('/dm',function(req,res){
-	res.sendFile(__dirname+'/app/dm_screen.html');
-});
-
 app.get('/slack/auth', function(req, res){
 	let options,headers,clientIp,workSpaceApp;
 	
@@ -95,11 +87,11 @@ app.get('/slack/auth', function(req, res){
 				clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
 				if(adventures[req.query.game].dungeonMaster.id == onLiveData.users[clientIp].auth.id){
-					res.redirect('/dm');
+					res.sendFile(__dirname+'/app/dm_screen.html');
 				}
 				else{
 					storeUser(clientIp, jsonObj);
-					res.redirect('/pc');
+					res.sendFile(__dirname+'/app/pc_screen.html');
 				}
 
 			}
