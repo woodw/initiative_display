@@ -5,10 +5,20 @@
             "mural":"https://files.slack.com/files-pri/T5MRA9Z4L-F8Y16L71T/dnd_group.jpg"
         },
         "dungeonMaster":{
-            "id": "U5MTBP99B",
+            "id": "U5M6RQDEU",
             "name": "Bill"
         },
         "players":[
+            {
+                "id": "U5MTBP99B",
+                "name": "Bill",
+                "portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
+                "mini": "./images/sprites/garrikphase1.png",
+                "css": "bison",
+                "class":"Lord of the Dance",
+                "orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592189873255",
+                "spells":"http://www.5esrd.com/spellcasting/spell-lists/#wizardlist"
+            },
             {
                 "id": "U5M6RQDEU",
                 "name": "Ack",
