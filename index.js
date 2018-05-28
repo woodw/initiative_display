@@ -256,7 +256,7 @@ function storeUser(clientIp, userObject){
 }
 
 function getPlayerCharacter(workSpaceName, userId){
-	console.log('7',playerName);
+	console.log('7',workSpaceName, userId);
 	if(adventures[workSpaceName]){
 		return adventures[workSpaceName].find(function(player){
 			return player.id === userId;
