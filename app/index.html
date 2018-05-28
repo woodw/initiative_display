@@ -100,7 +100,7 @@
 			function lookForGame(event, one, two){
 				
 				if(event.target.value.length>=3){
-					socket.emit('get_adventure_dm',{game:event.target.value}, function(data){
+					socket.emit('get_adventure_indx',{game:event.target.value}, function(data){
 						if(data.meta){
 							elements.slackButton.setAttribute('href', 'https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=' + data.meta.client);
 							elements.searchGroup.classList.toggle('hide');

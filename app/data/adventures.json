@@ -8,8 +8,8 @@
             "id": "U5MTBP99B",
             "name": "Bill"
         },
-        "players":{
-            "atticusjack":{
+        "players":[
+            {
                 "id": "U5M6RQDEU",
                 "name": "Ack",
                 "portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
@@ -19,7 +19,7 @@
                 "orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592189873255",
                 "spells":"http://www.5esrd.com/spellcasting/spell-lists/#wizardlist"
             },
-            "Bree":{
+            {
                 "id": "U5N9ZT3NW",
                 "name": "Bree",
                 "portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
@@ -29,7 +29,7 @@
                 "orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592229788780",
                 "spells":"http://www.5esrd.com/spellcasting/spell-lists/#rangerlist"
             },
-            "Nell":{
+            {
                 "id": "U5MSN7MHB",
                 "name": "Nell",
                 "portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
@@ -39,7 +39,7 @@
                 "orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592189908022",
                 "spells":"http://www.5esrd.com/spellcasting/spell-lists/#bardlist"
             },
-            "Thal The Thalificient":{
+            {
                 "id": "U8B3UEQ2F",
                 "name": "Thal The Thalificient",
                 "portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
@@ -49,7 +49,7 @@
                 "orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592229244832",
                 "spells":"http://www.5esrd.com/spellcasting/spell-lists/#sorcererlist"
             },
-            "Toph'ee":{
+            {
                 "id": "U5MA3MA8H",
                 "name": "Toph'ee",
                 "portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
@@ -59,7 +59,7 @@
                 "orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592208615993",
                 "spells":"http://www.5esrd.com/spellcasting/spell-lists/#rangerlist"
             },
-            "Umbar":{
+            {
                 "id": "U8721CRRR",
                 "name": "Umbar",
                 "portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
@@ -69,7 +69,7 @@
                 "orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592229987189",
                 "spells":"http://www.5esrd.com/spellcasting/spell-lists/#warlocklist"
             }
-        }
+        ]
     },
     
 
@@ -78,8 +78,12 @@
             "client":"191860339156.308207846070",
             "mural":"https://geekandsundry.com/wp-content/uploads/2016/01/FaerunUnderSiege_withlogo_InlineRFIT-929x545.jpg"
         },
-        "players":{
-            "Garrik (Noel)":{
+        "dungeonMaster":{
+            "id": "U5MTBP99B",
+            "name": "Bill"
+        },
+        "players":[
+            {
                 "name": "Garrik Greenwood",
                 "portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
                 "mini": "./images/sprites/garrikphase1.png",
@@ -88,7 +92,7 @@
                 "orcpub": "https://orcpub2.com/pages/dnd/5e/characters/17592249352779",
                 "spells":"http://www.5esrd.com/spellcasting/spell-lists/#clericlist"
             },
-            "Morwen Katahl (Maura)":{
+            {
                 "name": "Morwen Katahl",
                 "portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
                 "mini": "./images/sprites/veloraphase1.png",
@@ -97,7 +101,7 @@
                 "orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592251219558",
                 "spells":"http://www.5esrd.com/spellcasting/spell-lists/#rangerlist"
             },
-            "Prof. Thomas Black":{
+            {
                 "name": "Prof. Thomas Black",
                 "portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
                 "mini": "./images/sprites/thomasphase1.png",
@@ -106,6 +110,6 @@
                 "orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592251200349",
                 "spells":"http://www.5esrd.com/spellcasting/spell-lists/#bardlist"
             }
-        }
+        ]
 	}
 }

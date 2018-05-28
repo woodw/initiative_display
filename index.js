@@ -18,7 +18,6 @@ const adventures = require(__dirname+'/app/data/adventures.json');
 const clientPromise = stitch.StitchClientFactory.create(process.env.stitch_dbconn);*/
 
 const onLiveData = {
-	adventures: {},
 	group: 'valdrin',
 	users: {},
 	directAuth: [
@@ -185,9 +184,9 @@ io.on('connection', function (socket) {
 		fn(audioTracks.campaign[onLiveData.group]);
 	});
 
-	socket.on('get_adventure_dm', (data, callbkfn) => {
+	socket.on('get_adventure_indx', (data, callbkfn) => {
 		var foo;
-		console.log('get_adventure_dm', data);
+		console.log('get_adventure_indx', data);
 		foo = adventures[data.game];
 		callbkfn({meta:(foo)?foo.meta:false});
 	});
@@ -258,7 +257,7 @@ function storeUser(clientIp, userObject){
 function getPlayerCharacter(workSpaceName, userId){
 	console.log('7',workSpaceName, userId);
 	if(adventures[workSpaceName]){
-		return adventures[workSpaceName].find(function(player){
+		return adventures[workSpaceName].players.find(function(player){
 			return player.id === userId;
 		});
 	}
