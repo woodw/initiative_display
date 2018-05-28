@@ -79,11 +79,12 @@
             "mural":"https://geekandsundry.com/wp-content/uploads/2016/01/FaerunUnderSiege_withlogo_InlineRFIT-929x545.jpg"
         },
         "dungeonMaster":{
-            "id": "U5MTBP99B",
+            "id": "U9S8L8QGP",
             "name": "Bill"
         },
         "players":[
             {
+                "id": "U9R6APPJ8",
                 "name": "Garrik Greenwood",
                 "portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
                 "mini": "./images/sprites/garrikphase1.png",
@@ -93,6 +94,7 @@
                 "spells":"http://www.5esrd.com/spellcasting/spell-lists/#clericlist"
             },
             {
+                "id": "U9S2Q2VDL",
                 "name": "Morwen Katahl",
                 "portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
                 "mini": "./images/sprites/veloraphase1.png",
@@ -102,6 +104,7 @@
                 "spells":"http://www.5esrd.com/spellcasting/spell-lists/#rangerlist"
             },
             {
+                "id": "U9QHBENGG",
                 "name": "Prof. Thomas Black",
                 "portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
                 "mini": "./images/sprites/thomasphase1.png",
