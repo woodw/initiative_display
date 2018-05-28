@@ -151,7 +151,7 @@ app.get('/slack/auth', function(req, res){
 				storeUser(clientIp, jsonObj);
 
 				console.log('5',adventures[req.query.game].dungeonMaster.id , onLiveData.users[clientIp].auth.id);
-				res.redirect('/pc');
+				
 				if(adventures[req.query.game].dungeonMaster.id == onLiveData.users[clientIp].auth.id){
 					console.log('going to dm');
 					res.redirect('/dm');
