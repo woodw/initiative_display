@@ -44,32 +44,39 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	function getUserData(){
+		console.log('I am here');
 		var xhttp, jsonData;
 		
 		xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				jsonData = JSON.parse(xhttp.response);
-				characterName = jsonData.character.css;
-				elements.title.innerText = jsonData.character.name;
-				elements.subTitle.innerText = jsonData.character.class;
-				elements.spellListLink.setAttribute('href',jsonData.character.spells);
-				elements.characterSheetLink.setAttribute('href',jsonData.character.orcpub);
-				elements.characterPortrait.style.backgroundImage = 'url('+jsonData.character.mini+')';
-				console.log(jsonData);
-
-				socket.on('set_sketch_'+characterName, function(data){
+				if(jsonData){
+					characterName = jsonData.character.css;
+					elements.title.innerText = jsonData.character.name;
+					elements.subTitle.innerText = jsonData.character.class;
+					elements.spellListLink.setAttribute('href',jsonData.character.spells);
+					elements.characterSheetLink.setAttribute('href',jsonData.character.orcpub);
+					elements.characterPortrait.style.backgroundImage = 'url('+jsonData.character.mini+')';
+					console.log(jsonData);
+	
+					socket.on('set_sketch_'+characterName, function(data){
+						
+						if(data.url){
+							elements.privateSketch.classList.remove('hide');
+							elements.sketchPreviewImage.style.backgroundImage = 'url('+data.url+')';
+							elements.privateSketch.scrollIntoView();
+							console.log(data);
+						}
+						else{
+							hidePrivateSketch();
+						}
+					});
+				}
+				else{
 					
-					if(data.url){
-						elements.privateSketch.classList.remove('hide');
-						elements.sketchPreviewImage.style.backgroundImage = 'url('+data.url+')';
-						elements.privateSketch.scrollIntoView();
-						console.log(data);
-					}
-					else{
-						hidePrivateSketch();
-					}
-				});
+				}
+				
 			}
 		};
 		xhttp.open("GET", "/userData", true);

@@ -48,11 +48,20 @@ app.get('/stage',function(req,res){
 });
 
 app.get('/userdata',function(req,res){
-	let clientIp;
+	let clientIp,response;
 
+	console.log('i am in userdata');
 	clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-	res.setHeader('Content-Type', 'application/json');			
-	res.send(onLiveData.users[clientIp].info);
+	res.setHeader('Content-Type', 'application/json');	
+	
+	console.log(onLiveData.users[clientIp]);
+	if(onLiveData.users[clientIp]){
+		response = onLiveData.users[clientIp].info;
+	}
+	else{
+		response = false;
+	}
+	res.send(response);
 });
 
 app.get('/pc',function(req,res){
@@ -60,7 +69,6 @@ app.get('/pc',function(req,res){
 
 	clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
-	if(req.query.auth){
 		fakeUser = {
 			user:{
 				id:'',
@@ -69,45 +77,8 @@ app.get('/pc',function(req,res){
 			},
 			access_token:'',
 		};
-		switch(req.query.auth){
-			case onLiveData.directAuth[0]:
-				fakeUser.user.name = 'Prof. Thomas Black';
-				storeUser(clientIp,fakeUser);
-				res.sendFile(__dirname+'/app/pc_screen.html');
-				break;
-			case onLiveData.directAuth[1]:
-				fakeUser.user.name = 'Morwen Katahl (Maura)';
-				storeUser(clientIp,fakeUser);
-				res.sendFile(__dirname+'/app/pc_screen.html');
-				break;
-			case onLiveData.directAuth[2]:
-				fakeUser.user.name = 'Garrik (Noel)';
-				storeUser(clientIp,fakeUser);
-				res.sendFile(__dirname+'/app/pc_screen.html');
-				break;
-			case onLiveData.directAuth[3]:
-				fakeUser.user.name = 'Thal The Thalificient';
-				storeUser(clientIp,fakeUser);
-				res.sendFile(__dirname+'/app/pc_screen.html');
-				break;
-			case onLiveData.directAuth[4]:
-				fakeUser.user.name = 'Toph\'ee';
-				storeUser(clientIp,fakeUser);
-				res.sendFile(__dirname+'/app/pc_screen.html');
-				break;
-			case onLiveData.directAuth[5]:
-				fakeUser.user.name = 'Umbar';
-				storeUser(clientIp,fakeUser);
-				res.sendFile(__dirname+'/app/pc_screen.html');
-				break;
-			default:
-				res.sendFile(__dirname+'/app/peanut_screen.html');
-				break;
-		}
-	}
-	else{
-		res.sendFile(__dirname+'/app/peanut_screen.html');
-	}
+	
+		res.sendFile(__dirname+'/app/pc_screen.html');
 });
 
 app.get('/dm',function(req,res){
