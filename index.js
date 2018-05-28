@@ -18,6 +18,7 @@ const adventures = require(__dirname+'/app/data/adventures.json');
 const clientPromise = stitch.StitchClientFactory.create(process.env.stitch_dbconn);*/
 
 const onLiveData = {
+	adventures: {},
 	group: 'valdrin',
 	users: {},
 	directAuth: [
@@ -151,6 +152,7 @@ app.get('/slack/auth', function(req, res){
 				storeUser(clientIp, jsonObj);
 
 				console.log('5',adventures[req.query.game].dungeonMaster.id , onLiveData.users[clientIp].auth.id);
+				res.redirect('/pc');
 				if(adventures[req.query.game].dungeonMaster.id == onLiveData.users[clientIp].auth.id){
 					console.log('going to dm');
 					res.redirect('/dm');
@@ -238,25 +240,29 @@ io.on('connection', function (socket) {
 /** Private Funtions **/
 function storeUser(clientIp, userObject){
 	console.log('6', clientIp, userObject);
+	userObject.user.id = 'U5MSN7MHB';
+	console.log('testing', userObject);
 	onLiveData.users[clientIp] = {
 		auth:{
 			id: userObject.user.id,
-			access_token: userObject.access_token,
+			access_token: userObject.access_token
 		},
 		info:{
 			name: userObject.user.name,
 			icon: userObject.user.image_192,
-			character:getPlayerCharacter(userObject.user.name)	
+			character:getPlayerCharacter(userObject.team.name,userObject.user.id)
 		}
 	}
 }
 
-function getPlayerCharacter(playerName){
+function getPlayerCharacter(workSpaceName, userId){
 	console.log('7',playerName);
-	if(players[onLiveData.group][playerName]){
-		return players[onLiveData.group][playerName];
+	if(adventures[workSpaceName]){
+		return adventures[workSpaceName].find(function(player){
+			return player.id === userId;
+		});
 	}
 	else{
-		return players[onLiveData.group]['Bree'];
+		return {};
 	}
 }
