@@ -102,6 +102,11 @@
 
 				registerListeners();
 				initSocket();
+
+				if(window.location.pathname.length>1){
+					elements.groupName.value = window.location.pathname.replace('/','');
+					elements.searchButton.click();
+				}
 			}
 
 			function addEventListenerList(list, event, fn) {
@@ -122,6 +127,8 @@
 				return {
 					groupName: byCSS('#group-name'),
 					slackButton: byCSS('.slack_login-link'),
+					stageLink: byCSS('.app_stage-link'),
+					peanutLink: byCSS('.app_peanut-link'),
 					searchGroup: byCSS('.search_container'),
 					searchButton: byCSS('#group-search'),
 					loginGroup: byCSS('.login_container')
@@ -132,25 +139,18 @@
 				elements.searchButton.addEventListener('click', lookForGame);	
 			}
 			function lookForGame(event, one, two){
-				alert('You Clicked and Now We are Looking');
 				if(elements.groupName.value.length>=3){
 					socket.emit('get_adventure_indx',{game:elements.groupName.value.toLowerCase()}, function(data){
 						if(data.meta){
-							alert('We found your group: '+elements.groupName.value);
 							elements.slackButton.setAttribute('href', 'https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=' + data.meta.client);
+							elements.stageLink.setAttribute('href','/'+elements.groupName.value+'/stage/');
+							elements.peanutLink.setAttribute('href','/'+elements.groupName.value+'/peanut/');
+							
 							elements.searchGroup.classList.toggle('hide');
 							elements.loginGroup.classList.toggle('hide');
 						}
-						else{
-							alert('We did not find your group: '+elements.groupName.value);
-						}
 					});
 				}
-				else{
-					alert('You\'ll need to provide more characters of your group name');
-				}
-
-				//socket.emit('reset_dm');
 			}
 
 

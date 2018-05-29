@@ -30,18 +30,13 @@ app.use(express.static('public'));
 server.listen((process.env.PORT || 9001));
 
 /* ROUTES */
-app.get('/',function(req,res){
-	res.sendFile(__dirname+'/app/index.html');
-});
-
-app.get('/stage',function(req,res){
+app.get('/*/stage',function(req,res){
 	res.sendFile(__dirname+'/app/bot_screen.html');
 });
 
-app.get('/peanut',function(req,res){
+app.get('/*/peanut',function(req,res){
 	res.sendFile(__dirname+'/app/peanut_screen.html');
 });
-
 
 app.get('/userdata',function(req,res){
 	let clientIp,response;
@@ -105,6 +100,10 @@ app.get('/slack/auth', function(req, res){
 	else{
     	res.sendFile(__dirname+'/app/error.html');
 	}
+});
+
+app.get('/*',function(req,res){
+	res.sendFile(__dirname+'/app/index.html');
 });
 /** END ROUTES **/
 
