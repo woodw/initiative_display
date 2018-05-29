@@ -9,12 +9,18 @@
 			body{
 				margin:0;
 				padding:0;
+				letter-spacing: .2rem;
+				color:white;
 			}
 			.container{
-				width:80vw;
+				width:75vw;
 				margin:0 auto;
+				padding:4%;
 				min-height:100vh;
-				background-color:blue;
+				background-color:rgba(58, 44, 36, 0.85);
+				border-left:.1rem solid rgba(0,0,0,.2);
+				border-right:.1rem solid rgba(0,0,0,.2);
+				box-shadow: 0 0 .5rem .5rem rgba(78, 84, 60, .5);
 
 				display:flex;
 				flex-direction: column;
@@ -34,22 +40,48 @@
 			.hide{
 				display:none;
 			}
+
+			.sub-card{
+				background-color:rgba(255,255,255,.75);
+				padding:1rem;
+				color:rgba(78, 84, 60, 1);
+				width:30vw;
+				box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+			}
+			#group-name{
+				width:70%;
+				margin:1rem auto;
+				padding:.5rem;
+			}
+			#group-search{
+				width:75%;
+				margin:.2rem auto;
+				padding:.5rem;
+			}
 		</style>
 	</head>
 	<body>
 		<div class="container">
-			<h1>D&D Initiative Display</h1>
-			<p>Welcome to the D&D Initiative Display application. This tool will aid you and your gaming group in visualizing the action that happens at your table.</p>
-			<div class="search_container">
-				<label for="groupname">Please enter your registered group name in the field below. We utilize slack to validate who you are and your role within the group.</label>
-				<input name="groupname" id="group-name" type="text" placeholder="group name"/>
-				<button id="group-search">Search</button>
+			<img src="https://www.freeiconspng.com/uploads/d20-icon-5.png" />
+			<h1>Tabletop Roleplaying Aid</h1>
+			<p>Welcome to the Tabletop Roleplaying Aid. This tool will aid you and your gaming group in visualizing the action that happens at your table.</p>
+			<br />
+			<div class="sub-card">
+				<div class="search_container">
+					<label for="groupname">What is your group's name?</label>
+					<input name="groupname" id="group-name" type="text" placeholder="group name"/>
+					<button id="group-search">Search for group</button>
+				</div>
+				<div class="login_container hide">
+					<p>Login through Slack to join the adventure</p>
+					<a class="slack_login-link" href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=191860339156.308207846070"><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
+					- or -
+					<a class="app_stage-link" href="/stage">Watch the display</a>
+					- or -
+					<a class="app_peanut-link" href="/peanut">Watch from the side lines</a>
+				</div>
 			</div>
-			<div class="login_container hide">
-				<a class="slack_login-link" href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=191860339156.308207846070"><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
-				- or -
-				<a class="app_stage-link" href="/stage">Watch the Action</a>
-			</div>
+			
 		</div>
 
 		<script>
@@ -100,18 +132,25 @@
 				elements.searchButton.addEventListener('click', lookForGame);	
 			}
 			function lookForGame(event, one, two){
-				
+				alert('You Clicked and Now We are Looking');
 				if(elements.groupName.value.length>=3){
-					socket.emit('get_adventure_indx',{game:elements.groupName.value}, function(data){
+					socket.emit('get_adventure_indx',{game:elements.groupName.value.toLowerCase()}, function(data){
 						if(data.meta){
+							alert('We found your group: '+elements.groupName.value);
 							elements.slackButton.setAttribute('href', 'https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=' + data.meta.client);
 							elements.searchGroup.classList.toggle('hide');
 							elements.loginGroup.classList.toggle('hide');
 						}
+						else{
+							alert('We did not find your group: '+elements.groupName.value);
+						}
 					});
 				}
+				else{
+					alert('You\'ll need to provide more characters of your group name');
+				}
 
-				socket.emit('reset_dm');
+				//socket.emit('reset_dm');
 			}
 
 

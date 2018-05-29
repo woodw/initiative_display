@@ -38,6 +38,11 @@ app.get('/stage',function(req,res){
 	res.sendFile(__dirname+'/app/bot_screen.html');
 });
 
+app.get('/peanut',function(req,res){
+	res.sendFile(__dirname+'/app/peanut_screen.html');
+});
+
+
 app.get('/userdata',function(req,res){
 	let clientIp,response;
 
