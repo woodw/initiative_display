@@ -86,7 +86,7 @@ app.get('/slack/auth', function(req, res){
 			else{
 				clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
-				if(adventures[req.query.game].dungeonMaster.id == onLiveData.users[clientIp].auth.id){
+				if(adventures[req.query.game].dungeonMaster.id == jsonObj.user.id){
 					res.sendFile(__dirname+'/app/dm_screen.html');
 				}
 				else{
