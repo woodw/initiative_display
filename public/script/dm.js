@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		initiativePointer = 0;
 
 		app.session = 2;
-		app.game = 'valdrin';
+		app.game = 'tythos';
 	}
 
 /****************************INIT Function*****************************/
@@ -54,6 +54,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	function registerElements(){
 		return {
 			container: byCSS('.container'),
+
+			gameName: byCSS('input#game_name'),
+			sessionNumber: byCSS('input#session_number'),
 
 			backdropList: byCSS('#backdrop .card__selection'),
 			backdropSubmit: byCSS('#backdrop .card__emit-button'),
@@ -98,6 +101,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function registerListeners(){
 
+		elements.gameName.addEventListener('change', updateGame);
+		elements.sessionNumber.addEventListener('change', updateGame);
+
+		elements.backdropList.addEventListener('change', newBackdropSelected);
+		elements.backdropSubmit.addEventListener('click', setBotBackdrop);
+
 		elements.backdropList.addEventListener('change', newBackdropSelected);
 		elements.backdropSubmit.addEventListener('click', setBotBackdrop);
 
@@ -122,6 +131,17 @@ document.addEventListener('DOMContentLoaded', function() {
 			console.log('hello', event);
 			socket.emit('play_audience_emoji_pg',{emoji:event.target.innerText});
 		});
+	}
+
+	function updateGame(event){
+		var gameName, sessionNumber;
+		gameName = elements.gameName.value;
+		sessionNumber = elements.sessionNumber.value;
+		if(gameName && sessionNumber){
+			socket.emit('get_backdrops_dm', {'gameName':gameName,'sessionNumber':sessionNumber}, setBackdrops);
+			socket.emit('get_sketches_dm', {'gameName':gameName,'sessionNumber':sessionNumber}, setSketches);
+			socket.emit('get_audiotracks_dm', {'gameName':gameName,'sessionNumber':sessionNumber}, setAudioTracks);
+		}
 	}
 
 	function reset(event){
@@ -314,10 +334,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		socket = io.connect(window.location.href.replace(window.location.pathname,''));
 
 		socket.on('socket connection', socketConnection);
-		
-		socket.emit('get_backdrops_dm', setBackdrops);
-		socket.emit('get_sketches_dm', setSketches);
-		socket.emit('get_audiotracks_dm', setAudioTracks);
 
 		/** make this in a pc todo list */
 		socket.on('actor_stage_presence_request', addNewOnStageRequest);
@@ -331,36 +347,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function setBackdrops(backdrops){
 		console.log(backdrops);
-		backdrops.session[app.session-1].forEach(function(backdrop){
+		backdrops.forEach(function(backdrop){
 			newSelectOption(elements.backdropList,backdrop);
 		});
 
-		if(backdrops.session[app.session-1].length>0){
-			elements.backdropList.value = backdrops.session[app.session-1][0].url;
+		if(backdrops.length>0){
+			elements.backdropList.value = backdrops[0].url;
 			elements.backdropPreview.src = elements.backdropList.value;						
 		}
 	}
 
 	function setSketches(sketches){
-		sketches.session[app.session-1].forEach(function(sketch){
+		sketches.forEach(function(sketch){
 			newSelectOption(elements.sketchList,sketch);
 		});
 		
-		if(sketches.session[app.session-1].length>0){
-			elements.sketchList.value = sketches.session[app.session-1][0].url;
+		if(sketches.length>0){
+			elements.sketchList.value = sketches[0].url;
 			elements.sketchPreview.src = elements.sketchList.value;						
 		}
 	}
 
 	function setAudioTracks(audioTracks){
 		console.log(audioTracks);
-		audioTracks.session[app.session-1].forEach(function(track){
+		audioTracks.forEach(function(track){
 			newSelectOption(elements.audioList,track);
 		});
 		
-		if(audioTracks.session[app.session-1].length>0){
+		if(audioTracks.length>0){
 			var shortName;
-			elements.audioList.value = audioTracks.session[app.session-1][0].url;	
+			elements.audioList.value = audioTracks[0].url;	
 				
 			shortName = elements.audioList.value.replace('https://www.youtube.com/watch?v=','');
 			elements.audioPreview.src='https://www.youtube.com/embed/'+shortName;

@@ -38,6 +38,10 @@ app.get('/*/peanut',function(req,res){
 	res.sendFile(__dirname+'/app/peanut_screen.html');
 });
 
+app.get('/shh/*/dm',function(req,res){
+	res.sendFile(__dirname+'/app/dm_screen.html');
+});
+
 app.get('/userdata',function(req,res){
 	let clientIp,response;
 
@@ -111,14 +115,17 @@ app.get('/*',function(req,res){
 io.on('connection', function (socket) {
 	socket.emit('socket connection', { valid: true });
 
-	socket.on('get_backdrops_dm', function (fn) {
-		fn(backdrops.campaign[onLiveData.group]);
+	socket.on('get_backdrops_dm', function (data, fn) {
+		console.log(data.gameName);
+		console.log(backdrops.campaign[data.gameName]);
+
+		fn(backdrops.campaign[data.gameName].session[data.sessionNumber-1]);
 	});
-	socket.on('get_sketches_dm', function (fn) {
-		fn(sketches.campaign[onLiveData.group]);
+	socket.on('get_sketches_dm', function (data, fn) {
+		fn(sketches.campaign[data.gameName].session[data.sessionNumber-1]);
 	});
-	socket.on('get_audiotracks_dm', function (fn) {
-		fn(audioTracks.campaign[onLiveData.group]);
+	socket.on('get_audiotracks_dm', function (data, fn) {
+		fn(audioTracks.campaign[data.gameName].session[data.sessionNumber-1]);
 	});
 
 	socket.on('get_adventure_indx', (data, callbkfn) => {

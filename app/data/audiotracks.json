@@ -101,13 +101,13 @@
 		},
 		"tythos":{
 			"session":[
-				[],
-				[],
-				[],
-				[],
-				[],
-				[],
-				[],
+				[{"name":"D&D Ambience - Quiet Tavern","url":"https://www.youtube.com/watch?v=atp0MuIQc_M"}],
+				[{"name":"D&D Ambience - Quiet Tavern","url":"https://www.youtube.com/watch?v=atp0MuIQc_M"}],
+				[{"name":"D&D Ambience - Quiet Tavern","url":"https://www.youtube.com/watch?v=atp0MuIQc_M"}],				
+				[{"name":"D&D Ambience - Quiet Tavern","url":"https://www.youtube.com/watch?v=atp0MuIQc_M"}],
+				[{"name":"D&D Ambience - Quiet Tavern","url":"https://www.youtube.com/watch?v=atp0MuIQc_M"}],				
+				[{"name":"D&D Ambience - Quiet Tavern","url":"https://www.youtube.com/watch?v=atp0MuIQc_M"}],
+				[{"name":"D&D Ambience - Quiet Tavern","url":"https://www.youtube.com/watch?v=atp0MuIQc_M"}],				
 				[
 					{"name":"D&D Ambience - [CoS] - Catacombs","url":"https://www.youtube.com/watch?v=WPpVMmTt74Q"},
 					{"name":"D&D Ambience - [CoS] - Castle Ravenloft","url":"https://www.youtube.com/watch?v=rfA-pzDkERs"},
@@ -152,7 +152,8 @@
 					{"name":"child of light battle music","url":"https://www.youtube.com/watch?v=8GBFGtrKFm0"},
 					{"name":"monster hunter combat","url":"https://www.youtube.com/watch?v=N3bssRUQ4YQ"},
 					{"name":"ack big transform","url":"https://www.youtube.com/watch?v=UsnRQJxanVM"}
-				]
+				],
+				[{"name":"D&D Ambience - Quiet Tavern","url":"https://www.youtube.com/watch?v=atp0MuIQc_M"}]
 			]
 		},
 		"valdrin":{

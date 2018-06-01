@@ -17,6 +17,12 @@
 .thaliss .mini{
   background-image:url('../images/sprites/pc/tythos/thaliss.png');
 }
+.maura .mini{
+  background-image:url('../images/sprites/pc/tythos/mauramon2.png');
+}
+.maura2 .mini{
+  background-image:url('../images/sprites/pc/tythos/mauramonk.png');
+}
 
 .thomas .mini{
   background-image:url('../images/sprites/pc/valdrin/thomas.png');
