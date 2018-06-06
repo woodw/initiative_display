@@ -3,13 +3,13 @@
 	"campaign":{
 		"tythos":{
 			"session":[
-				[],
-				[],
-				[],
-				[],
-				[],
-				[],
-				[],
+				[{"name":"scholar opening","url":"https://pre00.deviantart.net/0fc0/th/pre/f/2014/230/8/5/scholar_by_tsonline-d7vpcly.jpg"}],
+				[{"name":"scholar opening","url":"https://pre00.deviantart.net/0fc0/th/pre/f/2014/230/8/5/scholar_by_tsonline-d7vpcly.jpg"}],
+				[{"name":"scholar opening","url":"https://pre00.deviantart.net/0fc0/th/pre/f/2014/230/8/5/scholar_by_tsonline-d7vpcly.jpg"}],
+				[{"name":"scholar opening","url":"https://pre00.deviantart.net/0fc0/th/pre/f/2014/230/8/5/scholar_by_tsonline-d7vpcly.jpg"}],
+				[{"name":"scholar opening","url":"https://pre00.deviantart.net/0fc0/th/pre/f/2014/230/8/5/scholar_by_tsonline-d7vpcly.jpg"}],
+				[{"name":"scholar opening","url":"https://pre00.deviantart.net/0fc0/th/pre/f/2014/230/8/5/scholar_by_tsonline-d7vpcly.jpg"}],
+				[{"name":"scholar opening","url":"https://pre00.deviantart.net/0fc0/th/pre/f/2014/230/8/5/scholar_by_tsonline-d7vpcly.jpg"}],
 				[
 					{"name":"baby_couatl_by_spipes","url":"https://img00.deviantart.net/5af0/i/2015/066/c/8/baby_couatl_by_spipes-d8jnc2i.png"},
 					{"name":"two headed dragooning","url":"http://1.bp.blogspot.com/-ODdJIymyRck/UUjIGUV0m5I/AAAAAAAACJ0/-RghPGkptEI/s1600/Dragon+Bicefalo.png"},
@@ -32,6 +32,17 @@
 					{"name":"yellow hint dome","url":"https://i.imgur.com/OTbTKf7.png"},
 					{"name":"red hint dome","url":"https://i.imgur.com/pNi5ahv.png"},
 					{"name":"banner temple icon","url":"https://ih1.redbubble.net/image.6529603.2147/flat,1000x1000,075,f.jpg"}
+				],
+				[
+					{"name":"Human Vines Dead","url":"https://media0dk-a.akamaihd.net/10/45/c52386cd2da72ec9fa75e4311b5ce845.jpg"},
+					{"name":"Human Vines Alive","url":"https://vignette.wikia.nocookie.net/strangerthings8338/images/7/7a/WillUpsideDown.jpg/revision/latest?cb=20160819172152"},
+					{"name":"Mage Bad Guys","url":"https://i.imgur.com/DgqGl5X.jpg"},
+					{"name":"Vathum The Hallowed","url":"https://i.imgur.com/UZdJYOU.jpg"},
+					{"name":"biggest bad guy","url":"https://i.imgur.com/kWePZwK.jpg"},
+					{"name":"bottom of staircase","url":"http://www.jakerowell.com/blog/wp-content/uploads/2010/01/final_fantasy_IX_jakerowell_design_castle18.jpg"},
+					{"name":"mid stair case","url":"http://www.jakerowell.com/blog/wp-content/uploads/2010/01/final_fantasy_IX_jakerowell_design_castle19.jpg"},
+					{"name":"crumbled space","url":"http://www.jakerowell.com/blog/wp-content/uploads/2010/01/final_fantasy_IX_jakerowell_design_castle17.jpg"},
+					{"name":"black white staircase monsters","url":"https://pre00.deviantart.net/1e6c/th/pre/i/2014/174/7/d/spiral_stairs_by_turnermohan-d7nlzkt.jpg"}
 				]
 			]
 		},

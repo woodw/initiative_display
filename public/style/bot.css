@@ -71,7 +71,7 @@ background-image:url(https://orig00.deviantart.net/c745/f/2013/219/0/d/tavern_by
 	grid-row:2;
 
 	display:grid;
-	grid-template-columns: repeat(7,1fr);
+	grid-template-columns: repeat(8,1fr);
 	grid-template-rows: 75% 15% 10%;
 	transform:translateY(4%) rotateX(10deg);
 }
@@ -120,6 +120,9 @@ background-image:url(https://orig00.deviantart.net/c745/f/2013/219/0/d/tavern_by
 }
 .stage:not(.fight) .actor ~ .actor ~ .actor ~ .actor ~ .actor{
 	grid-column:6;
+}
+.stage:not(.fight) .actor ~ .actor ~ .actor ~ .actor ~ .actor ~ .actor{
+	grid-column:7;
 }
 
 .emoji{

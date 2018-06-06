@@ -12,21 +12,13 @@ const backdrops = require(__dirname+'/app/data/backdrops.json');
 const sketches = require(__dirname+'/app/data/sketches.json');
 const audioTracks = require(__dirname+'/app/data/audiotracks.json');
 const players = require(__dirname+'/app/data/players.json');
+const adventures = require(__dirname+'/app/data/adventures.json');
 
 /*const stitch = require("mongodb-stitch");
 const clientPromise = stitch.StitchClientFactory.create(process.env.stitch_dbconn);*/
 
 const onLiveData = {
-	group: 'valdrin',
 	users: {},
-	directAuth: [
-		'qzWXecRV',
-		'wxECrvTB',
-		'ecRVtbYN',
-		'rvTBynUM',
-		'tbYNumIm',
-		'ynUMimPM',
-	],
 	actorID: 0
 };
 
@@ -38,84 +30,39 @@ app.use(express.static('public'));
 server.listen((process.env.PORT || 9001));
 
 /* ROUTES */
-app.get('/',function(req,res){
-	res.sendFile(__dirname+'/app/index.html');
-});
-
-app.get('/stage',function(req,res){
+app.get('/*/stage',function(req,res){
 	res.sendFile(__dirname+'/app/bot_screen.html');
 });
 
-app.get('/userdata',function(req,res){
-	let clientIp;
-
-	clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-	res.setHeader('Content-Type', 'application/json');			
-	res.send(onLiveData.users[clientIp].info);
+app.get('/*/peanut',function(req,res){
+	res.sendFile(__dirname+'/app/peanut_screen.html');
 });
 
-app.get('/pc',function(req,res){
-	let clientIp, fakeUser;
-
-	clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-console.log(clientIp, req.query.auth);
-	if(req.query.auth){
-		fakeUser = {
-			user:{
-				id:'',
-				name:'',
-				image_192:''	
-			},
-			access_token:'',
-		};
-		switch(req.query.auth){
-			case onLiveData.directAuth[0]:
-				fakeUser.user.name = 'Prof. Thomas Black';
-				storeUser(clientIp,fakeUser);
-				res.sendFile(__dirname+'/app/pc_screen.html');
-				break;
-			case onLiveData.directAuth[1]:
-				fakeUser.user.name = 'Morwen Katahl (Maura)';
-				storeUser(clientIp,fakeUser);
-				res.sendFile(__dirname+'/app/pc_screen.html');
-				break;
-			case onLiveData.directAuth[2]:
-				fakeUser.user.name = 'Garrik (Noel)';
-				storeUser(clientIp,fakeUser);
-				res.sendFile(__dirname+'/app/pc_screen.html');
-				break;
-			case onLiveData.directAuth[3]:
-				fakeUser.user.name = 'Thal The Thalificient';
-				storeUser(clientIp,fakeUser);
-				res.sendFile(__dirname+'/app/pc_screen.html');
-				break;
-			case onLiveData.directAuth[4]:
-				fakeUser.user.name = 'Toph\'ee';
-				storeUser(clientIp,fakeUser);
-				res.sendFile(__dirname+'/app/pc_screen.html');
-				break;
-			case onLiveData.directAuth[5]:
-				fakeUser.user.name = 'Umbar';
-				storeUser(clientIp,fakeUser);
-				res.sendFile(__dirname+'/app/pc_screen.html');
-				break;
-			default:
-				res.sendFile(__dirname+'/app/peanut_screen.html');
-				break;
-		}
-	}
-	else{
-		res.sendFile(__dirname+'/app/peanut_screen.html');
-	}
-});
-
-app.get('/dm',function(req,res){
+app.get('/shh/*/dm',function(req,res){
 	res.sendFile(__dirname+'/app/dm_screen.html');
 });
 
-app.get('/slack/auth', function(req, res){
-	let options,headers,clientIp;
+app.get('/userdata',function(req,res){
+	let clientIp,response;
+
+	clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+	res.setHeader('Content-Type', 'application/json');	
 	
+	if(onLiveData.users[clientIp]){
+		response = onLiveData.users[clientIp].info;
+	}
+	else{
+		response = false;
+	}
+
+	res.send(response);
+});
+
+app.get('/slack/auth', function(req, res){
+	let options,headers,clientIp,workSpaceApp;
+	
+	workSpaceApp = JSON.parse(process.env[req.query.game]);
+
 	if(req.query.code){
 		headers = {
 	        'Content-Type': 'application/x-www-form-urlencoded'
@@ -126,8 +73,8 @@ app.get('/slack/auth', function(req, res){
 			method: 'POST',
 			headers: headers,
 			form: {
-				client_id: process.env.client_id,
-				client_secret: process.env.client_secret,
+				client_id: workSpaceApp.clientId,
+				client_secret: workSpaceApp.clientSecret,
 				code: req.query.code
 			}
 		};
@@ -137,21 +84,18 @@ app.get('/slack/auth', function(req, res){
 			
 			jsonObj = JSON.parse(content);
 			
-			console.log(jsonObj);
-			console.log(error, jsonObj.ok);
-			
 			if(error || !jsonObj.ok){
 				res.sendFile(__dirname+'/app/error.html');
 			}
 			else{
 				clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-				storeUser(clientIp, jsonObj);
 
-				if(process.env.dm_id == onLiveData.users[clientIp].auth.id){
-					res.redirect('/pcscreen');
+				if(adventures[req.query.game].dungeonMaster.id == jsonObj.user.id){
+					res.sendFile(__dirname+'/app/dm_screen.html');
 				}
 				else{
-					res.redirect('/dmscreen');
+					storeUser(clientIp, jsonObj);
+					res.sendFile(__dirname+'/app/pc_screen.html');
 				}
 
 			}
@@ -161,21 +105,36 @@ app.get('/slack/auth', function(req, res){
     	res.sendFile(__dirname+'/app/error.html');
 	}
 });
+
+app.get('/*',function(req,res){
+	res.sendFile(__dirname+'/app/index.html');
+});
 /** END ROUTES **/
 
 /* Socket IO */
 io.on('connection', function (socket) {
 	socket.emit('socket connection', { valid: true });
 
-	socket.on('get_backdrops_dm', function (fn) {
-		fn(backdrops.campaign[onLiveData.group]);
+	socket.on('get_backdrops_dm', function (data, fn) {
+		console.log(data.gameName);
+		console.log(backdrops.campaign[data.gameName]);
+
+		fn(backdrops.campaign[data.gameName].session[data.sessionNumber-1]);
 	});
-	socket.on('get_sketches_dm', function (fn) {
-		fn(sketches.campaign[onLiveData.group]);
+	socket.on('get_sketches_dm', function (data, fn) {
+		fn(sketches.campaign[data.gameName].session[data.sessionNumber-1]);
 	});
-	socket.on('get_audiotracks_dm', function (fn) {
-		fn(audioTracks.campaign[onLiveData.group]);
+	socket.on('get_audiotracks_dm', function (data, fn) {
+		fn(audioTracks.campaign[data.gameName].session[data.sessionNumber-1]);
 	});
+
+	socket.on('get_adventure_indx', (data, callbkfn) => {
+		var adventure;
+		
+		adventure = adventures[data.game];
+		callbkfn({meta:(adventure)?adventure.meta:false});
+	});
+
 
 	standardSocketRelay('set_backdrop_dm','set_backdrop');
 
@@ -223,26 +182,26 @@ io.on('connection', function (socket) {
 
 /** Private Funtions **/
 function storeUser(clientIp, userObject){
-	console.log(clientIp, userObject);
 	onLiveData.users[clientIp] = {
 		auth:{
 			id: userObject.user.id,
-			access_token: userObject.access_token,
+			access_token: userObject.access_token
 		},
 		info:{
 			name: userObject.user.name,
 			icon: userObject.user.image_192,
-			character:getPlayerCharacter(userObject.user.name)	
+			character:getPlayerCharacter(userObject.team.name,userObject.user.id)
 		}
 	}
 }
 
-function getPlayerCharacter(playerName){
-	console.log(playerName);
-	if(players[onLiveData.group][playerName]){
-		return players[onLiveData.group][playerName];
+function getPlayerCharacter(workSpaceName, userId){
+	if(adventures[workSpaceName]){
+		return adventures[workSpaceName].players.find(function(player){
+			return player.id === userId;
+		});
 	}
 	else{
-		return players[onLiveData.group]['Bree'];
+		return {};
 	}
 }

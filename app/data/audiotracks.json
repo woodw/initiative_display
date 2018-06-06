@@ -101,13 +101,13 @@
 		},
 		"tythos":{
 			"session":[
-				[],
-				[],
-				[],
-				[],
-				[],
-				[],
-				[],
+				[{"name":"D&D Ambience - Quiet Tavern","url":"https://www.youtube.com/watch?v=atp0MuIQc_M"}],
+				[{"name":"D&D Ambience - Quiet Tavern","url":"https://www.youtube.com/watch?v=atp0MuIQc_M"}],
+				[{"name":"D&D Ambience - Quiet Tavern","url":"https://www.youtube.com/watch?v=atp0MuIQc_M"}],				
+				[{"name":"D&D Ambience - Quiet Tavern","url":"https://www.youtube.com/watch?v=atp0MuIQc_M"}],
+				[{"name":"D&D Ambience - Quiet Tavern","url":"https://www.youtube.com/watch?v=atp0MuIQc_M"}],				
+				[{"name":"D&D Ambience - Quiet Tavern","url":"https://www.youtube.com/watch?v=atp0MuIQc_M"}],
+				[{"name":"D&D Ambience - Quiet Tavern","url":"https://www.youtube.com/watch?v=atp0MuIQc_M"}],				
 				[
 					{"name":"D&D Ambience - [CoS] - Catacombs","url":"https://www.youtube.com/watch?v=WPpVMmTt74Q"},
 					{"name":"D&D Ambience - [CoS] - Castle Ravenloft","url":"https://www.youtube.com/watch?v=rfA-pzDkERs"},
@@ -152,6 +152,14 @@
 					{"name":"child of light battle music","url":"https://www.youtube.com/watch?v=8GBFGtrKFm0"},
 					{"name":"monster hunter combat","url":"https://www.youtube.com/watch?v=N3bssRUQ4YQ"},
 					{"name":"ack big transform","url":"https://www.youtube.com/watch?v=UsnRQJxanVM"}
+				],
+				[
+					{"name":"Tanacious D: Master Exploder","url":"https://www.youtube.com/watch?v=fA4mVS0u_uo"},
+					{"name":"Final Fantasy 10 Battle Music","url":"https://www.youtube.com/watch?v=Y1nsp5CnvVQ"},
+					{"name":"Can you feel the love tonight","url":"https://www.youtube.com/watch?v=fTtgVSxfr5M"},
+					{"name":"Creepy Combat Music","url":"https://www.youtube.com/watch?v=KsZAnfR4ON4"},
+					{"name":"Final Fantasy 7 Battle Music","url":"https://www.youtube.com/watch?v=qlH15l0m7eI"},
+					{"name":"Chrono Cross Battle Music","url":"https://www.youtube.com/watch?v=ponx7VYSrh4"}
 				]
 			]
 		},

@@ -3,13 +3,13 @@
 	"campaign":{
 		"tythos":{
 			"session":[
-				[],
-				[],
-				[],
-				[],
-				[],
-				[],
-				[],
+				[{"name":"temple ruins","url":"https://cdna.artstation.com/p/assets/images/images/003/909/682/large/mohammx-qureshi-memories.jpg?1478459900"}],
+				[{"name":"temple ruins","url":"https://cdna.artstation.com/p/assets/images/images/003/909/682/large/mohammx-qureshi-memories.jpg?1478459900"}],
+				[{"name":"temple ruins","url":"https://cdna.artstation.com/p/assets/images/images/003/909/682/large/mohammx-qureshi-memories.jpg?1478459900"}],
+				[{"name":"temple ruins","url":"https://cdna.artstation.com/p/assets/images/images/003/909/682/large/mohammx-qureshi-memories.jpg?1478459900"}],
+				[{"name":"temple ruins","url":"https://cdna.artstation.com/p/assets/images/images/003/909/682/large/mohammx-qureshi-memories.jpg?1478459900"}],
+				[{"name":"temple ruins","url":"https://cdna.artstation.com/p/assets/images/images/003/909/682/large/mohammx-qureshi-memories.jpg?1478459900"}],
+				[{"name":"temple ruins","url":"https://cdna.artstation.com/p/assets/images/images/003/909/682/large/mohammx-qureshi-memories.jpg?1478459900"}],
 				[
 					{"name":"coat room wall","url":"https://img00.deviantart.net/6fb2/i/2007/217/8/3/golden_clockwork_by_shortgreenpigg.jpg"},
 					{"name":"coat room wall 2","url":"https://pre00.deviantart.net/7a5b/th/pre/f/2017/014/0/3/clockwork_by_fractaldesire-davdg41.jpg"},
@@ -19,6 +19,9 @@
 					{"name":"temple big hall","url":"https://cdn2.unrealengine.com/egcom/community/wp-content/uploads/2013/02/courthouse_by_m_wojtala-d5nqq9r.jpg"},
 					{"name":"forgotten temple","url":"https://i.pinimg.com/originals/06/d6/d5/06d6d5ac862ebbb7bf2399a6ce4b5e27.jpg"},
 					{"name":"temple ruins","url":"https://cdna.artstation.com/p/assets/images/images/003/909/682/large/mohammx-qureshi-memories.jpg?1478459900"}	
+				],
+				[
+					{"name":"Monster Lair","url":"https://www.deviantart.com/art/Spider-s-lair-707333287"}
 				]
 			]
 		},
