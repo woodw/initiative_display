@@ -17,11 +17,8 @@
 .thaliss .mini{
   background-image:url('../images/sprites/pc/tythos/thaliss.png');
 }
-.maura .mini{
-  background-image:url('../images/sprites/pc/tythos/mauramon2.png');
-}
-.maura2 .mini{
-  background-image:url('../images/sprites/pc/tythos/mauramonk.png');
+.fox .mini{
+  background-image:url('../images/sprites/pc/tythos/fox.png');
 }
 
 .thomas .mini{
@@ -62,6 +59,9 @@
 }
 .woman-common .mini{
   background-image:url('../images/sprites/npc/woman-common.png');
+}
+.man-common .mini{
+  background-image:url('../images/sprites/npc/man-common.png');
 }
 .thalin .mini{
   background-image:url('../images/sprites/npc/thalin.png');
@@ -165,6 +165,22 @@
 }
 .owlbear .mini{
   background-image:url('../images/sprites/npc/hostile/owlbear.png');
+}
+
+.animated-armor .mini{
+  background-image:url('../images/sprites/npc/hostile/animated-armor.png');
+}
+.ankheg .mini{
+  background-image:url('../images/sprites/npc/hostile/ankheg.png');
+}
+.dwarf-animated-armor .mini{
+  background-image:url('../images/sprites/npc/hostile/dwarf-animated-armor.png');
+}
+.flying-sword .mini{
+  background-image:url('../images/sprites/npc/hostile/flying-sword.png');
+}
+.rug-smothering .mini{
+  background-image:url('../images/sprites/npc/hostile/rug-smotherin.png');
 }
 
 
