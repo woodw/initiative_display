@@ -183,6 +183,13 @@
   background-image:url('../images/sprites/npc/hostile/rug-smothering.png');
 }
 
+.vathum .mini{
+  background-image:url('../images/sprites/npc/hostile/vathum.png');
+}
+.evil-mage .mini{
+  background-image:url('../images/sprites/npc/hostile/evil-mage.png');
+}
+
 
 /**********************POKEMON Stand-ins Minis***************************/
 .magnemite .mini{
