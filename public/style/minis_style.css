@@ -189,6 +189,9 @@
 .evil-mage .mini{
   background-image:url('../images/sprites/npc/hostile/evil-mage.png');
 }
+.mimic .mini{
+  background-image:url('../images/sprites/npc/hostile/mimic.png');
+}
 
 
 /**********************POKEMON Stand-ins Minis***************************/
