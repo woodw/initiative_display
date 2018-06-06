@@ -81,11 +81,11 @@
             },
             {
                 "id": "UAZT70F62",
-                "name": "Maura",
+                "name": "Fox",
                 "portrait": "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png",
-                "mini": "./images/sprites/pc/tythos/mauramonk.png",
-                "css": "unknown",
-                "class":"Monk of the punchy fist",
+                "mini": "./images/sprites/pc/tythos/fox2.png",
+                "css": "fox",
+                "class":"Monk: Drunken Master",
                 "orcpub": "https://www.orcpub2.com/pages/dnd/5e/characters/17592189873255",
                 "spells":"http://www.5esrd.com/spellcasting/spell-lists/#monklist"
             }
