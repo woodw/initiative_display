@@ -523,6 +523,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			
 			elements.container.appendChild(elements.turn);
 
+			elements.stealth = document.createElement('button');
+			elements.stealth.innerText = 'toggle stealth';  
+			
+			elements.container.appendChild(elements.stealth);
+
 			return elements;
 		}
 
@@ -608,6 +613,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			this.elements.turn.addEventListener('click', function(event){
 				event.stopPropagation();
 				socket.emit('turn_actor', {id:this.id});
+			}.bind(this));
+
+			this.elements.stealth.addEventListener('click', function(event){
+				event.stopPropagation();
+				socket.emit('stealth_actor', {id:this.id});
 			}.bind(this));
 		}
 	}

@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		socket.on('remove_actor', removeActor);
 		socket.on('update_actor', updateActor);
 		socket.on('turn_actor_srv', turnActor);
+		socket.on('stealth_actor_srv', stealthActor);
 		socket.on('play_actor_emoji_srv', setActorEmoji);
 		socket.on('play_audience_emoji',  addPeanutEmoji);
 		socket.on('set_actor_stage_presence', moveActor);
@@ -170,6 +171,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		else if(data.class){
 			byCSS('.'+data.class).classList.toggle('turn');
 		}
+	}
+
+	function stealthActor(data){
+		//set the audio
+		
 	}
 
 	function moveActor(data, callbkfn){
