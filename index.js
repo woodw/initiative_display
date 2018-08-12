@@ -42,6 +42,10 @@ app.get('/shh/*/dm',function(req,res){
 	res.sendFile(__dirname+'/app/dm_screen.html');
 });
 
+app.get('/shh/*/map',function(req,res){
+	res.sendFile(__dirname+'/app/map_screen.html');
+});
+
 app.get('/userdata',function(req,res){
 	let clientIp,response;
 
@@ -165,6 +169,7 @@ io.on('connection', function (socket) {
 	standardSocketRelay('actor_stage_presence_request_pc','actor_stage_presence_request');
 	standardSocketRelay('toggle_initiative_display_dm','toggle_initiative_display');	
 	standardSocketRelay('set_combat_actors_dm','set_combat_actors');		
+	
 	
 	socket.on('reset_dm', function (data) {
 		console.log('reset_dm', data);
