@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		initSocket();
         
-        gridXCount = 46;//46;
-        gridYCount = 32;//32;
+        gridXCount = 25;//46;
+        gridYCount = 22;//32;
         battleMap = [];
         displayHidden = true;
 
@@ -237,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 (elements.mapView)?this.renderTile():'';
                 break;
             case 'f':
-                this.floor = (this.floor+1)%7;
+                this.floor = (this.floor+1)%15;
                 (elements.mapView)?this.renderTile():'';
                 break;
             case ',':
@@ -272,7 +272,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
         //console.log('Rendering Tile');
         var stroke = elements.mapView.getContext('2d');
-        var floorColors = ['','rgb(255,255,255)','#606060','#c3c3c3','#39aac1', '#78AB46','#e25822'];
+        var floorColors = ['','rgb(255,255,255)','#606060','#c3c3c3','rgb(81,179,15)','rgb(24,165,211)','rgb(206,56,30)','rgb(220,234,55)','rgb(70,52,237)','rgb(215,51,238)','rgb(56,118,74)','rgb(47,78,128)','rgb(194,169,22)','rgb(159,57,83)','rgb(43,174,154)'];
+        //'rgb(81,179,15)','rgb(24,165,211)','rgb(206,56,30)','rgb(220,234,55)','rgb(70,52,237)','rgb(215,51,238)','rgb(56,118,74)','rgb(47,78,128)','rgb(194,169,22)','rgb(159,57,83)','rgb(43,174,154)' 
         var doorwayColors = ['',floorColors[2],'#E78A40',floorColors[this.floor],floorColors[3]];
       
         if(displayHidden || !this.hidden){
@@ -301,8 +302,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 stroke.fillRect(
                     (elements.mapView.width/gridXCount*this.gridX),
                     (elements.mapView.height/gridYCount*this.gridY),
-                    (elements.mapView.width/gridXCount * 0.2),
-                    (elements.mapView.height/gridYCount * 0.2)
+                    (elements.mapView.width/gridXCount * 0.1),
+                    (elements.mapView.height/gridYCount * 0.1)
                 );
             }
     
@@ -313,7 +314,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     (elements.mapView.width/gridXCount*this.gridX),
                     (elements.mapView.height/gridYCount*this.gridY),
                     (elements.mapView.width/gridXCount),
-                    (elements.mapView.height/gridYCount * 0.2)
+                    (elements.mapView.height/gridYCount * 0.1)
                 );
             }
     
@@ -325,7 +326,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         (elements.mapView.width/gridXCount*this.gridX + (elements.mapView.width/gridXCount * 0.2)),
                         (elements.mapView.height/gridYCount*this.gridY),
                         (elements.mapView.width/gridXCount - (elements.mapView.width/gridXCount * 0.5)),
-                        (elements.mapView.height/gridYCount * 0.2)
+                        (elements.mapView.height/gridYCount * 0.1)
                     );
                 }
                 else {
@@ -333,7 +334,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         (elements.mapView.width / gridXCount * this.gridX + (elements.mapView.width / gridXCount * 0.2)),
                         (elements.mapView.height / gridYCount * this.gridY),
                         (elements.mapView.width / gridXCount - (elements.mapView.width / gridXCount * 0.5)),
-                        (elements.mapView.height / gridYCount * 0.2)
+                        (elements.mapView.height / gridYCount * 0.1)
                     );
                 }
             }
@@ -344,7 +345,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 stroke.fillRect(
                     (elements.mapView.width/gridXCount*this.gridX) + (elements.mapView.width/gridXCount * 0.9),
                     (elements.mapView.height/gridYCount*this.gridY),
-                    (elements.mapView.width/gridXCount * 0.2),
+                    (elements.mapView.width/gridXCount * 0.1),
                     (elements.mapView.height/gridYCount)
                 );
             }
@@ -356,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     stroke.clearRect(
                         (elements.mapView.width/gridXCount*this.gridX + (elements.mapView.width/gridXCount * 0.9)),
                         (elements.mapView.height/gridYCount*this.gridY + (elements.mapView.height/gridYCount * 0.3)),
-                        (elements.mapView.width/gridXCount * 0.2),
+                        (elements.mapView.width/gridXCount * 0.1),
                         (elements.mapView.height/gridYCount - (elements.mapView.height/gridYCount * 0.5))
                     );
                 }
@@ -364,7 +365,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     stroke.fillRect(
                         (elements.mapView.width/gridXCount*this.gridX + (elements.mapView.width/gridXCount * 0.9)),
                         (elements.mapView.height/gridYCount*this.gridY + (elements.mapView.height/gridYCount * 0.3)),
-                        (elements.mapView.width/gridXCount * 0.2),
+                        (elements.mapView.width/gridXCount * 0.1),
                         (elements.mapView.height/gridYCount - (elements.mapView.height/gridYCount * 0.5))
                     );
                 }
@@ -377,7 +378,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     (elements.mapView.width/gridXCount*this.gridX),
                     (elements.mapView.height/gridYCount*this.gridY + (elements.mapView.height/gridYCount * 0.9)),
                     (elements.mapView.width/gridXCount),
-                    (elements.mapView.height/gridYCount * 0.2)
+                    (elements.mapView.height/gridYCount * 0.1)
                 );
             }
     
@@ -389,7 +390,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         (elements.mapView.width/gridXCount*this.gridX + (elements.mapView.width/gridXCount * 0.3)),
                         (elements.mapView.height/gridYCount*this.gridY + (elements.mapView.height/gridYCount * 0.9)),
                         (elements.mapView.width/gridXCount - (elements.mapView.width/gridXCount * 0.5)),
-                        (elements.mapView.height/gridYCount * 0.2)
+                        (elements.mapView.height/gridYCount * 0.1)
                     );
                 }
                 else {
@@ -397,7 +398,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         (elements.mapView.width/gridXCount*this.gridX + (elements.mapView.width/gridXCount * 0.3)),
                         (elements.mapView.height/gridYCount*this.gridY + (elements.mapView.height/gridYCount * 0.9)),
                         (elements.mapView.width/gridXCount - (elements.mapView.width/gridXCount * 0.5)),
-                        (elements.mapView.height/gridYCount * 0.2)
+                        (elements.mapView.height/gridYCount * 0.1)
                     );
                 }
             }
@@ -408,7 +409,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 stroke.fillRect(
                     (elements.mapView.width/gridXCount*this.gridX),
                     (elements.mapView.height/gridYCount*this.gridY),
-                    (elements.mapView.width/gridXCount) * 0.2,
+                    (elements.mapView.width/gridXCount) * 0.1,
                     (elements.mapView.height/gridYCount)
                 );
             }
@@ -420,7 +421,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     stroke.clearRect(
                         (elements.mapView.width/gridXCount*this.gridX),
                         (elements.mapView.height/gridYCount*this.gridY  + (elements.mapView.height / gridYCount * 0.3)),
-                        (elements.mapView.width/gridXCount  * 0.2),
+                        (elements.mapView.width/gridXCount  * 0.1),
                         (elements.mapView.height/gridYCount - (elements.mapView.height / gridYCount * 0.5))
                     );
                 }
@@ -428,7 +429,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     stroke.fillRect(
                         (elements.mapView.width/gridXCount*this.gridX),
                         (elements.mapView.height/gridYCount*this.gridY  + (elements.mapView.height / gridYCount * 0.3)),
-                        (elements.mapView.width/gridXCount  * 0.2),
+                        (elements.mapView.width/gridXCount  * 0.1),
                         (elements.mapView.height/gridYCount - (elements.mapView.height / gridYCount * 0.5))
                     );
                 }
