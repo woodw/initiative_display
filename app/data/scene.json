@@ -1,0 +1,18 @@
+{
+    "campaign":{
+        "tythos":{
+            "Sandpoint Cavern Exit":{
+                "music":"9aBhtKyyCJM",
+                "ambience":"3Hwr_BaekgM",
+                "battle":"ZvWx2RLjKgl",
+                "backdrop":"https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fcuriousgorgeblog.files.wordpress.com%2F2010%2F04%2Fgorge-2010-1003.jpg&f=1"
+            },
+            "Sagemir Village":{
+                "music":"U-Uqmy02XJ8",
+                "ambience":"rTI65Nqsfpw",
+                "battle":"ZvWx2RLjKgl",
+                "backdrop":"https://proxy.duckduckgo.com/iur/?f=1&image_host=http%3A%2F%2Ffc08.deviantart.net%2Ffs71%2Ff%2F2014%2F301%2F6%2F1%2Fforest_village_by_vablo-d84hfa7.jpg&u=http://orig08.deviantart.net/dcfa/f/2014/301/6/1/forest_village_by_vablo-d84hfa7.jpg"
+            }
+        }
+    }
+}
