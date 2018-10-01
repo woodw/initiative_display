@@ -45,7 +45,6 @@ function onYouTubeIframeAPIReady() {
 
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-	console.log('hi');
   event.target.setPlaybackQuality('small');
   event.target.setVolume((event.target.a.id === 'music')?100:100);
   event.target.playVideo();
