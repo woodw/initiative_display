@@ -13,6 +13,7 @@ const sketches = require(__dirname+'/app/data/sketches.json');
 const audioTracks = require(__dirname+'/app/data/audiotracks.json');
 const players = require(__dirname+'/app/data/players.json');
 const adventures = require(__dirname+'/app/data/adventures.json');
+const scenes = require(__dirname+'/app/data/scenes.json');
 
 /*const stitch = require("mongodb-stitch");
 const clientPromise = stitch.StitchClientFactory.create(process.env.stitch_dbconn);*/
@@ -114,6 +115,11 @@ app.get('/*',function(req,res){
 /* Socket IO */
 io.on('connection', function (socket) {
 	socket.emit('socket connection', { valid: true });
+
+	socket.on('download_world', function (data, fn) {
+		console.log(data.name);
+		fn(scenes.campaign[data.name]);
+	});
 
 	socket.on('get_backdrops_dm', function (data, fn) {
 		console.log(data.gameName);
