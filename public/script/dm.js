@@ -134,6 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	function setBotCombat(){
 		console.log('toggles');
+
 	}
 	function setBotScene(){
 		console.log('clicked');
@@ -147,25 +148,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	function setBotVolumeMusic(){
-
+		socket.emit('set_music_volume_dm',{'musicVolume':elements.sceneVolumeMusic.value});
 	}
-	function setBotVolumeAmbience(){}
-
-	function newBackdropSelected(event){
-
-		elements.backdropPreview.src = elements.backdropList.value;
-	}
-
-	function setBotBackdrop(event){
-		var url;
-		if(elements.backdropCustomUrl.value.length>7 && elements.backdropUseCustomUrl.checked){
-			url = elements.backdropCustomUrl.value;
-		}
-		else{
-			url = elements.backdropList.value;
-		}
-
-		socket.emit('set_backdrop_dm',{'url':url});
+	function setBotVolumeAmbience(){
+		socket.emit('set_ambience_volume_dm',{'ambienceVolume':elements.sceneVolumeAmbience.value});
 	}
 
 	function newSketchSelected(event){

@@ -96,9 +96,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		socket.on('socket connection', socketConnected);
 
 		socket.on('set_scene',setScene);
-		socket.on('set_backdrop', setBackdrop);
+		socket.on('set_music_volume',setMusicVolume);
+		socket.on('set_ambience_volume',setAmbienceVolume);
 		socket.on('set_sketch_stage', setSketch);
-		socket.on('set_audiotrack', setAudioTrack);
 		socket.on('add_actor', addActor);
 		socket.on('remove_actor', removeActor);
 		socket.on('update_actor', updateActor);
@@ -180,13 +180,24 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 
+	function setMusicVolume(data){
+		musicVolume = data.musicVolume;
+		music.setVolume(musicVolume);
+	}
+	function setAmbienceVolume(data){
+		ambienceVolume = data.ambienceVolume;
+		ambience.setVolume(ambienceVolume);
+	}
+
 	function setScene(data){
 		console.log(data);
 		changeTheBackdrop(data.backdrop);
 		music.loadVideoById(data.music,0,'small');
-		music.setVolume(data.musicVolume);
+		musicVolume = data.musicVolume;
+		music.setVolume(musicVolume);
 		ambience.loadVideoById(data.ambience,0,'small');
-		ambience.setVolume(data.ambienceVolume);
+		ambienceVolume = data.ambienceVolume;
+		ambience.setVolume(ambienceVolume);
 	}
 
 	function setBackdrop(data){
