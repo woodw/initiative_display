@@ -12,7 +12,7 @@ let app = {};
 //set_actor_stage_presence
 //set_initiative_display
 
-var music,ambience;
+var music,ambience, musicVolume=100, ambienceVolume=100;
 function onYouTubeIframeAPIReady() {
   music = new YT.Player('music', {
     height: '100',
@@ -46,7 +46,7 @@ function onYouTubeIframeAPIReady() {
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
   event.target.setPlaybackQuality('small');
-  event.target.setVolume((event.target.a.id === 'music')?100:100);
+  event.target.setVolume((event.target.a.id === 'music')?musicVolume:ambienceVolume);
   event.target.playVideo();
 }
 
@@ -95,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		socket.on('socket connection', socketConnected);
 
+		socket.on('set_scene',setScene);
 		socket.on('set_backdrop', setBackdrop);
 		socket.on('set_sketch_stage', setSketch);
 		socket.on('set_audiotrack', setAudioTrack);
@@ -177,6 +178,15 @@ document.addEventListener('DOMContentLoaded', function() {
 			byCSS('div[dndid="'+data[1].id+'"]').classList.add('acting','turn');
 			byCSS('div[dndid="'+data[2].id+'"]').classList.add('will_act','turn');
 		}
+	}
+
+	function setScene(data){
+		console.log(data);
+		changeTheBackdrop(data.backdrop);
+		music.loadVideoById(data.music,0,'small');
+		music.setVolume(data.musicVolume);
+		ambience.loadVideoById(data.ambience,0,'small');
+		ambience.setVolume(data.ambienceVolume);
 	}
 
 	function setBackdrop(data){

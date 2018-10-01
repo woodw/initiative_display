@@ -164,6 +164,7 @@ io.on('connection', function (socket) {
 	standardSocketRelay('turn_actor','turn_actor_srv');
 	standardSocketRelay('play_actor_emoji','play_actor_emoji_srv');
 	standardSocketRelay('play_audience_emoji_pg','play_audience_emoji');
+	standardSocketRelay('set_scene_dm','set_scene')
 	standardSocketRelay('set_actor_stage_presence_pc','set_actor_stage_presence');
 	standardSocketRelay('set_actor_stage_presence_dm','set_actor_stage_presence');
 	standardSocketRelay('set_private_actor_sketch_dm','set_private_actor_sketch');

@@ -54,18 +54,14 @@ document.addEventListener('DOMContentLoaded', function() {
 		return {
 			container: byCSS('.container'),
 
-			gameName: byCSS('input#game_name'),
-			sessionNumber: byCSS('input#session_number'),
-
 			sceneList: byCSS('#scene .card__selection'),
-			sceneCombatToggle: byCSS('#scene label.switch input'),
+			sceneToggleCombat: byCSS('#scene #toggle-combat'),
+			sceneVolumeMusic: byCSS('#scene #volume-music'),
+			sceneVolumeAmbience: byCSS('#scene #volume-ambience'),
+			sceneCustomBackdrop: byCSS('#scene  #custom-backdrop'),
+			sceneCustomMusic: byCSS('#scene  #custom-music'),
+			sceneCustomAmbience: byCSS('#scene  #custom-ambience'),
 			sceneSubmit: byCSS('#scene .card__emit-button'),
-
-			backdropList: byCSS('#backdrop .card__selection'),
-			backdropSubmit: byCSS('#backdrop .card__emit-button'),
-			backdropPreview: byCSS('#backdrop .card__image-preview'),
-			backdropCustomUrl: byCSS('#backdrop .url-input'),
-			backdropUseCustomUrl: byCSS('#backdrop .checkbox__check'),
 
 			sketchList: byCSS('#sketch .card__selection'),
 			sketchSet: byCSS('#sketch .card__emit-button--on'),
@@ -74,15 +70,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			sketchPreview: byCSS('#sketch .card__image-preview'),
 			sketchCustomUrl: byCSS('#sketch  .url-input'),
 			sketchUseCustomUrl: byCSS('#sketch  .checkbox__check'),
-
-			audioContainer: byCSS('#audio'),
-			audioList: byCSS('#audio .card__selection'),
-			audioSet: byCSS('#audio .card__emit-button--on'),
-			audioRemove: byCSS('#audio .card__emit-button--off'),
-			audioPreviewContainer: byCSS('#audio .card__audio-preview-container'),
-			audioPreview: byCSS('#audio .card__audio-preview'),
-			audioCustomUrl: byCSS('#audio  .url-input'),
-			audioUseCustomUrl: byCSS('#audio  .checkbox__check'),
 
 			actorList: byCSS('#actor-controls'),
 			
@@ -104,25 +91,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function registerListeners(){
 
-		elements.gameName.addEventListener('change', updateGame);
-		elements.sessionNumber.addEventListener('change', updateGame);
-
-		elements.sceneCombatToggle.addEventListener('change', setBotCombat);
+		elements.sceneToggleCombat.addEventListener('change', setBotCombat);
+		elements.sceneVolumeMusic.addEventListener('change', setBotVolumeMusic);
+		elements.sceneVolumeAmbience.addEventListener('change', setBotVolumeAmbience);
 		elements.sceneSubmit.addEventListener('click', setBotScene);
-
-		elements.backdropList.addEventListener('change', newBackdropSelected);
-		elements.backdropSubmit.addEventListener('click', setBotBackdrop);
-
-		elements.backdropList.addEventListener('change', newBackdropSelected);
-		elements.backdropSubmit.addEventListener('click', setBotBackdrop);
 
 		elements.sketchList.addEventListener('change', newSketchSelected);
 		elements.sketchSet.addEventListener('click', setBotSketch);
 		elements.sketchRemove.addEventListener('click', removeBotSketch);
-
-		elements.audioList.addEventListener('change', newAudioTrackSelected);
-		elements.audioSet.addEventListener('click', setBotAudio);
-		elements.audioRemove.addEventListener('click', removeBotAudio);//
 
 		elements.actorControls.newActor.addEventListener('click', addNewActor);
 
@@ -161,7 +137,19 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 	function setBotScene(){
 		console.log('clicked');
+		var selectedScene = JSON.parse(JSON.stringify(scenes[elements.sceneList.selectedIndex]));
+		selectedScene.music = (elements.sceneCustomMusic.value)?elements.sceneCustomMusic.value:(elements.sceneToggleCombat.checked)?selectedScene.battle:selectedScene.music;
+		selectedScene.ambience = (elements.sceneCustomAmbience.value)?elements.sceneCustomAmbience.value:selectedScene.ambience;
+		selectedScene.backdrop = (elements.sceneCustomBackdrop.value)?elements.sceneCustomBackdrop.value:selectedScene.backdrop;
+		selectedScene.musicVolume = elements.sceneVolumeMusic.value;
+		selectedScene.ambienceVolume = elements.sceneVolumeAmbience.value;
+		socket.emit('set_scene_dm',selectedScene);
 	}
+
+	function setBotVolumeMusic(){
+
+	}
+	function setBotVolumeAmbience(){}
 
 	function newBackdropSelected(event){
 

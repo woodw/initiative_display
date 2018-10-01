@@ -13,10 +13,6 @@
 		<div class="bar">
 			<div class="bar__title">Game Master Screen</div>
 			<div class="bar__navigation">
-					<input id="game_name" placeholder="adventure name" type="text" />
-					<br />
-					<input id="session_number" placeholder="session" type="number" />
-					<br />
 					<a href="#backdrop">Backdrop Selection</a><br />
 					<a href="#sketch">Sketch Selection</a><br />
 					<a href="#audio">Audio Selection</a><br />
@@ -30,22 +26,16 @@
 			<section id="scene" class="card">
 				<h3 class="card__title">Scene</h3>
 				<select class="card__selection"></select>
-				<label class="switch">
-						<input type="checkbox">
-						<span class="slider round"></span>
-				</label>
+				<br />
+				<input type="checkbox" id="toggle-combat">
+				<input type="range" min="1" max="100" value="100" class="slider" id="volume-music">
+				<input type="range" min="1" max="100" value="100" class="slider" id="volume-ambience">
+				<br />
+				<input type="url" placeholder="Custom Backdrop" class="url-input" id="custom-backdrop"/>
+				<input type="text" placeholder="Custom Music" class="text-input" id="custom-music"/>
+				<input type="text" placeholder="Custom Ambience" class="text-input" id="custom-ambience"/>
+				<br />
 				<button class="card__button card__emit-button">Change The Scene</button>
-			</section>
-			<section id="backdrop" class="card">
-				<h3 class="card__title">Stage Backdrop Controls</h3>
-				<img class="card__image-preview" src="http://www.allthingsbunnies.com/v/vspfiles/assets/images/images_clipped_rev_2.jpg" />
-				<select class="card__selection"></select>
-				<div class="checkbox">
-					<input id="backdrop_custom_flag" type="checkbox" class="checkbox__check">
-					<label for="backdrop_custom_flag" class="checkbox__label">Use Custom Url?</label>
-				</div>
-				<input type="url" placeholder="www.custom.url" class="url-input"/>
-				<button class="card__button card__emit-button">Update Stage Backdrop</button>
 			</section>
 			<section id="sketch" class="card">
 				<h3 class="card__title">Stage Sketch Controls</h3>
@@ -67,20 +57,6 @@
 				</select>
 				<button class="card__button card__emit-button--on">Show sketch on stage</button>
 				<button class="card__button card__emit-button--off">Hide sketch on stage</button>
-			</section>
-			<section id="audio" class="card">
-					<h3 class="card__title">Stage Audio Controls</h3>
-					<span class="card__audio-preview-container">
-							<iframe class="card__audio-preview" src=""  frameborder="0" allow="autoplay; encrypted-media"></iframe>
-					</span>
-					<select class="card__selection"></select>
-					<div class="checkbox">
-						<input id="audio_custom_flag" type="checkbox" class="checkbox__check">
-						<label for="audio_custom_flag" class="checkbox__label">Use Custom Url?</label>
-					</div>
-					<input type="url" placeholder="www.custom.url" class="url-input"/>
-					<button class="card__button card__emit-button--on">Play Audio</button>
-					<button class="card__button card__emit-button--off">Stop Audio</button>
 			</section>
 			<section id="emoji" class="card">
 					<h3 class="card__title">Stage Audience Emoji Controls</h3>
