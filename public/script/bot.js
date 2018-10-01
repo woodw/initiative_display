@@ -96,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		socket.on('socket connection', socketConnected);
 
 		socket.on('set_scene',setScene);
+		socket.on('set_music',setMusic);
 		socket.on('set_music_volume',setMusicVolume);
 		socket.on('set_ambience_volume',setAmbienceVolume);
 		socket.on('set_sketch_stage', setSketch);
@@ -178,6 +179,10 @@ document.addEventListener('DOMContentLoaded', function() {
 			byCSS('div[dndid="'+data[1].id+'"]').classList.add('acting','turn');
 			byCSS('div[dndid="'+data[2].id+'"]').classList.add('will_act','turn');
 		}
+	}
+
+	function setMusic(data){
+		music.loadVideoById(data.music,0,'small');
 	}
 
 	function setMusicVolume(data){

@@ -134,7 +134,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	function setBotCombat(){
 		console.log('toggles');
-
+		var scene = scenes[elements.sceneList.selectedIndex];
+		socket.emit('set_music_dm',{'music':(elements.sceneToggleCombat.checked)?scene.battle:scene.music});
 	}
 	function setBotScene(){
 		console.log('clicked');

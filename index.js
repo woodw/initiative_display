@@ -153,6 +153,7 @@ io.on('connection', function (socket) {
 	standardSocketRelay('play_actor_emoji','play_actor_emoji_srv');
 	standardSocketRelay('play_audience_emoji_pg','play_audience_emoji');
 	standardSocketRelay('set_scene_dm','set_scene');
+	standardSocketRelay('set_music_dm','set_music');
 	standardSocketRelay('set_music_volume_dm','set_music_volume');
 	standardSocketRelay('set_ambience_volume_dm','set_ambience_volume');
 	standardSocketRelay('set_actor_stage_presence_pc','set_actor_stage_presence');
@@ -171,7 +172,7 @@ io.on('connection', function (socket) {
 
 	function standardSocketRelay(eventString,broadcastString){
 		socket.on(eventString, function (data) {
-			console.log(eventString, data);
+			console.log(eventString);
 			socket.broadcast.emit(broadcastString, data);
 		});
 	}
