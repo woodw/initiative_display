@@ -51,7 +51,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	function registerElements(){
 		return {
 			hideButton: byCSS('#hidden-button'),
-			dataButton: byCSS('#to-data-url'),
+            dataButton: byCSS('#to-data-url'),
+            importButton: byCSS('#import-map'),
+            exportButton: byCSS('#export-map'),
+            textArea: byCSS('#text-overlay'),
 			mapContainer: byCSS('#map'),
 			mapView: byCSS('#map_view')
 		};
@@ -63,6 +66,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         elements.hideButton.addEventListener('click', toggleHiddenCellDisplay);
         elements.dataButton.addEventListener('click', sendDataUrl);
+        elements.importButton.addEventListener('click', importMap);
+        elements.exportButton.addEventListener('click', exportMap);
+        elements.textArea.addEventListener('keypress', closeTextArea);
         
     }
     
@@ -78,6 +84,19 @@ document.addEventListener('DOMContentLoaded', function() {
         //So I can export image and import img... this is amazing
         //stroke.drawImage(img,0,0);
         //console.log(mapView.toDataURL());
+    }
+
+    function importMap(){
+        elements.textArea.classList.toggle('hide');
+    }
+    function exportMap(){
+        elements.textArea.value=printTheMap();
+        elements.textArea.classList.toggle('hide');
+    }
+    function closeTextArea(event){
+        if(event.key === 'Enter'){
+            elements.textArea.classList.toggle('hide');
+        }
     }
 
     function sendDataUrl(){
@@ -100,6 +119,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     /*******************************PRIVATE FUNCTIONS************************************* */
+    function printTheMap(){
+        var exportText='';
+        if(elements.mapView){
+            for(var i=0;i<gridYCount;i++){
+                for(var j=0;j<gridXCount;j++){
+                    //console.log('rendering the map');
+                    exportText += battleMap[i][j].printTile()+'@';
+                }
+            }
+        }
+        return exportText;
+    }
+
     function renderTheMap(){
         for(var i=0;i<gridYCount;i++){
             for(var j=0;j<gridXCount;j++){
@@ -443,6 +475,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 (elements.mapView.height/gridYCount)
             );
         }
+    };
+    Tile.prototype.printTile = function(){
+        var returnText='';
+        returnTile = this.north+'-'+
+            this.east+'-'+
+            this.south+'-'+
+            this.west+'-'+
+            this.floor+'-'+
+            ((this.hidden)?'1':'0');
+            console.log(returnTile);
+        return returnTile;
     };
 
 });

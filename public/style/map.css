@@ -149,3 +149,16 @@
     height:100%;
     border:.1px solid rgba(200,200,200,.3);
   }
+
+  #text-overlay{
+    margin:0;
+    padding:0;
+    position:absolute;
+    left:0;
+    top:0;
+    width:100vw;
+    height:100vh;
+  }
+  #text-overlay.hide{
+    display:none;
+  }
