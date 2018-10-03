@@ -33,7 +33,7 @@
 
 
 /**********************NPC Minis***************************/
-.cloven .mini{
+.nine .mini{
   background-image:url('../images/sprites/npc/nine.png');
 }
 .cloven .mini{
@@ -79,6 +79,12 @@
 
 /**********************NPC Hostile Minis***************************/
 
+.green-mage .mini{
+  background-image:url('../images/sprites/npc/hostile/green-mage.png');
+}
+.green-fighter .mini{
+  background-image:url('../images/sprites/npc/hostile/green-fighter.png');
+}
 .ghilanna .mini{
   background-image:url('../images/sprites/npc/hostile/ghilanna.png');
 }
