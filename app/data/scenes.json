@@ -3,18 +3,30 @@
         "tythos":[
             {
                 "name":"Sandpoint - City",
+                "music":"7bdDrFgeFtM",
+                "ambience":"YZkFjWJVt6c",
+                "battle":"cXYtb6DmEps",
                 "backdrop":"https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.rawdlc.com%2Fwp-content%2Fuploads%2F2013%2F08%2Fac4-havana-port.jpg&f=1"
             },
             {
                 "name":"Sandpoint - Market",
+                "music":"AMZ1pZEc0os",
+                "ambience":"x2UulCWGess",
+                "battle":"d4w-5KVxKJI",
                 "backdrop":"https://proxy.duckduckgo.com/iur/?f=1&image_host=http%3A%2F%2Ffc02.deviantart.net%2Ffs70%2Fi%2F2013%2F326%2F8%2Fd%2Fthe_foreign_market_by_shutupandwhisper-d6v59li.jpg&u=http://img12.deviantart.net/26d8/i/2013/326/8/d/the_foreign_market_by_shutupandwhisper-d6v59li.jpg"
             },
             {
                 "name":"Sandpoint - Shop - Armory",
+                "music":"VLAekpsclQY",
+                "ambience":"4vIQON2fDWM",
+                "battle":"8MaT7kpagB0",
                 "backdrop":"https://proxy.duckduckgo.com/iur/?f=1&image_host=http%3A%2F%2Ffc07.deviantart.net%2Ffs71%2Ff%2F2013%2F107%2Ff%2F2%2Fthe_armor_shop_by_sweetmoon-d622tbg.jpg&u=http://orig14.deviantart.net/43fa/f/2013/107/f/2/the_armor_shop_by_sweetmoon-d622tbg.jpg"
             },
             {
                 "name":"Sandpoint - Cavern - Tunnels",
+                "music":"WMoDlLQHUMU",
+                "ambience":"E72yDpAfrgY",
+                "battle":"guw1AkbVvLU",
                 "backdrop":"https://cdna.artstation.com/p/assets/images/images/003/262/056/large/boris-stanisic-day33.jpg?1471803093"
             },
             {
@@ -26,6 +38,9 @@
             },
             {
                 "name":"Faction Camp",
+                "music":"FhD0EV3UHCM",
+                "ambience":"lxYw7p9HK_Q",
+                "battle":"tMPl0648d3g",
                 "backdrop":"https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fcdna.artstation.com%2Fp%2Fassets%2Fimages%2Fimages%2F004%2F169%2F552%2Fmedium%2Fklaus-pillon-camp-night-final.jpg%3F1481015564&f=1"
             },
             {
@@ -44,25 +59,37 @@
             },
             {
                 "name":"Carakasing Wilds (Forest)",
+                "music":"yA19bqhkYcY",
+                "ambience":"6Em9tLXbhfo",
+                "battle":"",
                 "backdrop":"https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.alphacoders.com%2F152%2F152113.jpg&f=1"
             },
             {
                 "name":"Airedale Village",
                 "music":"U-Uqmy02XJ8",
-                "ambience":"rTl65Nqsfpw",
+                "ambience":"euEwKtP5CG4",
                 "battle":"M4Huzsp2wx8",
                 "backdrop":"https://proxy.duckduckgo.com/iur/?f=1&image_host=http%3A%2F%2Ffc08.deviantart.net%2Ffs71%2Ff%2F2014%2F301%2F6%2F1%2Fforest_village_by_vablo-d84hfa7.jpg&u=http://orig08.deviantart.net/dcfa/f/2014/301/6/1/forest_village_by_vablo-d84hfa7.jpg"
             },
             {
                 "name":"Village Hut",
+                "music":"mIgAuYi1pVM",
+                "ambience":"-IEAfnRneP4",
+                "battle":"pHUHdprKIwo",
                 "backdrop":"https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.videogamesartwork.com%2Fsites%2Fdefault%2Ffiles%2Fimages%2Fimage%2F1381241025%2Fjakanddaxter_environment_hut_interior_01_by_bob_rafei.jpg&f=1"
             },
             {
                 "name":"Tavern - Busy",
+                "music":"d7ivDOUeIK0",
+                "ambience":"EULoybB2Nsw",
+                "battle":"0p79IBaksXU",
                 "backdrop":"https://i.pinimg.com/736x/2a/1f/3c/2a1f3c9009901588e5407602a41fa8d7--bar-scene-the-inn.jpg"
             },
             {
                 "name":"Tavern - Calm",
+                "music":"GVY6WKpl_Qo",
+                "ambience":"atp0MuIQc_M",
+                "battle":"uTnB-Wn0b0Q",
                 "backdrop":"https://i.pinimg.com/originals/2a/2b/6d/2a2b6dd7efe2a8874699abf24a7d6dac.jpg"
             }
         ]
