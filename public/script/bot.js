@@ -12,6 +12,50 @@ let app = {};
 //set_actor_stage_presence
 //set_initiative_display
 
+var music,ambience, musicVolume=100, ambienceVolume=100;
+function onYouTubeIframeAPIReady() {
+  music = new YT.Player('music', {
+    height: '100',
+    width: '100',
+    vq: 'small',
+    videoId: '1APFIJN-ubU',
+    suggestedQuality: 'small',
+    playerVars: { 'autoplay': 1, 'controls': 0},
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
+    }
+  });
+  
+  ambience = new YT.Player('ambience', {
+    height: '100',
+    width: '100',
+    vq: 'small',
+    videoId: 'ICk6BdQ9EWk',
+    suggestedQuality: 'small',
+    playerVars: { 'autoplay': 1, 'controls': 0},
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
+    }
+  });
+  
+  
+}
+
+// 4. The API will call this function when the video player is ready.
+function onPlayerReady(event) {
+  event.target.setPlaybackQuality('small');
+  event.target.setVolume((event.target.a.id === 'music')?musicVolume:ambienceVolume);
+  event.target.playVideo();
+}
+
+function onPlayerStateChange(event) {
+  if (event.data == YT.PlayerState.ENDED) {
+    event.target.playVideo();
+  }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
 	let socket,elements;
 
@@ -20,9 +64,16 @@ document.addEventListener('DOMContentLoaded', function() {
 	app.init();
 
 	function init(){
+	
 		elements = registerElements();
 		initSocket();
   
+		/*Pushing Script*/
+		var tag = document.createElement('script');
+		tag.src = "https://www.youtube.com/iframe_api";
+		var firstScriptTag = document.getElementsByTagName('script')[0];
+		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
 	}
 
 	function registerElements(){
@@ -44,9 +95,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		socket.on('socket connection', socketConnected);
 
-		socket.on('set_backdrop', setBackdrop);
+		socket.on('set_scene',setScene);
+		socket.on('set_music',setMusic);
+		socket.on('set_music_volume',setMusicVolume);
+		socket.on('set_ambience_volume',setAmbienceVolume);
 		socket.on('set_sketch_stage', setSketch);
-		socket.on('set_audiotrack', setAudioTrack);
 		socket.on('add_actor', addActor);
 		socket.on('remove_actor', removeActor);
 		socket.on('update_actor', updateActor);
@@ -126,6 +179,30 @@ document.addEventListener('DOMContentLoaded', function() {
 			byCSS('div[dndid="'+data[1].id+'"]').classList.add('acting','turn');
 			byCSS('div[dndid="'+data[2].id+'"]').classList.add('will_act','turn');
 		}
+	}
+
+	function setMusic(data){
+		music.loadVideoById(data.music,0,'small');
+	}
+
+	function setMusicVolume(data){
+		musicVolume = data.musicVolume;
+		music.setVolume(musicVolume);
+	}
+	function setAmbienceVolume(data){
+		ambienceVolume = data.ambienceVolume;
+		ambience.setVolume(ambienceVolume);
+	}
+
+	function setScene(data){
+		console.log(data);
+		changeTheBackdrop(data.backdrop);
+		music.loadVideoById(data.music,0,'small');
+		musicVolume = data.musicVolume;
+		music.setVolume(musicVolume);
+		ambience.loadVideoById(data.ambience,0,'small');
+		ambienceVolume = data.ambienceVolume;
+		ambience.setVolume(ambienceVolume);
 	}
 
 	function setBackdrop(data){

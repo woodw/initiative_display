@@ -2,7 +2,7 @@ let app = {};
 
 document.addEventListener('DOMContentLoaded', function() {
 /****************************Scope Objects*****************************/	
-	let socket, backdrops, sketches, audioTracks, elements, actors, uniqueID, initiativePointer;
+	let socket, scenes, backdrops, sketches, audioTracks, elements, actors, uniqueID, initiativePointer;
 
 	app.init = init;
 	
@@ -19,21 +19,17 @@ document.addEventListener('DOMContentLoaded', function() {
 		actors=[];
 		uniqueID = 0;
 		initiativePointer = 0;
-
-		app.session = 2;
-		app.game = 'tythos';
 	}
 
 /****************************INIT Function*****************************/
-	function newSelectOption(selectElm,optionObj){
+	function newSelectOption(selectElm,optionValue,optionKey){
 		var element;
 		
 		element = document.createElement('option');
-		element.value = optionObj.url;
-		element.text = optionObj.name;
+		element.value = optionKey;
+		element.text = optionValue;
 		
 		selectElm.appendChild(element);
-
 	}
 
 	function addEventListenerList(list, event, fn) {
@@ -55,14 +51,14 @@ document.addEventListener('DOMContentLoaded', function() {
 		return {
 			container: byCSS('.container'),
 
-			gameName: byCSS('input#game_name'),
-			sessionNumber: byCSS('input#session_number'),
-
-			backdropList: byCSS('#backdrop .card__selection'),
-			backdropSubmit: byCSS('#backdrop .card__emit-button'),
-			backdropPreview: byCSS('#backdrop .card__image-preview'),
-			backdropCustomUrl: byCSS('#backdrop .url-input'),
-			backdropUseCustomUrl: byCSS('#backdrop .checkbox__check'),
+			sceneList: byCSS('#scene .card__selection'),
+			sceneToggleCombat: byCSS('#scene #toggle-combat'),
+			sceneVolumeMusic: byCSS('#scene #volume-music'),
+			sceneVolumeAmbience: byCSS('#scene #volume-ambience'),
+			sceneCustomBackdrop: byCSS('#scene  #custom-backdrop'),
+			sceneCustomMusic: byCSS('#scene  #custom-music'),
+			sceneCustomAmbience: byCSS('#scene  #custom-ambience'),
+			sceneSubmit: byCSS('#scene .card__emit-button'),
 
 			sketchList: byCSS('#sketch .card__selection'),
 			sketchSet: byCSS('#sketch .card__emit-button--on'),
@@ -71,15 +67,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			sketchPreview: byCSS('#sketch .card__image-preview'),
 			sketchCustomUrl: byCSS('#sketch  .url-input'),
 			sketchUseCustomUrl: byCSS('#sketch  .checkbox__check'),
-
-			audioContainer: byCSS('#audio'),
-			audioList: byCSS('#audio .card__selection'),
-			audioSet: byCSS('#audio .card__emit-button--on'),
-			audioRemove: byCSS('#audio .card__emit-button--off'),
-			audioPreviewContainer: byCSS('#audio .card__audio-preview-container'),
-			audioPreview: byCSS('#audio .card__audio-preview'),
-			audioCustomUrl: byCSS('#audio  .url-input'),
-			audioUseCustomUrl: byCSS('#audio  .checkbox__check'),
 
 			actorList: byCSS('#actor-controls'),
 			
@@ -101,22 +88,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function registerListeners(){
 
-		elements.gameName.addEventListener('change', updateGame);
-		elements.sessionNumber.addEventListener('change', updateGame);
-
-		elements.backdropList.addEventListener('change', newBackdropSelected);
-		elements.backdropSubmit.addEventListener('click', setBotBackdrop);
-
-		elements.backdropList.addEventListener('change', newBackdropSelected);
-		elements.backdropSubmit.addEventListener('click', setBotBackdrop);
+		elements.sceneToggleCombat.addEventListener('change', setBotCombat);
+		elements.sceneVolumeMusic.addEventListener('change', setBotVolumeMusic);
+		elements.sceneVolumeAmbience.addEventListener('change', setBotVolumeAmbience);
+		elements.sceneSubmit.addEventListener('click', setBotScene);
 
 		elements.sketchList.addEventListener('change', newSketchSelected);
 		elements.sketchSet.addEventListener('click', setBotSketch);
 		elements.sketchRemove.addEventListener('click', removeBotSketch);
-
-		elements.audioList.addEventListener('change', newAudioTrackSelected);
-		elements.audioSet.addEventListener('click', setBotAudio);
-		elements.audioRemove.addEventListener('click', removeBotAudio);//
 
 		elements.actorControls.newActor.addEventListener('click', addNewActor);
 
@@ -133,38 +112,33 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 	}
 
-	function updateGame(event){
-		var gameName, sessionNumber;
-		gameName = elements.gameName.value;
-		sessionNumber = elements.sessionNumber.value;
-		if(gameName && sessionNumber){
-			socket.emit('get_backdrops_dm', {'gameName':gameName,'sessionNumber':sessionNumber}, setBackdrops);
-			socket.emit('get_sketches_dm', {'gameName':gameName,'sessionNumber':sessionNumber}, setSketches);
-			socket.emit('get_audiotracks_dm', {'gameName':gameName,'sessionNumber':sessionNumber}, setAudioTracks);
-		}
-	}
-
 	function reset(event){
 		actors = [];
 		elements.actorList.innerHTML = '';
 		socket.emit('reset_dm');
 	}
 	
-	function newBackdropSelected(event){
-
-		elements.backdropPreview.src = elements.backdropList.value;
+	function setBotCombat(){
+		console.log('toggles');
+		var scene = scenes[elements.sceneList.selectedIndex];
+		socket.emit('set_music_dm',{'music':(elements.sceneToggleCombat.checked)?scene.battle:scene.music});
+	}
+	function setBotScene(){
+		console.log('clicked');
+		var selectedScene = JSON.parse(JSON.stringify(scenes[elements.sceneList.selectedIndex]));
+		selectedScene.music = (elements.sceneCustomMusic.value)?elements.sceneCustomMusic.value:(elements.sceneToggleCombat.checked)?selectedScene.battle:selectedScene.music;
+		selectedScene.ambience = (elements.sceneCustomAmbience.value)?elements.sceneCustomAmbience.value:selectedScene.ambience;
+		selectedScene.backdrop = (elements.sceneCustomBackdrop.value)?elements.sceneCustomBackdrop.value:selectedScene.backdrop;
+		selectedScene.musicVolume = elements.sceneVolumeMusic.value;
+		selectedScene.ambienceVolume = elements.sceneVolumeAmbience.value;
+		socket.emit('set_scene_dm',selectedScene);
 	}
 
-	function setBotBackdrop(event){
-		var url;
-		if(elements.backdropCustomUrl.value.length>7 && elements.backdropUseCustomUrl.checked){
-			url = elements.backdropCustomUrl.value;
-		}
-		else{
-			url = elements.backdropList.value;
-		}
-
-		socket.emit('set_backdrop_dm',{'url':url});
+	function setBotVolumeMusic(){
+		socket.emit('set_music_volume_dm',{'musicVolume':elements.sceneVolumeMusic.value});
+	}
+	function setBotVolumeAmbience(){
+		socket.emit('set_ambience_volume_dm',{'ambienceVolume':elements.sceneVolumeAmbience.value});
 	}
 
 	function newSketchSelected(event){
@@ -185,27 +159,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function removeBotSketch(event){
 		socket.emit('set_sketch_dm',{'target':elements.sketchTarget.value,'url':false});
-	}
-
-	function newAudioTrackSelected(event){
-		shortName = elements.audioList.value.replace('https://www.youtube.com/watch?v=','');
-		elements.audioPreview.src='https://www.youtube.com/embed/'+shortName;
-	}
-
-	function setBotAudio(event){
-		var url;
-		if(elements.audioCustomUrl.value.length>7 && elements.audioUseCustomUrl.checked){
-			url = elements.audioCustomUrl.value;
-		}
-		else{
-			url = elements.audioList.value;
-		}
-
-		socket.emit('set_audiotrack_dm',{'url':url});
-	}
-
-	function removeBotAudio(event){
-		socket.emit('set_audiotrack_dm',{'url':false});
 	}
 
 	function addNewActor(event){
@@ -331,55 +284,41 @@ document.addEventListener('DOMContentLoaded', function() {
 
 /****************************SOCKET Functions*****************************/
 	function initSocket(){
+		var worldName;
 		socket = io.connect(window.location.href.replace(window.location.pathname,''));
-
 		socket.on('socket connection', socketConnection);
 
 		/** make this in a pc todo list */
 		socket.on('actor_stage_presence_request', addNewOnStageRequest);
 		socket.on('set_actor_sketch', displayActorSketch);
 		
+		worldName = window.location.pathname.split('/');
+		worldName = worldName[worldName.length-2];
+		socket.emit('download_world',{'name': worldName}, populateScenes);
+		socket.emit('get_sketches_dm', {'name':worldName}, setSketches);
 	}
 
 	function socketConnection(data) {
 		console.log(data);
 	}
 
-	function setBackdrops(backdrops){
-		console.log(backdrops);
-		backdrops.forEach(function(backdrop){
-			newSelectOption(elements.backdropList,backdrop);
+	function populateScenes(newScenes){
+		console.log(newScenes);
+		scenes = newScenes;
+		scenes.forEach(function(scene, idx, e){
+			console.log(scene.name, idx);
+			newSelectOption(elements.sceneList,scene.name, idx);
 		});
-
-		if(backdrops.length>0){
-			elements.backdropList.value = backdrops[0].url;
-			elements.backdropPreview.src = elements.backdropList.value;						
-		}
 	}
 
 	function setSketches(sketches){
 		sketches.forEach(function(sketch){
-			newSelectOption(elements.sketchList,sketch);
+			newSelectOption(elements.sketchList,sketch.name,sketch.url);
 		});
 		
 		if(sketches.length>0){
 			elements.sketchList.value = sketches[0].url;
 			elements.sketchPreview.src = elements.sketchList.value;						
-		}
-	}
-
-	function setAudioTracks(audioTracks){
-		console.log(audioTracks);
-		audioTracks.forEach(function(track){
-			newSelectOption(elements.audioList,track);
-		});
-		
-		if(audioTracks.length>0){
-			var shortName;
-			elements.audioList.value = audioTracks[0].url;	
-				
-			shortName = elements.audioList.value.replace('https://www.youtube.com/watch?v=','');
-			elements.audioPreview.src='https://www.youtube.com/embed/'+shortName;
 		}
 	}
 

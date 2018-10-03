@@ -13,6 +13,7 @@ const sketches = require(__dirname+'/app/data/sketches.json');
 const audioTracks = require(__dirname+'/app/data/audiotracks.json');
 const players = require(__dirname+'/app/data/players.json');
 const adventures = require(__dirname+'/app/data/adventures.json');
+const scenes = require(__dirname+'/app/data/scenes.json');
 
 /*const stitch = require("mongodb-stitch");
 const clientPromise = stitch.StitchClientFactory.create(process.env.stitch_dbconn);*/
@@ -115,17 +116,14 @@ app.get('/*',function(req,res){
 io.on('connection', function (socket) {
 	socket.emit('socket connection', { valid: true });
 
-	socket.on('get_backdrops_dm', function (data, fn) {
-		console.log(data.gameName);
-		console.log(backdrops.campaign[data.gameName]);
+	socket.on('download_world', function (data, fn) {
+		console.log(data.name);
+		fn(scenes.campaign[data.name]);
+	});
 
-		fn(backdrops.campaign[data.gameName].session[data.sessionNumber-1]);
-	});
+
 	socket.on('get_sketches_dm', function (data, fn) {
-		fn(sketches.campaign[data.gameName].session[data.sessionNumber-1]);
-	});
-	socket.on('get_audiotracks_dm', function (data, fn) {
-		fn(audioTracks.campaign[data.gameName].session[data.sessionNumber-1]);
+		fn(sketches.campaign[data.name]);
 	});
 
 	socket.on('get_adventure_indx', (data, callbkfn) => {
@@ -135,16 +133,12 @@ io.on('connection', function (socket) {
 		callbkfn({meta:(adventure)?adventure.meta:false});
 	});
 
-
-	standardSocketRelay('set_backdrop_dm','set_backdrop');
-
 	socket.on('set_sketch_dm', function (data) {
 		console.log('set_sketch_dm',data);
 		socket.broadcast.emit('set_sketch_'+data.target, data);
 	});
 
 	standardSocketRelay('set_sketch_pc','set_sketch');
-	standardSocketRelay('set_audiotrack_dm','set_audiotrack');
 
 	socket.on('add_actor_dm', (data, callbkfn) => {
 		console.log('add_actor_dm', data);
@@ -158,6 +152,10 @@ io.on('connection', function (socket) {
 	standardSocketRelay('turn_actor','turn_actor_srv');
 	standardSocketRelay('play_actor_emoji','play_actor_emoji_srv');
 	standardSocketRelay('play_audience_emoji_pg','play_audience_emoji');
+	standardSocketRelay('set_scene_dm','set_scene');
+	standardSocketRelay('set_music_dm','set_music');
+	standardSocketRelay('set_music_volume_dm','set_music_volume');
+	standardSocketRelay('set_ambience_volume_dm','set_ambience_volume');
 	standardSocketRelay('set_actor_stage_presence_pc','set_actor_stage_presence');
 	standardSocketRelay('set_actor_stage_presence_dm','set_actor_stage_presence');
 	standardSocketRelay('set_private_actor_sketch_dm','set_private_actor_sketch');
@@ -174,7 +172,7 @@ io.on('connection', function (socket) {
 
 	function standardSocketRelay(eventString,broadcastString){
 		socket.on(eventString, function (data) {
-			console.log(eventString, data);
+			console.log(eventString);
 			socket.broadcast.emit(broadcastString, data);
 		});
 	}
