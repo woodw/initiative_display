@@ -13,8 +13,8 @@
 		<div class="bar">
 			<div class="bar__title">Game Master Screen</div>
 			<div class="bar__navigation">
-					<a href="#scene">Scene Selection</a><br />
 					<a href="#sketch">Sketch Selection</a><br />
+					<a href="#scene">Scene Selection</a><br />
 					<a href="#preview">Stage Preview</a><br />
 					<a href="#actor">Actor Selection</a><br />
 					<a href="#emoji">Emoji Selection</a><br />
@@ -23,20 +23,6 @@
 			</div>
 		</div>
 		<div class="container">
-			<section id="scene" class="card">
-				<h3 class="card__title">Scene</h3>
-				<select class="card__selection"></select>
-				<br />
-				<input type="checkbox" id="toggle-combat">
-				<input type="range" min="1" max="100" value="100" class="slider" id="volume-music">
-				<input type="range" min="1" max="100" value="100" class="slider" id="volume-ambience">
-				<br />
-				<input type="url" placeholder="Custom Backdrop" class="url-input" id="custom-backdrop"/>
-				<input type="text" placeholder="Custom Music" class="text-input" id="custom-music"/>
-				<input type="text" placeholder="Custom Ambience" class="text-input" id="custom-ambience"/>
-				<br />
-				<button class="card__button card__emit-button">Change The Scene</button>
-			</section>
 			<section id="sketch" class="card">
 				<h3 class="card__title">Stage Sketch Controls</h3>
 				<img class="card__image-preview" src="http://www.allthingsbunnies.com/v/vspfiles/assets/images/images_clipped_rev_2.jpg" />
@@ -57,6 +43,20 @@
 				</select>
 				<button class="card__button card__emit-button--on">Show sketch on stage</button>
 				<button class="card__button card__emit-button--off">Hide sketch on stage</button>
+			</section>
+			<section id="scene" class="card">
+				<h3 class="card__title">Scene</h3>
+				<select class="card__selection"></select>
+				<br />
+				<input type="checkbox" id="toggle-combat">
+				<input type="range" min="1" max="100" value="100" class="slider" id="volume-music">
+				<input type="range" min="1" max="100" value="100" class="slider" id="volume-ambience">
+				<br />
+				<input type="url" placeholder="Custom Backdrop" class="url-input" id="custom-backdrop"/>
+				<input type="text" placeholder="Custom Music" class="text-input" id="custom-music"/>
+				<input type="text" placeholder="Custom Ambience" class="text-input" id="custom-ambience"/>
+				<br />
+				<button class="card__button card__emit-button">Change The Scene</button>
 			</section>
 			<section id="preview" class="card">
 				<h3 class="card__title">Stage Preview</h3>
