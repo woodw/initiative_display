@@ -18,7 +18,7 @@ function onYouTubeIframeAPIReady() {
     height: '100',
     width: '100',
     vq: 'small',
-    videoId: '1APFIJN-ubU',
+    videoId: 'A4BuL886bJA',
     suggestedQuality: 'small',
     playerVars: { 'autoplay': 1, 'controls': 0},
     events: {
@@ -31,7 +31,7 @@ function onYouTubeIframeAPIReady() {
     height: '100',
     width: '100',
     vq: 'small',
-    videoId: 'ICk6BdQ9EWk',
+    videoId: 'atp0MuIQc_M',
     suggestedQuality: 'small',
     playerVars: { 'autoplay': 1, 'controls': 0},
     events: {
