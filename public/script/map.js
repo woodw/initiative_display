@@ -86,16 +86,20 @@ document.addEventListener('DOMContentLoaded', function() {
         //console.log(mapView.toDataURL());
     }
 
-    function importMap(){
+    function importMap(event){
+        event.stopPropagation();
         elements.textArea.classList.toggle('hide');
     }
-    function exportMap(){
+    function exportMap(event){
+        event.stopPropagation();
         elements.textArea.value=printTheMap();
         elements.textArea.classList.toggle('hide');
     }
     function closeTextArea(event){
         if(event.key === 'Enter'){
             elements.textArea.classList.toggle('hide');
+
+            loadTheMap(elements.textArea.value);
         }
     }
 
@@ -119,6 +123,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     /*******************************PRIVATE FUNCTIONS************************************* */
+    function loadTheMap(newText){
+        var loadTiles=newText.split('@');
+        //console.log(loadTiles, (gridXCount * gridYCount), battleMap);
+        if(elements.mapView && loadTiles.length === (gridXCount * gridYCount)){
+            for(var i=0;i<loadTiles.length;i++){
+                //console.log(Math.floor(i/gridXCount),i%gridXCount);
+                battleMap[Math.floor(i/gridXCount)][i%gridXCount].setTile(loadTiles[i].split('-'));
+            }
+        }
+    }
+    //0 1 2 3 4 5 6 7 8
+    //0 1 2 3 //00 01 02
+    //4 5 6 7 //10 11 12
+    //8 9 0 1 //20 21 22
     function printTheMap(){
         var exportText='';
         if(elements.mapView){
@@ -129,6 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         }
+        exportText = exportText.slice(0,-1);
         return exportText;
     }
 
@@ -487,7 +506,15 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(returnTile);
         return returnTile;
     };
-
+    Tile.prototype.setTile = function(tileValues){
+        this.north = parseInt(tileValues[0]);
+        this.east = parseInt(tileValues[1]);
+        this.south = parseInt(tileValues[2]);
+        this.west = parseInt(tileValues[3]);
+        this.floor = parseInt(tileValues[4]);
+        this.hidden = tileValues[5]==='1';
+        this.renderTile();
+    };
 });
 
 
