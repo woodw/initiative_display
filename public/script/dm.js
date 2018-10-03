@@ -19,9 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		actors=[];
 		uniqueID = 0;
 		initiativePointer = 0;
-
-		app.session = 2;
-		app.game = 'tythos';
 	}
 
 /****************************INIT Function*****************************/
@@ -115,17 +112,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 	}
 
-	function updateGame(event){
-		var gameName, sessionNumber;
-		gameName = elements.gameName.value;
-		sessionNumber = elements.sessionNumber.value;
-		if(gameName && sessionNumber){
-			socket.emit('get_backdrops_dm', {'gameName':gameName,'sessionNumber':sessionNumber}, setBackdrops);
-			socket.emit('get_sketches_dm', {'gameName':gameName,'sessionNumber':sessionNumber}, setSketches);
-			socket.emit('get_audiotracks_dm', {'gameName':gameName,'sessionNumber':sessionNumber}, setAudioTracks);
-		}
-	}
-
 	function reset(event){
 		actors = [];
 		elements.actorList.innerHTML = '';
@@ -173,27 +159,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function removeBotSketch(event){
 		socket.emit('set_sketch_dm',{'target':elements.sketchTarget.value,'url':false});
-	}
-
-	function newAudioTrackSelected(event){
-		shortName = elements.audioList.value.replace('https://www.youtube.com/watch?v=','');
-		elements.audioPreview.src='https://www.youtube.com/embed/'+shortName;
-	}
-
-	function setBotAudio(event){
-		var url;
-		if(elements.audioCustomUrl.value.length>7 && elements.audioUseCustomUrl.checked){
-			url = elements.audioCustomUrl.value;
-		}
-		else{
-			url = elements.audioList.value;
-		}
-
-		socket.emit('set_audiotrack_dm',{'url':url});
-	}
-
-	function removeBotAudio(event){
-		socket.emit('set_audiotrack_dm',{'url':false});
 	}
 
 	function addNewActor(event){
@@ -330,7 +295,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		worldName = window.location.pathname.split('/');
 		worldName = worldName[worldName.length-2];
 		socket.emit('download_world',{'name': worldName}, populateScenes);
-		//socket.emit('get_backdrops_dm', {'gameName':gameName,'sessionNumber':sessionNumber}, setBackdrops);
+		socket.emit('get_sketches_dm', {'name':worldName}, setSketches);
 	}
 
 	function socketConnection(data) {
@@ -346,41 +311,14 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 	}
 
-	function setBackdrops(backdrops){
-		console.log(backdrops);
-		backdrops.forEach(function(backdrop){
-			newSelectOption(elements.backdropList,backdrop);
-		});
-
-		if(backdrops.length>0){
-			elements.backdropList.value = backdrops[0].url;
-			elements.backdropPreview.src = elements.backdropList.value;						
-		}
-	}
-
 	function setSketches(sketches){
 		sketches.forEach(function(sketch){
-			newSelectOption(elements.sketchList,sketch);
+			newSelectOption(elements.sketchList,sketch.name,sketch.url);
 		});
 		
 		if(sketches.length>0){
 			elements.sketchList.value = sketches[0].url;
 			elements.sketchPreview.src = elements.sketchList.value;						
-		}
-	}
-
-	function setAudioTracks(audioTracks){
-		console.log(audioTracks);
-		audioTracks.forEach(function(track){
-			newSelectOption(elements.audioList,track);
-		});
-		
-		if(audioTracks.length>0){
-			var shortName;
-			elements.audioList.value = audioTracks[0].url;	
-				
-			shortName = elements.audioList.value.replace('https://www.youtube.com/watch?v=','');
-			elements.audioPreview.src='https://www.youtube.com/embed/'+shortName;
 		}
 	}
 

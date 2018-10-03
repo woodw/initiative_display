@@ -123,7 +123,7 @@ io.on('connection', function (socket) {
 
 
 	socket.on('get_sketches_dm', function (data, fn) {
-		fn(sketches.campaign[data.gameName].session[data.sessionNumber-1]);
+		fn(sketches.campaign[data.name]);
 	});
 
 	socket.on('get_adventure_indx', (data, callbkfn) => {
