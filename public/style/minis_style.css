@@ -34,6 +34,9 @@
 
 /**********************NPC Minis***************************/
 .cloven .mini{
+  background-image:url('../images/sprites/npc/nine.png');
+}
+.cloven .mini{
   background-image:url('../images/sprites/npc/cloven.png');
 }
 .jarkas .mini{
