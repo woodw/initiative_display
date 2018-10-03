@@ -15,8 +15,9 @@
 			<div class="bar__navigation">
 					<a href="#scene">Scene Selection</a><br />
 					<a href="#sketch">Sketch Selection</a><br />
-					<a href="#emoji">Emoji Selection</a><br />
+					<a href="#preview">Stage Preview</a><br />
 					<a href="#actor">Actor Selection</a><br />
+					<a href="#emoji">Emoji Selection</a><br />
 			</div>
 			<div class="bar__requests">
 			</div>
@@ -57,11 +58,9 @@
 				<button class="card__button card__emit-button--on">Show sketch on stage</button>
 				<button class="card__button card__emit-button--off">Hide sketch on stage</button>
 			</section>
-			<section id="emoji" class="card">
-					<h3 class="card__title">Stage Audience Emoji Controls</h3>
-					<div id="emojis">
-							<button>!</button>  <button>$</button>  <button>?</button>  <button>0</button>  <button>1</button>  <button>2</button>  <button>3</button>  <button>4</button>  <button>5</button>  <button>6</button>  <button>7</button>  <button>8</button>  <button>9</button>  <button>✔</button>  <button>✖</button>  <button>⌕</button>  <button>⏸</button>  <button>▷</button>  <button>☼</button>  <button>☾</button>  <button>★</button>  <button>♥</button>  <button>♫</button>  <button>⚒</button>  <button>⚔</button>  <button>➳</button>  <button>⛏</button>  <button>☀</button>  <button>☠</button>  <button>⚓</button>  <button>⛵</button>  <button>⛺</button>  <button>✨</button>  <button>⏳</button>  <button>💀</button>  <button>😃</button>  <button>😇</button>  <button>😈</button>  <button>😉</button>  <button>😍</button>  <button>😎</button>  <button>😏</button>  <button>😐</button>  <button>😠</button>  <button>😢</button>  <button>😮</button><button>😱</button><button>😲</button><button>😴</button><button>😵</button><button>⚰</button><button>🌲</button><button>🌿</button><button>🍗</button><button>🍴</button><button>🍺</button><button>🍻</button><button>🎣</button><button>🎨</button><button>🎪</button><button>🎸</button><button>🐃</button><button>🐎</button><button>🐾</button><button>👂</button><button>👆</button><button>👇</button><button>👈</button><button>👉</button><button>👊</button><button>👋</button><button>👌</button><button>👍</button><button>👎</button><button>👏</button><button>👑</button><button>👣</button><button>👤</button><button>👥</button><button>💎</button><button>💕</button><button>💔</button><button>💘</button><button>💢</button><button>💣</button><button>💤</button><button>💩</button><button>💪</button><button>💰</button><button>🔑</button><button>🔒</button><button>🔓</button><button>🔥</button><button>🔧</button><button>🔨</button><button>🔮</button><button>🔪</button><button>⌕</button>
-					</div>
+			<section id="preview" class="card">
+				<h3 class="card__title">Stage Preview</h3>
+				<iframe src="/default/stage"></iframe> 
 			</section>
 			<section id="actor" class="card">
 					<h3 class="card__title">Stage Actor Controls</h3>
@@ -77,6 +76,12 @@
 						<button id="actors-control__sort" class="card__button">sort actors</button>
 					</div>
 					<div id="actor-controls"></div>
+			</section>
+			<section id="emoji" class="card">
+				<h3 class="card__title">Stage Audience Emoji Controls</h3>
+				<div id="emojis">
+						<button>!</button>  <button>$</button>  <button>?</button>  <button>0</button>  <button>1</button>  <button>2</button>  <button>3</button>  <button>4</button>  <button>5</button>  <button>6</button>  <button>7</button>  <button>8</button>  <button>9</button>  <button>✔</button>  <button>✖</button>  <button>⌕</button>  <button>⏸</button>  <button>▷</button>  <button>☼</button>  <button>☾</button>  <button>★</button>  <button>♥</button>  <button>♫</button>  <button>⚒</button>  <button>⚔</button>  <button>➳</button>  <button>⛏</button>  <button>☀</button>  <button>☠</button>  <button>⚓</button>  <button>⛵</button>  <button>⛺</button>  <button>✨</button>  <button>⏳</button>  <button>💀</button>  <button>😃</button>  <button>😇</button>  <button>😈</button>  <button>😉</button>  <button>😍</button>  <button>😎</button>  <button>😏</button>  <button>😐</button>  <button>😠</button>  <button>😢</button>  <button>😮</button><button>😱</button><button>😲</button><button>😴</button><button>😵</button><button>⚰</button><button>🌲</button><button>🌿</button><button>🍗</button><button>🍴</button><button>🍺</button><button>🍻</button><button>🎣</button><button>🎨</button><button>🎪</button><button>🎸</button><button>🐃</button><button>🐎</button><button>🐾</button><button>👂</button><button>👆</button><button>👇</button><button>👈</button><button>👉</button><button>👊</button><button>👋</button><button>👌</button><button>👍</button><button>👎</button><button>👏</button><button>👑</button><button>👣</button><button>👤</button><button>👥</button><button>💎</button><button>💕</button><button>💔</button><button>💘</button><button>💢</button><button>💣</button><button>💤</button><button>💩</button><button>💪</button><button>💰</button><button>🔑</button><button>🔒</button><button>🔓</button><button>🔥</button><button>🔧</button><button>🔨</button><button>🔮</button><button>🔪</button><button>⌕</button>
+				</div>
 			</section>
 		</div>
 	</body>
