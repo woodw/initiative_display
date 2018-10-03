@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Dungeon Master Screen</title>
+		<script src="/socket.io/socket.io.js"></script>
+		<link href="/style/map.css" rel="stylesheet" type="text/css" />
+		<script src="/script/map.js" type="application/javascript"></script>
+	</head>
+	<body>
+        <div id="alert" class="hide">
+            <h4>Map Code</h4>
+            <textarea id="code-area"></textarea> 
+        </div>
+        <div id="container">
+            <p>Welcome. Hover your mouse over a cell. Press a key to draw. Enjoy</p>
+            <div class="buttons">
+            <button id="hidden-button">Toggle Hidden Cells</button>
+            <button id="to-data-url">Print</button>
+            </div>
+            <ul>
+            <li>e: empty cell</li>
+            <li>o: open cell floor</li>
+            <li>c: closed cell floor</li>
+            <li>f: next cell floor</li>
+            <li>^: next cell north wall</li>
+            <li>>: next cell east wall</li>
+            <li>v: open cell south wall</li>
+            <li><: open cell west wall</li>
+            <li>h: hide cell</li>
+            <li>u: unhide cell</li>
+            <li>click: toggle cell hidden value</li>
+            </ul>
+            <div id="map">
+            <canvas id="map_view"></canvas>
+            </div>
+        </div>
+    </body>
+</html>
