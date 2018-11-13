@@ -51,6 +51,13 @@
                 "backdrop":"https://slack-imgs.com/?c=1&url=https%3A%2F%2Fcdna.artstation.com%2Fp%2Fassets%2Fimages%2Fimages%2F012%2F303%2F304%2Flarge%2Fpathofpixels-isabel-and-alexa-intropic-facebook01.jpg%3F1534104478"
             },
             {
+                "name":"Horse Chase",
+                "music":"pepeoyK6qq8",
+                "ambience":"65TV8jhp9Ns",
+                "battle":"OBwS66EBUcY",
+                "backdrop":"https://www.farandride.com/images/photos/new/65660.jpg"
+            },
+            {
                 "name":"North East Tythos Open Travel",
                 "music":"BksokWc3Da4",
                 "ambience":"65TV8jhp9Ns",
@@ -91,6 +98,13 @@
                 "ambience":"atp0MuIQc_M",
                 "battle":"uTnB-Wn0b0Q",
                 "backdrop":"https://i.pinimg.com/originals/2a/2b/6d/2a2b6dd7efe2a8874699abf24a7d6dac.jpg"
+            },
+            {
+                "name":"Tavern - The Wonder",
+                "music":"VtXl8xAPAtA",
+                "ambience":"atp0MuIQc_M",
+                "battle":"fCV9oqtwyVA",
+                "backdrop":"https://rpg.ambient-mixer.com/images_template/0/5/d/05da96eff3161a73e3789ca1a0f72a9a_full.jpg"
             }
         ]
     }

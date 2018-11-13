@@ -201,7 +201,12 @@
 .mimic .mini{
   background-image:url('../images/sprites/npc/hostile/mimic.png');
 }
-
+.wagon .mini{
+  background-image:url('../images/sprites/npc/wagon.png');
+}
+.green-rider .mini{
+  background-image:url('../images/sprites/npc/hostile/green_rider.png');
+}
 
 /**********************POKEMON Stand-ins Minis***************************/
 .magnemite .mini{
