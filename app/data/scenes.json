@@ -105,7 +105,29 @@
                 "ambience":"atp0MuIQc_M",
                 "battle":"fCV9oqtwyVA",
                 "backdrop":"https://rpg.ambient-mixer.com/images_template/0/5/d/05da96eff3161a73e3789ca1a0f72a9a_full.jpg"
+            },
+            {
+                "name":"In The Cellar",
+                "music":"5rxX17lcQdI",
+                "ambience":"EtWDUD2IP4M",
+                "battle":"uRf67r7qITE",
+                "backdrop":"https://www.mattgaser.com/wp-content/uploads/2014/01/085.jpg"
+            },
+            {
+                "name":"Outside the Inn",
+                "music":"Z93-mZPjhH4",
+                "ambience":"x2UulCWGess",
+                "battle":"R4S-kn6v5I8",
+                "backdrop":"https://i.redd.it/xaqu6jw9zd811.jpg"
+            },
+            {
+                "name":"Inside Tents",
+                "music":"7Q4OaDf6ylQ",
+                "ambience":"QqnyAJiBDFM",
+                "battle":"Brf5w1hFNlw",
+                "backdrop":"http://img10.deviantart.net/f53c/i/2013/087/4/e/tent_interior_by_shaggyhandlz-d5zn2to.jpg"
             }
+
         ]
     }
 }
