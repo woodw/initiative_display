@@ -8,10 +8,7 @@ const request = require('request');
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-const backdrops = require(__dirname+'/app/data/backdrops.json');
 const sketches = require(__dirname+'/app/data/sketches.json');
-const audioTracks = require(__dirname+'/app/data/audiotracks.json');
-const players = require(__dirname+'/app/data/players.json');
 const adventures = require(__dirname+'/app/data/adventures.json');
 const campaign_scenes = require(__dirname+'/app/data/campaign_scenes.json');
 const common_scenes = require(__dirname+'/app/data/common_scenes.json');
