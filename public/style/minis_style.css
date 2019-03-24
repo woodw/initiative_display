@@ -142,6 +142,12 @@
 .kobold-acolyte .mini{
   background-image:url('../images/sprites/npc/hostile/kobold-acolyte.png');
 }
+.imp .mini{
+  background-image:url('../images/sprites/npc/hostile/imp.png');
+}
+.sea-hag .mini{
+  background-image:url('../images/sprites/npc/hostile/sea-hag.png');
+}
 .gnoll .mini{
   background-image:url('../images/sprites/npc/hostile/gnoll.png');
 }
