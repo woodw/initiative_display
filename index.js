@@ -75,7 +75,7 @@ app.get('/slack/auth', function(req, res){
 
 		options = {
 			url: 'https://slack.com/api/oauth.access',
-			method: 'POST',
+			method: 'GET',
 			headers: headers,
 			form: {
 				client_id: workSpaceApp.clientId,
@@ -84,6 +84,7 @@ app.get('/slack/auth', function(req, res){
 			}
 		};
 
+		console.log(options);
 		request(options, function (error, response, content) {
 			let jsonObj;
 			
