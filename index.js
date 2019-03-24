@@ -66,6 +66,7 @@ app.get('/slack/auth', function(req, res){
 	let options,headers,clientIp,workSpaceApp;
 	
 	workSpaceApp = JSON.parse(process.env[req.query.game]);
+	console.log('Game found', workSpaceApp);
 
 	if(req.query.code){
 		headers = {
@@ -87,7 +88,7 @@ app.get('/slack/auth', function(req, res){
 			let jsonObj;
 			
 			jsonObj = JSON.parse(content);
-			
+			console.log(content);
 			if(error || !jsonObj.ok){
 				res.sendFile(__dirname+'/app/error.html');
 			}
