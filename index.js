@@ -13,7 +13,8 @@ const sketches = require(__dirname+'/app/data/sketches.json');
 const audioTracks = require(__dirname+'/app/data/audiotracks.json');
 const players = require(__dirname+'/app/data/players.json');
 const adventures = require(__dirname+'/app/data/adventures.json');
-const scenes = require(__dirname+'/app/data/scenes.json');
+const campaign_scenes = require(__dirname+'/app/data/campaign_scenes.json');
+const common_scenes = require(__dirname+'/app/data/common_scenes.json');
 
 /*const stitch = require("mongodb-stitch");
 const clientPromise = stitch.StitchClientFactory.create(process.env.stitch_dbconn);*/
@@ -29,6 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(express.static('public'));
 
 server.listen((process.env.PORT || 9001));
+console.log('Listening on port ' + (process.env.PORT || 9001));
 
 /* ROUTES */
 app.get('/*/stage',function(req,res){
@@ -122,7 +124,7 @@ io.on('connection', function (socket) {
 
 	socket.on('download_world', function (data, fn) {
 		console.log(data.name);
-		fn(scenes.campaign[data.name]);
+		fn(common_scenes.concat(campaign_scenes.campaign[data.name]));
 	});
 
 

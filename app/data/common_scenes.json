@@ -1,0 +1,51 @@
+[
+	{
+		"name":"Generic Forest",
+		"music":"yA19bqhkYcY",
+		"ambience":"6Em9tLXbhfo",
+		"battle":"",
+		"backdrop":"https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.alphacoders.com%2F152%2F152113.jpg&f=1"
+	},
+	{
+		"name":"Generic Village Hut",
+		"music":"mIgAuYi1pVM",
+		"ambience":"-IEAfnRneP4",
+		"battle":"pHUHdprKIwo",
+		"backdrop":"https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.videogamesartwork.com%2Fsites%2Fdefault%2Ffiles%2Fimages%2Fimage%2F1381241025%2Fjakanddaxter_environment_hut_interior_01_by_bob_rafei.jpg&f=1"
+	},
+	{
+		"name":"Generic Village Tent",
+		"music":"7Q4OaDf6ylQ",
+		"ambience":"QqnyAJiBDFM",
+		"battle":"Brf5w1hFNlw",
+		"backdrop":"http://img10.deviantart.net/f53c/i/2013/087/4/e/tent_interior_by_shaggyhandlz-d5zn2to.jpg"
+	},
+	{
+		"name":"Generic Tavern - Busy",
+		"music":"d7ivDOUeIK0",
+		"ambience":"EULoybB2Nsw",
+		"battle":"0p79IBaksXU",
+		"backdrop":"https://i.pinimg.com/736x/2a/1f/3c/2a1f3c9009901588e5407602a41fa8d7--bar-scene-the-inn.jpg"
+	},
+	{
+		"name":"Generic Tavern - Calm",
+		"music":"GVY6WKpl_Qo",
+		"ambience":"atp0MuIQc_M",
+		"battle":"uTnB-Wn0b0Q",
+		"backdrop":"https://i.pinimg.com/originals/2a/2b/6d/2a2b6dd7efe2a8874699abf24a7d6dac.jpg"
+	},
+	{
+		"name":"Generic Blacksmith",
+		"music":"gCToT5LL6Cc",
+		"ambience":"lxKVT1r4sgU",
+		"battle":"oXiMaCXnbck",
+		"backdrop":"https://www.worldanvil.com/uploads/images/d699b0fd4b90675d6082fefc408aacf1.jpg"
+	},
+	{
+		"name":"Generic Camping",
+		"music":"9Fv7391X6FM",
+		"battle":"ZcNyPdipjeU",
+		"ambience":"7KFoj-SOfHs",
+		"backdrop":"https://data.whicdn.com/images/118041260/original.jpg"
+	}
+]

@@ -128,6 +128,84 @@
                 "backdrop":"http://img10.deviantart.net/f53c/i/2013/087/4/e/tent_interior_by_shaggyhandlz-d5zn2to.jpg"
             }
 
+        ],
+        "valdrin":[
+            {
+                "name":"willowdale",
+                "backdrop":"https://pre00.deviantart.net/a4c5/th/pre/f/2013/003/9/6/snowy_landscape_by_roggles-d5q9vub.png",
+                "music":"Cc9Up2DgBEU",
+                "ambience":"mGi-Hyg7D9Y",
+                "battle":""
+            },
+            {
+                "name":"vir creek",
+                "backdrop":"https://img.fireden.net/tg/image/1513/46/1513469996363.jpg",
+                "music":"rxlcSuhDFWs",
+                "ambience":"9MsH9vN1aFQ",
+                "battle":""
+            },
+            {
+                "name":"vir creek manor",
+                "music":"rxlcSuhDFWs",
+                "ambience":"NnbXs3ZT3_U",
+                "battle":""
+            },
+            {
+                "name":"zarth southern port",
+                "backdrop":"http://images3.wikia.nocookie.net/finalfantasy/images/c/c2/Lindblum_Port_%28Artwork%29.jpg",
+                "music":"",
+                "ambience":"ZiSRAVJD-Bg",
+                "battle":""
+            },
+            {
+                "name":"Lamented Woods",
+                "backdrop":"https://orig00.deviantart.net/a6e3/f/2013/044/3/b/forest_stroll_by_tsonline-d5uucaq.png",
+                "music":"",
+                "ambience":"",
+                "battle":""
+            },
+            {
+                "name":"cliffs of Cosa Mira",
+                "backdrop":"http://dndspeak.com/wp-content/uploads/2018/05/Island.jpg",
+                "music":"",
+                "ambience":"",
+                "battle":""
+            },
+            {
+                "name":"Lake Omens",
+                "backdrop":"http://eskipaper.com/images/beautiful-night-wallpaper-2.jpg",
+                "music":"",
+                "ambience":"k2GNSAmFEEU",
+                "battle":""
+            },
+            {
+                "name":"Mines of Dorian",
+                "backdrop":"https://db4sgowjqfwig.cloudfront.net/campaigns/105191/assets/457166/mine.jpg?1431129285",
+                "music":"",
+                "ambience":"F41CoM8gIqA",
+                "battle":""
+            },
+            {
+                "name":"Outpost Ruins",
+                "backdrop":"https://images8.alphacoders.com/451/451403.jpg",
+                "music":"",
+                "ambience":"",
+                "battle":""
+            },
+            {
+                "name":"factory",
+                "backdrop":"https://pre00.deviantart.net/88c4/th/pre/i/2015/083/c/3/mountain_fortress_by_skvor-d8mxqzi.jpg",
+                "music":"",
+                "ambience":"wScEFaoqwPM",
+                "battle":""
+            },
+            {
+                "name":"open world",
+                "backdrop":"https://cdnb.artstation.com/p/assets/images/images/002/065/667/large/alexander-pohl-highlands.jpg?1456775155",
+                "music":"",
+                "ambience":"",
+                "battle":"2szaAaKx_v0"
+            }
         ]
     }
 }
