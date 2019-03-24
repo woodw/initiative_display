@@ -74,7 +74,7 @@
 				</div>
 				<div class="login_container hide">
 					<p>Login through Slack to join the adventure</p>
-					<a class="slack_login-link" href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=191860339156.308207846070"><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
+					<a class="slack_login-link" href="https://slack.com/oauth/authorize?scope=users:read&client_id="><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
 					- or -
 					<a class="app_stage-link" href="/stage">Watch the display</a>
 					- or -
@@ -142,7 +142,7 @@
 				if(elements.groupName.value.length>=3){
 					socket.emit('get_adventure_indx',{game:elements.groupName.value.toLowerCase()}, function(data){
 						if(data.meta){
-							elements.slackButton.setAttribute('href', 'https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=' + data.meta.client);
+							elements.slackButton.setAttribute('href', 'https://slack.com/oauth/authorize?scope=users:read&client_id=' + data.meta.client);
 							elements.stageLink.setAttribute('href','/'+elements.groupName.value+'/stage/');
 							elements.peanutLink.setAttribute('href','/'+elements.groupName.value+'/peanut/');
 							
