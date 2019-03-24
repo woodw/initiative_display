@@ -142,10 +142,10 @@
 				if(elements.groupName.value.length>=3){
 					socket.emit('get_adventure_indx',{game:elements.groupName.value.toLowerCase()}, function(data){
 						if(data.meta){
-							elements.slackButton.setAttribute('href', 'https://slack.com/oauth/authorize?scope=users:read&client_id=' + data.meta.client);
+							elements.slackButton.setAttribute('href', 'https://slack.com/oauth/authorize?scope=identity.basic,identity.avatar&client_id=' + data.meta.client);
 							elements.stageLink.setAttribute('href','/'+elements.groupName.value+'/stage/');
 							elements.peanutLink.setAttribute('href','/'+elements.groupName.value+'/peanut/');
-							
+
 							elements.searchGroup.classList.toggle('hide');
 							elements.loginGroup.classList.toggle('hide');
 						}
