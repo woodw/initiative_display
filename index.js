@@ -99,6 +99,10 @@ app.get('/slack/auth', function(req, res){
 		request(options, function (error, response, content) {
 			let jsonObj;
 			
+			console.log(error);
+			console.log(response);
+			console.log(content);
+
 			jsonObj = JSON.parse(content);
 			
 			if(error || !jsonObj.ok){
