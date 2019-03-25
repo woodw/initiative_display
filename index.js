@@ -74,9 +74,6 @@ app.get('/slack/auth', function(req, res){
 	let options,headers,clientIp,workSpaceApp;
 	
 	workSpaceApp = JSON.parse(process.env[req.query.game]);
-	console.log('workSpaceApp');
-	console.log(workSpaceApp.clientId);
-	console.log(workSpaceApp.clientSecret);
 	console.log(req.query.code);
 
 
@@ -99,8 +96,6 @@ app.get('/slack/auth', function(req, res){
 		request(options, function (error, response, content) {
 			let jsonObj;
 			
-			console.log(error);
-			console.log(response);
 			console.log(content);
 
 			jsonObj = JSON.parse(content);
