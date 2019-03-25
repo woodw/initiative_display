@@ -30,6 +30,14 @@ server.listen((process.env.PORT || 9001));
 console.log('Listening on port ' + (process.env.PORT || 9001));
 
 /* ROUTES */
+app.get('/*/dm',function(req,res){
+	res.sendFile(__dirname+'/app/dm_screen.html');
+});
+
+app.get('/*/pc',function(req,res){
+	res.sendFile(__dirname+'/app/pc_screen.html');
+});
+
 app.get('/*/stage',function(req,res){
 	res.sendFile(__dirname+'/app/bot_screen.html');
 });
@@ -66,7 +74,6 @@ app.get('/slack/auth', function(req, res){
 	let options,headers,clientIp,workSpaceApp;
 	
 	workSpaceApp = JSON.parse(process.env[req.query.game]);
-	console.log('Game found', workSpaceApp);
 
 	if(req.query.code){
 		headers = {
@@ -84,12 +91,11 @@ app.get('/slack/auth', function(req, res){
 			}
 		};
 
-		console.log(options);
 		request(options, function (error, response, content) {
 			let jsonObj;
 			
 			jsonObj = JSON.parse(content);
-			console.log(content);
+			
 			if(error || !jsonObj.ok){
 				res.sendFile(__dirname+'/app/error.html');
 			}
@@ -97,11 +103,11 @@ app.get('/slack/auth', function(req, res){
 				clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
 				if(adventures[req.query.game].dungeonMaster.id == jsonObj.user.id){
-					res.sendFile(__dirname+'/app/dm_screen.html');
+					res.redirect('/'+req.query.game+'/dm');
 				}
 				else{
 					storeUser(clientIp, jsonObj);
-					res.sendFile(__dirname+'/app/pc_screen.html');
+					res.redirect('/'+req.query.game+'/pc');
 				}
 
 			}

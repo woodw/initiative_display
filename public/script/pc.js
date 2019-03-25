@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					});
 				}
 				else{
-					
+					window.location.href = window.location.origin;
 				}
 				
 			}
@@ -121,15 +121,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 	}
 	function hidePrivateSketch(event){
-		console.log('this is working');
 		elements.privateSketch.classList.add('hide');
 	}
 	function submitPrivateSketch(event){
-		console.log('this is working');
 		if(elements.inputSketchSubmit.value){
 			socket.emit('set_actor_sketch_pc',{
 				title: characterName+' request',
-				class: characterName,
+				class: 'stage',
 				detail: 'wants to show sketch',
 				image: elements.inputSketchSubmit.value
 			});
